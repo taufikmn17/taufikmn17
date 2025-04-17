@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" href="assets/img/icon.jpg" type="image/png" />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@300;700&family=Fredoka+One&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/vidio.css" />
+  <link rel="stylesheet" href="assets/css/place.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Altaf - Cerita Kita</title>
+</head>
+<body class="bg-soft-white text-pink-700 font-sans">
+
+  <!-- Header -->
+  <header class="bg-pink-primary shadow sticky top-0 z-50">
+    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+      <a href="#" onclick="window.history.back();" class="text-xl text-white hover:text-pink-500 p-2 rounded-full transition-colors duration-200">
+        <i class="fas fa-arrow-left"></i>
+      </a>
+
+      <nav>
+        <ul class="flex space-x-4 text-sm font-medium">
+          <li><a href="#home" class="hover:text-pink-600">Home</a></li>
+          <li><a href="#about" class="hover:text-pink-600">About</a></li>
+          <li><a href="#discover" class="hover:text-pink-600">Image</a></li>
+          <li><a href="#vidioo" class="hover:text-pink-600">Video</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <!-- Home -->
+    <section id="home" class="relative h-screen flex items-center justify-center bg-cover bg-center" style="background-image: url('assets/img/1,1.jpg');">
+      <div class="bg-black bg-opacity-50 p-10 rounded-xl text-white text-center max-w-xl">
+        <h2 class="text-lg mb-2 text-pink-400">Berdua, satu cerita</h2>
+        <h1 class="text-4xl font-bold mb-4 text-pink-400">Petualangan Ini<br><span>Dimulai Dengan Kamu ❤️</span></h1>
+        <a href="#discover" class="inline-block mt-4 button-cute">Lihat Gallery</a>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="py-16 bg-white">
+      <div class="container mx-auto px-4 text-center">
+        <h2 class="text-3xl font-bold mb-4">Cerita Kita</h2>
+        <p class="text-pink-600 max-w-2xl mx-auto">Ini dia kisah seru kita berdua—mulai dari jalan-jalan, ketawa bareng, sampai hal receh yang bikin hari makin asik. Ikutin terus perjalanan kita keliling bareng satu tempat ke tempat lain!</p>
+      </div>
+    </section>
+
+    <!-- Discover Section -->
+    <section id="discover" class="py-16 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-6 text-center text-pink-700">
+                Swipe kanan/kiri yaa <br> buat liat semua fotonya
+            </h2>
+        
+            <!-- Container kosong, akan diisi dari discover.js -->
+            <div id="scrollContainer" class="flex space-x-4 overflow-x-auto pb-4 cursor-grab scrollbar-hide">
+                <!-- kosong, akan diisi JS -->
+            </div>
+        </div>
+
+        <!-- Modal Preview -->
+        <div id="imageModal" class="fixed inset-0 bg-black bg-opacity-80 hidden z-50 flex justify-center items-center">
+            <div class="relative max-w-3xl w-full px-4">
+                <button id="closeModalBtn" class="absolute top-2 right-2 text-white text-2xl z-50">&times;</button>
+                <img id="modalImage" src="" class="w-full max-h-[90vh] object-contain mx-auto rounded-xl" />
+            </div>
+        </div>
+    </section>
+  
+    <!-- Video -->
+    <section id="vidioo" class="py-16 bg-white text-center">
+        <h2 class="text-3xl font-bold mb-6 text-pink-600">Vidio</h2>
+      
+        <div class="video-slider-wrapper flex items-center justify-center gap-6 relative mx-auto w-fit">
+      
+          <!-- Slider video -->
+          <div class="video-boundary">
+            <div id="videoSlider" class="flex transition-transform duration-500 ease-in-out">
+              <div class="video-item">
+                <video controls>
+                  <source src="assets/video/vidio1.mp4" type="video/mp4" />
+                </video>
+              </div>
+              <div class="video-item">
+                <video controls>
+                  <source src="assets/video/vidio1.mp4" type="video/mp4" />
+                </video>
+              </div>
+              <!-- Tambah lagi jika perlu -->
+            </div>
+          </div>
+  
+          <!-- Tombol panah -->
+          <button id="prevBtn" class="arrow-btn left-arrow">
+            <i class="fas fa-arrow-left"></i>
+          </button>
+          <button id="nextBtn" class="arrow-btn right-arrow">
+            <i class="fas fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  
+      
+  
+
+    <!-- Place -->
+<section id="place" class="py-16 bg-gray-100">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold mb-10 text-center">Pemadam Kelaparan</h2>
+      <div id="placeScroll" class="flex gap-6 overflow-x-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 pb-4">
+        
+        <!-- Card -->
+        <div class="place-card min-w-[250px] flex-shrink-0 transition duration-300 bg-white rounded-xl shadow overflow-hidden cursor-pointer">
+          <img src="assets/img/jajan1.jpg" alt="" class="w-full h-48 object-cover">
+          <div class="p-4 text-left">
+            <p class="text-sm text-gray-500">Rating: 4,6</p>
+            <h3 class="text-lg font-bold">Penyetan Candu</h3>
+          </div>
+        </div>
+  
+        <!-- Duplikat lainnya -->
+        <div class="place-card min-w-[250px] flex-shrink-0 transition duration-300 bg-white rounded-xl shadow overflow-hidden cursor-pointer">
+          <img src="assets/img/jajan1.jpg" alt="" class="w-full h-48 object-cover">
+          <div class="p-4 text-left">
+            <p class="text-sm text-gray-500">Rating: 4,6</p>
+            <h3 class="text-lg font-bold">Penyetan Candu</h3>
+          </div>
+        </div>
+
+        <div class="place-card min-w-[250px] flex-shrink-0 transition duration-300 bg-white rounded-xl shadow overflow-hidden cursor-pointer">
+            <img src="assets/img/jajan1.jpg" alt="" class="w-full h-48 object-cover">
+            <div class="p-4 text-left">
+              <p class="text-sm text-gray-500">Rating: 4,6</p>
+              <h3 class="text-lg font-bold">Penyetan Candu</h3>
+            </div>
+          </div>
+
+          <div class="place-card min-w-[250px] flex-shrink-0 transition duration-300 bg-white rounded-xl shadow overflow-hidden cursor-pointer">
+            <img src="assets/img/jajan1.jpg" alt="" class="w-full h-48 object-cover">
+            <div class="p-4 text-left">
+              <p class="text-sm text-gray-500">Rating: 4,6</p>
+              <h3 class="text-lg font-bold">Penyetan Candu</h3>
+            </div>
+          </div>
+
+          <div class="place-card min-w-[250px] flex-shrink-0 transition duration-300 bg-white rounded-xl shadow overflow-hidden cursor-pointer">
+            <img src="assets/img/jajan1.jpg" alt="" class="w-full h-48 object-cover">
+            <div class="p-4 text-left">
+              <p class="text-sm text-gray-500">Rating: 4,6</p>
+              <h3 class="text-lg font-bold">Penyetan Candu</h3>
+            </div>
+          </div>
+
+          <div class="place-card min-w-[250px] flex-shrink-0 transition duration-300 bg-white rounded-xl shadow overflow-hidden cursor-pointer">
+            <img src="assets/img/jajan1.jpg" alt="" class="w-full h-48 object-cover">
+            <div class="p-4 text-left">
+              <p class="text-sm text-gray-500">Rating: 4,6</p>
+              <h3 class="text-lg font-bold">Penyetan Candu</h3>
+            </div>
+          </div>
+  
+    
+  
+      </div>
+    </div>
+  </section>
+  
+  <!-- Tambahkan di akhir body -->
+  <link rel="stylesheet" href="place.css">
+  <script src="place.js"></script>
+  
+  
+  
+
+    <!-- Subscribe -->
+    <section class="py-20 bg-pink-primary text-center">
+      <h2 class="text-4xl font-bold text-pink-700">Taufik & Alya ❤️</h2>
+      <p class="text-pink-600 mt-4">Oke Oke</p>
+    </section>
+  </main>
+
+  <!-- Scroll to Top -->
+  <a href="#" class="fixed bottom-6 right-6 bg-pink-500 text-white p-3 rounded-full shadow-lg hover:bg-pink-600">
+    <i class="ri-arrow-up-line text-xl"></i>
+  </a>
+
+  <!-- Scripts -->
+  <script src="assets/js/scrollreveal.min.js"></script>
+  <script src="assets/js/swiper-bundle.min.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/discover.js"></script>
+    <script src="assets/js/vidio.js"></script>
+<script src="assets/js/place.js"></script>
+
+</body>
+</html>

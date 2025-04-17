@@ -1,0 +1,138 @@
+:root {
+    --pink-primary: #ffb6c1;
+    --pink-dark: #ff69b4;
+    --soft-white: #fffafa;
+    --lavender: #e6e6fa;
+  }
+  
+  body {
+    background-color: var(--soft-white);
+    color: #4b4b4b;
+    font-family: 'Comic Neue', cursive;
+  }
+  
+  header {
+    background-color: var(--pink-primary);
+    color: white;
+  }
+
+  header a {
+    color: #F472B6; /* Warna pink */
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    z-index: 100; /* Menjamin tombol berada di atas elemen lain */
+    }
+
+    header a:hover {
+        color: #EC4899; /* Warna pink lebih gelap saat hover */
+    }
+
+    header i {
+        margin-right: 8px; /* Memberikan sedikit jarak antara ikon dan teks (jika ada) */
+    }
+
+  
+  
+  header nav a {
+    color: white;
+  }
+  
+  header nav a:hover {
+    color: var(--lavender);
+  }
+  
+  .bg-pink-500 {
+    background-color: var(--pink-primary) !important;
+  }
+  
+  .bg-pink-600 {
+    background-color: var(--pink-dark) !important;
+  }
+  
+  .text-pink-500 {
+    color: var(--pink-primary) !important;
+  }
+  
+  .text-pink-600 {
+    color: var(--pink-dark) !important;
+  }
+  
+  .text-pink-700 {
+    color: #ff1493 !important;
+  }
+  
+  .card-cute {
+    background-color: var(--lavender);
+    border: 2px dashed var(--pink-dark);
+  }
+  
+  button {
+    cursor: pointer;
+  }
+  
+  .button-cute {
+    background-color: var(--pink-dark);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 999px;
+    box-shadow: 0 4px 8px rgba(255, 182, 193, 0.4);
+    transition: all 0.3s ease;
+  }
+  
+  .button-cute:hover {
+    background-color: #ff1493;
+    transform: scale(1.05);
+  }
+  
+  .bg-pink-100 {
+    background-color: #ffc0cb;
+  }
+  
+  .bg-pink-300 {
+    background-color: #ffb6c1;
+  }
+  
+  .animate-bounce {
+    animation: bounce 1s infinite;
+  }
+  
+  @keyframes bounce {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* Efek hover pada seluruh kartu */
+.card-cute {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .card-cute:hover {
+    transform: scale(1.05) translateY(-10px); /* Menambahkan translateY untuk menggeser card sedikit ke atas */
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2); /* Tambahkan shadow untuk efek hover */
+  }
+
+  #scrollContainer {
+    display: flex;
+    gap: 16px; /* Pastikan ada jarak antara card */
+    overflow-x: auto;
+    padding: 20px;
+    /* Pastikan space cukup agar card bisa terzoom tanpa terpotong */
+  }
+  
+  
+  
+  

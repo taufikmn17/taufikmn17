@@ -1,0 +1,37 @@
+/* place.css */
+
+/* Scroll animation */
+.place-card {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+  
+  .place-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  /* Scrollbar styling for WebKit (Chrome, Edge) */
+  #placeScroll::-webkit-scrollbar {
+    height: 8px;
+  }
+  
+  #placeScroll::-webkit-scrollbar-thumb {
+    background-color: #a0aec0; /* Tailwind gray-400 */
+    border-radius: 10px;
+  }
+  
+  #placeScroll::-webkit-scrollbar-track {
+    background-color: #edf2f7; /* Tailwind gray-200 */
+  }
+  
+  /* Drag cursor */
+  #placeScroll {
+    cursor: grab;
+  }
+  
+  #placeScroll.scrolling {
+    cursor: grabbing;
+  }
+  
