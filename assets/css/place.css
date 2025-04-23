@@ -1,37 +1,118 @@
-/* place.css */
+/* Styling bintang */
+.star-rating {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.star {
+  font-size: 20px;
+  color: #d1d5db; /* Warna abu-abu untuk bintang kosong */
+}
+
+.star.filled {
+  color: #fbbf24; /* Warna kuning untuk bintang yang terisi */
+}
+
+/* Penataan teks rating */
+.place-card .p-4 .text-left p {
+  margin-left: 10px;
+}
+
+/* Optional: Styling untuk animasi bintang jika diperlukan */
+.star-rating .star {
+  transition: color 0.3s ease-in-out;
+}
 
 /* Scroll animation */
 .place-card {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-  }
-  
-  .place-card.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  
-  /* Scrollbar styling for WebKit (Chrome, Edge) */
-  #placeScroll::-webkit-scrollbar {
-    height: 8px;
-  }
-  
-  #placeScroll::-webkit-scrollbar-thumb {
-    background-color: #a0aec0; /* Tailwind gray-400 */
-    border-radius: 10px;
-  }
-  
-  #placeScroll::-webkit-scrollbar-track {
-    background-color: #edf2f7; /* Tailwind gray-200 */
-  }
-  
-  /* Drag cursor */
-  #placeScroll {
-    cursor: grab;
-  }
-  
-  #placeScroll.scrolling {
-    cursor: grabbing;
-  }
-  
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.place-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Scrollbar styling for WebKit (Chrome, Edge) */
+#placeScroll::-webkit-scrollbar {
+  height: 8px;
+}
+
+#placeScroll::-webkit-scrollbar-thumb {
+  background-color: #a0aec0; /* Tailwind gray-400 */
+  border-radius: 10px;
+}
+
+#placeScroll::-webkit-scrollbar-track {
+  background-color: #edf2f7; /* Tailwind gray-200 */
+}
+
+/* Drag cursor */
+#placeScroll {
+  cursor: grab;
+}
+
+#placeScroll.scrolling {
+  cursor: grabbing;
+}
+/* Styling bintang */
+.star-rating {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.star {
+  font-size: 20px;
+  color: #d1d5db; /* Warna abu-abu untuk bintang kosong */
+}
+
+.star.filled {
+  color: #fbbf24; /* Warna kuning untuk bintang yang terisi */
+}
+
+/* Penataan teks rating */
+.place-card .p-4 .text-left p {
+  margin-left: 10px;
+}
+
+/* Optional: Styling untuk animasi bintang jika diperlukan */
+.star-rating .star {
+  transition: color 0.3s ease-in-out;
+}
+
+/* Scroll animation */
+.place-card {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.place-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Scrollbar styling for WebKit (Chrome, Edge) */
+#placeScroll::-webkit-scrollbar {
+  height: 8px;
+}
+
+#placeScroll::-webkit-scrollbar-thumb {
+  background-color: #a0aec0; /* Tailwind gray-400 */
+  border-radius: 10px;
+}
+
+#placeScroll::-webkit-scrollbar-track {
+  background-color: #edf2f7; /* Tailwind gray-200 */
+}
+
+/* Drag cursor */
+#placeScroll {
+  cursor: grab;
+}
+
+#placeScroll.scrolling {
+  cursor: grabbing;
+}

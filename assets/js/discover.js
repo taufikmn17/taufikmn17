@@ -31,12 +31,24 @@ function enableInfiniteScroll() {
   if (!scrollContainer) return;
 
   const imageData = [
-    { src: "assets/img/2.jpg", title: "Lippo", desc: "Foto di lift 🥺💞" },
-    { src: "assets/img/2.jpg", title: "Nonton", desc: "Foto nonton bareng 🍿❤️" },
-    { src: "assets/img/2.jpg", title: "Cafe", desc: "Ngopi Tuku ☕️💕" },
-    { src: "assets/img/2.jpg", title: "Jalan", desc: "Main ke taman 🌸" },
-    { src: "assets/img/2.jpg", title: "Pantai", desc: "Sunset bareng 🌅💕" },
-    { src: "assets/img/2.jpg", title: "Selfie", desc: "Selfie random 📸💖" }
+    { src: "assets/img/2.jpg", title: "Kaliurang", desc: "Main skuter 🛴🍃" },
+    { src: "assets/img/3.jpg", title: "Kopi Tuku", desc: "Habis ngopi foto mirror ☕📷" },
+    { src: "assets/img/4.jpg", title: "Photobooth SCH", desc: "Foto tambahan ceritanya 🎞️💫" },
+    { src: "assets/img/5.jpg", title: "Popsnap", desc: "Pinky 💕📸" },
+    { src: "assets/img/6.jpg", title: "Jalan Kaliurang", desc: "Foto mirror atas motor 🛵🌌" },
+    { src: "assets/img/7.jpg", title: "Popsnap", desc: "Sambil menunggu 🤭⏳" },
+    { src: "assets/img/8.jpg", title: "UTY", desc: "Wisata jam batu 🕰️🏛️" },
+    { src: "assets/img/9.jpg", title: "Popsnap", desc: "Gemashh 🥹💗" },
+    { src: "assets/img/10.jpg", title: "Alun-alun Kidul", desc: "Menunggu berbuka puasa 🌙🕌" },
+    { src: "assets/img/11.jpg", title: "Popsnap", desc: "Prepare sebelum foto 🎀📷" },
+    { src: "assets/img/12.jpg", title: "Union Pizza", desc: "Bikin pizza sendiri 👩‍🍳🍕" },
+    { src: "assets/img/13.jpg", title: "Gwiyomi", desc: "Pose gemes 🐣🎶" },
+    { src: "assets/img/14.jpg", title: "Oca Ice Skating", desc: "Seluncuran gess 🧊⛸️" },
+    { src: "assets/img/15.jpg", title: "Jalan Tunjungan", desc: "Jalan-jalan malam 🌃🚶‍♀️" },
+    { src: "assets/img/16.jpg", title: "Lift Lippo", desc: "Ngaca dulu di lift 🪞✨" },
+
+
+
   ];
 
   const DUPLICATE_COUNT = 200;
