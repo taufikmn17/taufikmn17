@@ -1,16 +1,18 @@
 #taufikSlider {
-  justify-content: center;
-  flex-wrap: nowrap;
-  gap: 0; /* pastikan tidak ada jarak antar elemen */
-}
-
-#taufikPrevBtn {
+    justify-content: center;
+    flex-wrap: nowrap;
+    gap: 0;
+  }
+  
+  #taufikPrevBtn {
     margin-right: 10px;
   }
   
   #taufikNextBtn {
     margin-left: 10px;
   }
+
+  
 
 
   #alyaSlider {
