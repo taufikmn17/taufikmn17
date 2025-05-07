@@ -9,7 +9,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@300;700&family=Fredoka+One&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/style.css" />
   <link rel="stylesheet" href="assets/css/vidio.css" />
-  <link rel="stylesheet" href="assets/css/place.css">
+  <link rel="stylesheet" href="assets/css/place.css"/>
+  <link rel="stylesheet" href="assets/css/music.css"/>
   <script src="https://cdn.tailwindcss.com"></script>
   <title>Altaf - Cerita Kita</title>
 </head>
@@ -48,9 +49,16 @@
     <section id="about" class="py-16 bg-white">
       <div class="container mx-auto px-4 text-center">
         <h2 class="text-3xl font-bold mb-4">Cerita Kita</h2>
-        <p class="text-pink-600 max-w-2xl mx-auto">Ini dia kisah seru kita berdua—mulai dari jalan-jalan, ketawa bareng, sampai hal receh yang bikin hari makin asik. Ikutin terus perjalanan kita keliling bareng satu tempat ke tempat lain!</p>
+        <p class="text-pink-600 max-w-2xl mx-auto">
+          Semua berawal dari pertemuan tak terduga di dunia maya, tepatnya di PUBG Mobile. Siapa sangka, dari sekedar bermain game, obrolan ringan, dan tawa kecil di tengah pertempuran virtual, tumbuh rasa penasaran yang perlahan berubah jadi kedekatan.
+        </p>
+        <p class="text-pink-600 max-w-2xl mx-auto mt-6">
+          Sejak saat itu, perjalanan kami dimulai. Dari dunia virtual hingga dunia nyata, dari game hingga kenyataan, kami belajar bahwa cinta bisa hadir di tempat dan waktu yang paling tak terduga.
+        </p>
       </div>
     </section>
+    
+    
 
     <!-- Discover Section -->
     <section id="discover" class="py-16 bg-gray-100">
@@ -76,10 +84,6 @@
               <img id="modalImage" src="" class="w-full max-h-[95vh] object-contain mx-auto rounded-xl" />
           </div>
         </div>
-
-
-
-
     </section>
   
     <!-- Video -->
@@ -131,7 +135,78 @@
     </div>
   </section>
   
-  
+    <!-- Musik Favorit Taufik -->
+    <section class="py-16 bg-gray-100">
+      <h2 class="text-3xl font-bold text-center text-pink-600 mb-8">Musik Favorit Taufik ♂️</h2>
+    <div class="flex items-center justify-center">
+      <div id="taufikSlider" class="flex items-center">
+        <!-- Tombol panah kiri -->
+        <button id="taufikPrevBtn" class="bg-white rounded-full p-2 shadow mr-1">
+          <i class="fas fa-arrow-left"></i>
+        </button>
+    
+        <!-- Item Musik -->
+        <div class="music-item min-w-[300px] bg-white rounded-lg shadow p-4 text-center">
+          <p class="font-semibold mb-2">Sinarengan</p>
+          <audio controls class="w-full">
+            <source src="assets/music/sinarengan.mp3" type="audio/mpeg">
+          </audio>
+        </div>
+
+        <div class="music-item min-w-[300px] bg-white rounded-lg shadow p-4 text-center">
+          <p class="font-semibold mb-2">Tresno Tekan Mati</p>
+          <audio controls class="w-full">
+            <source src="assets/music/tresnotekanmati.mp3" type="audio/mpeg">
+          </audio>
+        </div>
+
+        <!-- Tombol panah kanan -->
+        <button id="taufikNextBtn" class="bg-white rounded-full p-2 shadow ml-1">
+          <i class="fas fa-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+  </section>
+    
+    
+    
+    
+
+<!-- Musik Favorit Alya -->
+<section class="py-12 bg-white relative">
+  <h2 class="text-3xl font-bold text-center text-pink-600 mb-8">Musik Favorit Alya ♀️</h2>
+    <div class="flex items-center justify-center">
+      <div id="alyaSlider" class="flex items-center">
+        <!-- Tombol panah kiri -->
+        <button id="alyaPrevBtn" class="bg-white rounded-full p-2 shadow mr-1">
+          <i class="fas fa-arrow-left"></i>
+        </button>
+    
+        <!-- Item Musik -->
+        <div class="music-item min-w-[300px] bg-white rounded-lg shadow p-4 text-center">
+          <p class="font-semibold mb-2">Don't Listen To Them</p>
+          <audio controls class="w-full">
+            <source src="assets/music/niki.mp3" type="audio/mpeg">
+          </audio>
+        </div>
+
+        <div class="music-item min-w-[300px] bg-white rounded-lg shadow p-4 text-center">
+          <p class="font-semibold mb-2">Lesung Pipi</p>
+          <audio controls class="w-full">
+            <source src="assets/music/lesungpipi.mp3" type="audio/mpeg">
+          </audio>
+        </div>
+
+        <!-- Tombol panah kanan -->
+        <button id="alyaNextBtn" class="bg-white rounded-full p-2 shadow ml-1">
+          <i class="fas fa-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+  </section>
+
+
+
       
   
 
@@ -366,18 +441,21 @@
     </section>
   </main>
 
-  <!-- Scroll to Top -->
-  <a href="#" class="fixed bottom-6 right-6 bg-pink-500 text-white p-3 rounded-full shadow-lg hover:bg-pink-600">
-    <i class="ri-arrow-up-line text-xl"></i>
-  </a>
+ <!-- Scroll to Top -->
+<a href="#" class="fixed bottom-6 right-6 p-3 rounded-full shadow-lg" style="background-color: #F472B6;">
+  <i class="ri-arrow-up-line text-xl text-white"></i>
+</a>
+
+
 
   <!-- Scripts -->
   <script src="assets/js/scrollreveal.min.js"></script>
   <script src="assets/js/swiper-bundle.min.js"></script>
   <script src="assets/js/main.js"></script>
   <script src="assets/js/discover.js"></script>
-    <script src="assets/js/vidio.js"></script>
-<script src="assets/js/place.js"></script>
+  <script src="assets/js/vidio.js"></script>
+  <script src="assets/js/place.js"></script>
+  <script src="assets/js/music.js"></script>
 
 </body>
 </html>

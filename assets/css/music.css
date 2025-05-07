@@ -1,0 +1,29 @@
+#taufikSlider {
+  justify-content: center;
+  flex-wrap: nowrap;
+  gap: 0; /* pastikan tidak ada jarak antar elemen */
+}
+
+#taufikPrevBtn {
+    margin-right: 10px;
+  }
+  
+  #taufikNextBtn {
+    margin-left: 10px;
+  }
+
+
+  #alyaSlider {
+    justify-content: center;
+    flex-wrap: nowrap;
+    gap: 0; /* pastikan tidak ada jarak antar elemen */
+  }
+  
+  #alyaPrevBtn {
+      margin-right: 10px;
+    }
+    
+    #alyaNextBtn {
+      margin-left: 10px;
+    }
+  
