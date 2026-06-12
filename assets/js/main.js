@@ -273,3 +273,4 @@ const footprintsData = {
     const modal = document.getElementById("mapModal");
     if (e.target === modal) closeMapModal();
   });
+
