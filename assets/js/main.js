@@ -200,3 +200,76 @@ themeButton.addEventListener('click', () => {
       titleObserver.observe(title);
     });
   });
+
+  /* ========================================================
+   LOGIKA INTERAKTIF MENU: OUR VIRTUAL FOOTPRINTS
+   ======================================================== */
+
+// Data Konten Cerita Jejak Langkah (Silakan ubah teks/gambar sesuai cerita asli kalian)
+const footprintsData = {
+    pubg: {
+      title: "Pochinki & Erangel Island",
+      tag: "Virtual World",
+      date: "Awal Pertemuan Kita 🎮",
+      img: "assets/img/1,1.jpg", // Ganti dengan screenshot PUBG kalian berdua
+      desc: "Semua berawal dari sini. Berawal dari hobi yang sama di PUBG Mobile, ketemu di dalam satu tim, mabar bareng, tukaran info media sosial, hingga canda tawa di voice chat game yang pelan-pelan berubah jadi rasa nyaman."
+    },
+    firstmeet: {
+      title: "Pertemuan Pertama di Dunia Nyata",
+      tag: "Real World",
+      date: "Hari Paling Mendebarkan ❤️",
+      img: "assets/img/icon.jpg", // Ganti dengan foto jepretan pertama kali ketemu
+      desc: "Setelah sekian lama cuma mendengar suara lewat game dan telepon, akhirnya momen canggung tapi manis ini tiba. Berani melangkah keluar dari layar HP untuk saling bertatap muka langsung, mengobrol santai tanpa sekat sinyal."
+    },
+    favorite: {
+      title: "Petualangan di Yogyakarta",
+      tag: "Our Adventure",
+      date: "Setiap Sudut Penuh Kenangan 🗺️",
+      img: "assets/img/jajan1.jpg", // Ganti dengan foto liburan berdua
+      desc: "Menjelajahi keindahan sudut kota, berkendara menyusuri jalanan malam yang syahdu, hingga mencicipi aneka kuliner lezat yang daftarnya bisa kamu lihat langsung di seksi 'Memory Lane' di bawah!"
+    }
+  };
+  
+  function openMapModal(key) {
+    const modal = document.getElementById("mapModal");
+    const data = footprintsData[key];
+  
+    if (!modal || !data) return;
+  
+    // Isi data ke dalam element popup
+    document.getElementById("modalMapImg").src = data.img;
+    document.getElementById("modalMapTitle").innerText = data.title;
+    document.getElementById("modalMapTag").innerText = data.tag;
+    document.getElementById("modalMapDate").innerText = data.date;
+    document.getElementById("modalMapDesc").innerText = data.desc;
+  
+    // Jalankan animasi buka
+    modal.classList.remove("hidden");
+    modal.classList.add("flex");
+    
+    setTimeout(() => {
+      modal.classList.remove("opacity-0");
+      modal.querySelector(".transform").classList.remove("scale-95");
+      modal.querySelector(".transform").classList.add("scale-100");
+    }, 10);
+  }
+  
+  function closeMapModal() {
+    const modal = document.getElementById("mapModal");
+    if (!modal) return;
+  
+    modal.classList.add("opacity-0");
+    modal.querySelector(".transform").classList.remove("scale-100");
+    modal.querySelector(".transform").classList.add("scale-95");
+  
+    setTimeout(() => {
+      modal.classList.remove("flex");
+      modal.classList.add("hidden");
+    }, 300);
+  }
+  
+  // Tutup modal otomatis jika pengguna mengeklik area hitam di luar kotak info
+  window.addEventListener("click", (e) => {
+    const modal = document.getElementById("mapModal");
+    if (e.target === modal) closeMapModal();
+  });
