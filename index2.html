@@ -89,7 +89,7 @@
     </section>
 
     <!-- Our Virtual Footprints -->
-    <section id="mapFootprints" class="py-12 bg-white overflow-hidden text-center">
+    <section id="mapFootprints" class="py-12 bg-gray-100 overflow-hidden text-center">
       <div class="container mx-auto px-6">
           
           <div class="max-w-2xl mx-auto mb-16 section-title-fade">
@@ -168,7 +168,7 @@
 
 
     <!-- Character Cards -->
-    <section id="characterCards" class="py-12 bg-gray-100 overflow-hidden text-center">
+    <section id="characterCards" class="py-24 bg-white overflow-hidden text-center">
       <div class="container mx-auto px-6">
           
           <div class="max-w-2xl mx-auto mb-16 section-title-fade">
@@ -286,8 +286,6 @@
           </div>
       </div>
     </section>
-    <!-- Taruh tepat di bawah script main.js Anda -->
-    <script src="assets/js/main.js"></script>
 
     <!-- KODE ANIMASI COUNTER & GARIS MENGALIR MASUK (PERBAIKAN) -->
     <script>
@@ -298,24 +296,26 @@
               
               seksi.classList.add("efek-aktif");
   
-              // Waktu durasi animasi (1500ms = 1.5 detik)
-              var durasiAnimasi = 1500; 
+              // KUNCI DI SINI: Durasi diubah agar gerakan lebih dramatis
+              var durasiAnimasi = 4500; 
   
-              // 1. JALANKAN ANIMASI GARIS MASUK (MENGALIR SEPERTI COUNTER)
+              // 1. JALANKAN ANIMASI GARIS MASUK (MENGALIR HALUS & SLOW)
               var semuaBar = seksi.querySelectorAll(".animate-bar");
               semuaBar.forEach(function(bar) {
                   var targetLebar = bar.getAttribute("data-width");
                   
-                  // Atur agar transisi CSS berjalan mulus dari angka 0%
-                  bar.style.transition = "width " + durasiAnimasi + "ms cubic-bezier(0.1, 0.5, 0.1, 1)";
+                  // Menggunakan cubic-bezier khusus agar di awal melesat lembut dan melambat sangat anggun di akhir
+                  bar.style.transition = "width " + durasiAnimasi + "ms cubic-bezier(0.25, 0.8, 0.25, 1)";
                   
-                  // Memicu browser untuk merender perubahan lebar secara live
-                  requestAnimationFrame(function() {
-                      bar.style.width = targetLebar;
-                  });
+                  // Diberi jeda 100ms agar browser sempat menyiapkan posisi bar dari w-0 (nol) sebelum meluncur
+                  setTimeout(function() {
+                      requestAnimationFrame(function() {
+                          bar.style.width = targetLebar;
+                      });
+                  }, 100);
               });
   
-              // 2. JALANKAN ANIMASI ANGKA BERJALAN
+              // 2. JALANKAN ANIMASI ANGKA BERJALAN (MENYESUAIKAN TEMPO SLOW)
               var semuaAngka = seksi.querySelectorAll(".stat-number");
               semuaAngka.forEach(function(counter) {
                   var targetAngka = parseInt(counter.getAttribute("data-target"), 10);
@@ -337,7 +337,11 @@
                           counter.textContent = targetAngka;
                       }
                   }
-                  requestAnimationFrame(update);
+                  
+                  // Angka ikut berjalan bersamaan dengan luncuran bar setelah jeda singkat
+                  setTimeout(function() {
+                      requestAnimationFrame(update);
+                  }, 100);
               });
           }
   
