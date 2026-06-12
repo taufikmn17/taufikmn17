@@ -16,6 +16,30 @@
 </head>
 <body class="bg-soft-white text-pink-700 font-sans">
 
+  <div id="surpriseOverlay" class="fixed inset-0 bg-black z-[9999] flex justify-center items-center overflow-hidden transition-opacity duration-1000">
+    
+    <div id="surpriseStartContainer" class="absolute inset-0 flex flex-col justify-center items-center bg-pink-500 z-30 px-6 text-center transition-all duration-500">
+      <div class="bg-white p-8 rounded-2xl shadow-2xl max-w-sm border-4 border-dashed border-pink-400 animate-bounce-slow">
+        <h3 class="text-2xl font-bold text-pink-600 mb-2">Haloo</h3>
+        <p class="text-gray-600 text-sm mb-6">Buka volumenya dan klik tombol di bawah ya!</p>
+        <button id="startSurpriseBtn" class="bg-pink-500 hover:bg-pink-600 text-white font-bold px-8 py-3 rounded-full text-lg shadow-lg hover:scale-105 active:scale-95 transition-all duration-300">
+          Selamat Datang✨
+        </button>
+      </div>
+    </div>
+
+    <div class="relative w-full h-full flex justify-center items-center px-4 z-10">
+      <video id="surpriseVideo" class="w-full max-h-screen object-contain rounded-xl shadow-2xl" playsinline>
+        <source src="assets/video/surprise.mp4" type="video/mp4" />
+        Browser kamu tidak mendukung pemutaran video ini.
+      </video>
+      
+      <button id="skipVideoBtn" class="absolute top-6 right-6 bg-white/20 hover:bg-white/40 text-white text-sm font-semibold px-4 py-2 rounded-full backdrop-blur-sm transition-all duration-300 hidden">
+        Lewati Kejutan ✕
+      </button>
+    </div>
+  </div>
+
   <!-- Header -->
   <header class="bg-pink-primary shadow sticky top-0 z-50">
     <div class="container mx-auto px-4 py-3 flex justify-between items-center">
@@ -61,17 +85,26 @@
     
 
     <!-- Discover Section -->
-    <section id="discover" class="py-16 bg-gray-100">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold mb-6 text-center text-pink-700">
-                Swipe kanan/kiri yaa <br> buat liat semua fotonya
-            </h2>
+    <<section id="discover" class="py-24 bg-gray-100 overflow-hidden text-center">
+      <div class="container mx-auto px-6">
+          
+          <div class="max-w-2xl mx-auto mb-16">
+              <span class="text-xs font-bold uppercase tracking-widest text-pink-500 bg-pink-100/60 px-4 py-1.5 rounded-full inline-block mb-3 shadow-sm">Our Adventure</span>
+              <h2 class="text-4xl font-extrabold text-pink-700 font-sans tracking-tight">
+                  Scroll ke Kanan <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-rose-600">Lihat Berbagai Destinasi Kita!!!</span>
+              </h2>
+              <div class="w-16 h-1 bg-gradient-to-r from-pink-300 to-pink-500 mx-auto mt-4 rounded-full"></div>
+          </div>
+      
+          <div id="scrollContainer" class="flex space-x-4 overflow-x-auto pb-4 cursor-grab scrollbar-hide">
+          </div>
+  
+          <div class="progress-container-cute">
+              <div id="scrollProgressBar" class="progress-bar-cute"></div>
+          </div>
+  
+      </div>
         
-            <!-- Container kosong, akan diisi dari discover.js -->
-            <div id="scrollContainer" class="flex space-x-4 overflow-x-auto pb-4 cursor-grab scrollbar-hide">
-                <!-- kosong, akan diisi JS -->
-            </div>
-        </div>
 
         <!-- Modal Preview -->
         <div id="imageModal" class="fixed inset-0 bg-black bg-opacity-80 hidden z-50 flex justify-center items-center">
@@ -88,346 +121,76 @@
   
     <!-- Video -->
     <section id="vidioo" class="py-16 bg-white text-center">
-        <h2 class="text-3xl font-bold mb-6 text-pink-600">Video</h2>
-      
-        <div class="video-slider-wrapper flex items-center justify-center gap-6 relative mx-auto w-fit">
-      
-          <!-- Slider video -->
-          <div class="video-boundary">
-            <div id="videoSlider" class="flex transition-transform duration-500 ease-in-out">
-              <div class="video-item">
-                <video controls>
-                  <source src="assets/video/2.mp4" type="video/mp4" />
-                </video>
-              </div>
-              <div class="video-item">
-                <video controls>
-                  <source src="assets/video/4.mp4" type="video/mp4" />
-                </video>
-              </div>
-              <div class="video-item">
-                <video controls>
-                  <source src="assets/video/3.mp4" type="video/mp4" />
-                </video>
-              </div>
-              <div class="video-item">
-                <video controls>
-                  <source src="assets/video/1.mp4" type="video/mp4" />
-                </video>
-              </div>
-              <div class="video-item">
-                <video controls>
-                  <source src="assets/video/5.mp4" type="video/mp4" />
-                </video>
-              </div>
+      <h2 class="text-3xl font-bold mb-6 text-pink-600">Video</h2>
+    
+      <div class="video-slider-wrapper flex flex-col items-center justify-center gap-4 relative mx-auto w-fit">
+    
+        <div class="video-boundary">
+          <div id="videoSlider" class="flex transition-transform duration-500 ease-in-out">
+            <div class="video-item">
+              <video controls>
+                <source src="assets/video/2.mp4" type="video/mp4" />
+              </video>
+            </div>
+            <div class="video-item">
+              <video controls>
+                <source src="assets/video/4.mp4" type="video/mp4" />
+              </video>
+            </div>
+            <div class="video-item">
+              <video controls>
+                <source src="assets/video/3.mp4" type="video/mp4" />
+              </video>
+            </div>
+            <div class="video-item">
+              <video controls>
+                <source src="assets/video/1.mp4" type="video/mp4" />
+              </video>
+            </div>
+            <div class="video-item">
+              <video controls>
+                <source src="assets/video/5.mp4" type="video/mp4" />
+              </video>
             </div>
           </div>
-  
-          <!-- Tombol panah -->
-          <button id="prevBtn" class="arrow-btn left-arrow">
+        </div>
+
+        <div class="video-controls-bottom flex items-center justify-center gap-6 mt-2">
+          <button id="prevBtn" class="arrow-btn-bottom">
             <i class="fas fa-arrow-left"></i>
           </button>
-          <button id="nextBtn" class="arrow-btn right-arrow">
+          <button id="nextBtn" class="arrow-btn-bottom">
             <i class="fas fa-arrow-right"></i>
           </button>
         </div>
+
       </div>
-    </div>
   </section>
-  
-    <!-- Musik Favorit Taufik -->
-<section class="py-16 bg-gray-100">
-  <h2 class="text-3xl font-bold text-center text-pink-600 mb-8">Musik Favorit Taufik ♂️</h2>
-  <div class="flex flex-col items-center justify-center">
-    
-    <!-- Wrapper Slider -->
-    <div id="taufikSlider" class="flex justify-center items-center mb-4">
-      <!-- Item Musik -->
-      <div class="music-item min-w-[300px] bg-white rounded-lg shadow p-4 text-center">
-        <p class="font-semibold mb-2">Sinarengan</p>
-        <audio controls class="w-full">
-          <source src="assets/music/sinarengan.mp3" type="audio/mpeg">
-        </audio>
-      </div>
-
-      <div class="music-item min-w-[300px] bg-white rounded-lg shadow p-4 text-center hidden">
-        <p class="font-semibold mb-2">Tresno Tekan Mati</p>
-        <audio controls class="w-full">
-          <source src="assets/music/tresnotekanmati.mp3" type="audio/mpeg">
-        </audio>
-      </div>
-    </div>
-
-    <!-- Tombol di bawah -->
-    <div class="flex space-x-4">
-      <button id="taufikPrevBtn" class="bg-white rounded-full p-2 shadow">
-        <i class="fas fa-arrow-left"></i>
-      </button>
-      <button id="taufikNextBtn" class="bg-white rounded-full p-2 shadow">
-        <i class="fas fa-arrow-right"></i>
-      </button>
-    </div>
-  </div>
-</section>
-
-    
-    
-    
-    
-
-<!-- Musik Favorit Alya -->
-<section class="py-16 bg-white">
-  <h2 class="text-3xl font-bold text-center text-pink-600 mb-8">Musik Favorit Alya ♀️</h2>
-  <div class="flex flex-col items-center justify-center">
-    
-    <!-- Wrapper Slider -->
-    <div id="alyaSlider" class="flex justify-center items-center mb-4">
-      <!-- Item Musik -->
-      <div class="music-item min-w-[300px] bg-white rounded-lg shadow p-4 text-center">
-        <p class="font-semibold mb-2">Don't Listen To Them</p>
-        <audio controls class="w-full">
-          <source src="assets/music/niki.mp3" type="audio/mpeg">
-        </audio>
-      </div>
-
-      <div class="music-item min-w-[300px] bg-white rounded-lg shadow p-4 text-center hidden">
-        <p class="font-semibold mb-2">Lesung Pipi</p>
-        <audio controls class="w-full">
-          <source src="assets/music/lesungpipi.mp3" type="audio/mpeg">
-        </audio>
-      </div>
-    </div>
-
-    <!-- Tombol di bawah -->
-    <div class="flex space-x-4">
-      <button id="alyaPrevBtn" class="bg-white rounded-full p-2 shadow">
-        <i class="fas fa-arrow-left"></i>
-      </button>
-      <button id="alyaNextBtn" class="bg-white rounded-full p-2 shadow">
-        <i class="fas fa-arrow-right"></i>
-      </button>
-    </div>
-  </div>
-</section>
-
-
-
-      
   
 
     <!-- Place -->
-    <section id="place" class="py-16 bg-gray-100">
-      <div class="container mx-auto px-4">
-        <h2 class="text-3xl font-bold mb-10 text-center">Jajan Kuyy</h2>
-        <div id="placeScroll" class="flex gap-6 overflow-x-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 pb-4">
-    
-          <!-- Card 1 -->
-          <div class="place-card min-w-[250px] flex-shrink-0 transition duration-300 bg-white rounded-xl shadow overflow-hidden cursor-pointer">
-            <img src="assets/img/jajan1.jpg" alt="" class="w-full h-48 object-cover">
-            <div class="p-4 text-left">
-              <div class="flex items-center text-yellow-400 text-sm space-x-1">
-                <span class="flex">
-                  <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
-                </span>
-                <span class="text-gray-500">4.5/5</span>
-              </div>
-              <h3 class="text-lg font-bold">Penyetan Candu</h3>
-            </div>
+    <section id="placeSection" class="py-24 bg-gray-100 overflow-hidden text-center">
+      <div class="container mx-auto px-6">
+          
+          <!-- Judul Seksi -->
+          <div class="max-w-2xl mx-auto mb-16">
+              <span class="text-xs font-bold uppercase tracking-widest text-pink-500 bg-pink-100/60 px-4 py-1.5 rounded-full inline-block mb-3 shadow-sm">Memory Lane</span>
+              <h2 class="text-4xl font-extrabold text-pink-700 font-sans tracking-tight">
+                  Tempat Favorit & <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-rose-600">Petualangan Kuliner Kita</span>
+              </h2>
+              <div class="w-16 h-1 bg-gradient-to-r from-pink-300 to-pink-500 mx-auto mt-4 rounded-full"></div>
           </div>
-    
-          <!-- Card 2 -->
-          <div class="place-card min-w-[250px] flex-shrink-0 transition duration-300 bg-white rounded-xl shadow overflow-hidden cursor-pointer">
-            <img src="assets/img/jajan2.jpg" alt="" class="w-full h-48 object-cover">
-            <div class="p-4 text-left">
-              <div class="flex items-center text-yellow-400 text-sm space-x-1">
-                <span class="flex">
-                  <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                </span>
-                <span class="text-gray-500">5/5</span>
-              </div>
-              <h3 class="text-lg font-bold">Kopi Tuku</h3>
-            </div>
-          </div>
-    
-          <!-- Card 3 -->
-          <div class="place-card min-w-[250px] flex-shrink-0 transition duration-300 bg-white rounded-xl shadow overflow-hidden cursor-pointer">
-            <img src="assets/img/jajan3.jpg" alt="" class="w-full h-48 object-cover">
-            <div class="p-4 text-left">
-              <div class="flex items-center text-yellow-400 text-sm space-x-1">
-                <span class="flex">
-                  <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
-                </span>
-                <span class="text-gray-500">4/5</span>
-              </div>
-              <h3 class="text-lg font-bold">Sego Pasar Ngasem</h3>
-            </div>
-          </div>
-    
-          <!-- Card 4 -->
-          <div class="place-card min-w-[250px] flex-shrink-0 transition duration-300 bg-white rounded-xl shadow overflow-hidden cursor-pointer">
-            <img src="assets/img/jajan4.jpg" alt="" class="w-full h-48 object-cover">
-            <div class="p-4 text-left">
-              <div class="flex items-center text-yellow-400 text-sm space-x-1">
-                <span class="flex">
-                  <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                </span>
-                <span class="text-gray-500">5/5</span>
-              </div>
-              <h3 class="text-lg font-bold">Brownies buatan adek sayang</h3>
-            </div>
-          </div>
-    
-          <!-- Card 5 -->
-          <div class="place-card min-w-[250px] flex-shrink-0 transition duration-300 bg-white rounded-xl shadow overflow-hidden cursor-pointer">
-            <img src="assets/img/jajan5.jpg" alt="" class="w-full h-48 object-cover">
-            <div class="p-4 text-left">
-              <div class="flex items-center text-yellow-400 text-sm space-x-1">
-                <span class="flex">
-                  <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
-                </span>
-                <span class="text-gray-500">4.25/5</span>
-              </div>
-              <h3 class="text-lg font-bold">Kopi Merapi</h3>
-            </div>
-          </div>
-    
-          <!-- Card 6 -->
-          <div class="place-card min-w-[250px] flex-shrink-0 transition duration-300 bg-white rounded-xl shadow overflow-hidden cursor-pointer">
-            <img src="assets/img/jajan6.jpg" alt="" class="w-full h-48 object-cover">
-            <div class="p-4 text-left">
-              <div class="flex items-center text-yellow-400 text-sm space-x-1">
-                <span class="flex">
-                  <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
-                </span>
-                <span class="text-gray-500">4/5</span>
-              </div>
-              <h3 class="text-lg font-bold">Mie gacoan</h3>
-            </div>
-          </div>
-    
-          <!-- Card 7 -->
-          <div class="place-card min-w-[250px] flex-shrink-0 transition duration-300 bg-white rounded-xl shadow overflow-hidden cursor-pointer">
-            <img src="assets/img/jajan7.jpg" alt="" class="w-full h-48 object-cover">
-            <div class="p-4 text-left">
-              <div class="flex items-center text-yellow-400 text-sm space-x-1">
-                <span class="flex">
-                  <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
-                </span>
-                <span class="text-gray-500">3.8/5</span>
-              </div>
-              <h3 class="text-lg font-bold">Ayam Bakar Alkid</h3>
-            </div>
-          </div>
-    
-          <!-- Card 8 -->
-          <div class="place-card min-w-[250px] flex-shrink-0 transition duration-300 bg-white rounded-xl shadow overflow-hidden cursor-pointer">
-            <img src="assets/img/jajan8.jpg" alt="" class="w-full h-48 object-cover">
-            <div class="p-4 text-left">
-              <div class="flex items-center text-yellow-400 text-sm space-x-1">
-                <span class="flex">
-                  <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
-                </span>
-                <span class="text-gray-500">3.5/5</span>
-              </div>
-              <h3 class="text-lg font-bold">Kebon Ndalem</h3>
-            </div>
-          </div>
-    
-          <!-- Card 9 -->
-          <div class="place-card min-w-[250px] flex-shrink-0 transition duration-300 bg-white rounded-xl shadow overflow-hidden cursor-pointer">
-            <img src="assets/img/jajan9.jpg" alt="" class="w-full h-48 object-cover">
-            <div class="p-4 text-left">
-              <div class="flex items-center text-yellow-400 text-sm space-x-1">
-                <span class="flex">
-                  <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
-                </span>
-                <span class="text-gray-500">4.5/5</span>
-              </div>
-              <h3 class="text-lg font-bold">Union Pizza</h3>
-            </div>
-          </div>
-    
-          <!-- Card 10 -->
-          <div class="place-card min-w-[250px] flex-shrink-0 transition duration-300 bg-white rounded-xl shadow overflow-hidden cursor-pointer">
-            <img src="assets/img/jajan10.jpg" alt="" class="w-full h-48 object-cover">
-            <div class="p-4 text-left">
-              <div class="flex items-center text-yellow-400 text-sm space-x-1">
-                <span class="flex">
-                  <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                </span>
-                <span class="text-gray-500">5/5</span>
-              </div>
-              <h3 class="text-lg font-bold">Pecel Telaga Sarangan</h3>
-            </div>
+        
+          <!-- Wadah Kosong: Kartu-kartu akan otomatis diisi oleh place.js di sini -->
+          <div id="placeGridContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-6xl mx-auto">
+              <!-- Elemen di-render otomatis melalui JavaScript -->
           </div>
 
-          <div class="place-card min-w-[250px] flex-shrink-0 transition duration-300 bg-white rounded-xl shadow overflow-hidden cursor-pointer">
-            <img src="assets/img/jajan11.jpg" alt="" class="w-full h-48 object-cover">
-            <div class="p-4 text-left">
-              <div class="flex items-center text-yellow-400 text-sm space-x-1">
-                <span class="flex">
-                  <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
-                </span>
-                <span class="text-gray-500">4.3/5</span>
-              </div>
-              <h3 class="text-lg font-bold">Bebakaran Sarangan</h3>
-            </div>
-          </div>
-
-          <div class="place-card min-w-[250px] flex-shrink-0 transition duration-300 bg-white rounded-xl shadow overflow-hidden cursor-pointer">
-            <img src="assets/img/jajan12.jpg" alt="" class="w-full h-48 object-cover">
-            <div class="p-4 text-left">
-              <div class="flex items-center text-yellow-400 text-sm space-x-1">
-                <span class="flex">
-                  <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
-                </span>
-                <span class="text-gray-500">4/5</span>
-              </div>
-              <h3 class="text-lg font-bold">Seblak Sarangan</h3>
-            </div>
-          </div>
-
-          <div class="place-card min-w-[250px] flex-shrink-0 transition duration-300 bg-white rounded-xl shadow overflow-hidden cursor-pointer">
-            <img src="assets/img/jajan13.jpg" alt="" class="w-full h-48 object-cover">
-            <div class="p-4 text-left">
-              <div class="flex items-center text-yellow-400 text-sm space-x-1">
-                <span class="flex">
-                  <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
-                </span>
-                <span class="text-gray-500">4.5/5</span>
-              </div>
-              <h3 class="text-lg font-bold">Malio Gelato</h3>
-            </div>
-          </div>
-
-          <div class="place-card min-w-[250px] flex-shrink-0 transition duration-300 bg-white rounded-xl shadow overflow-hidden cursor-pointer">
-            <img src="assets/img/jajan14.jpg" alt="" class="w-full h-48 object-cover">
-            <div class="p-4 text-left">
-              <div class="flex items-center text-yellow-400 text-sm space-x-1">
-                <span class="flex">
-                  <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
-                </span>
-                <span class="text-gray-500">3.5/5</span>
-              </div>
-              <h3 class="text-lg font-bold">Iga Bajog</h3>
-            </div>
-          </div>
-
-          <div class="place-card min-w-[250px] flex-shrink-0 transition duration-300 bg-white rounded-xl shadow overflow-hidden cursor-pointer">
-            <img src="assets/img/jajan15.jpg" alt="" class="w-full h-48 object-cover">
-            <div class="p-4 text-left">
-              <div class="flex items-center text-yellow-400 text-sm space-x-1">
-                <span class="flex">
-                  <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
-                </span>
-                <span class="text-gray-500">4.5/5</span>
-              </div>
-              <h3 class="text-lg font-bold">Sate Ratu</h3>
-            </div>
-          </div>
-        </div>
       </div>
-    </section>
+  </section>
+
+  <link rel="stylesheet" href="assets/css/place.css">
+  <script src="assets/js/place.js"></script>
     
     
     

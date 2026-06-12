@@ -26,8 +26,9 @@ document.addEventListener("keydown", function (e) {
 // Tombol silang
 document.getElementById("closeModalBtn").addEventListener("click", closeModal);
 
-function enableInfiniteScroll() {
+function enableNormalScroll() {
   const scrollContainer = document.getElementById("scrollContainer");
+  const progressBar = document.getElementById("scrollProgressBar");
   if (!scrollContainer) return;
 
   const imageData = [
@@ -46,35 +47,49 @@ function enableInfiniteScroll() {
     { src: "assets/img/14.jpg", title: "Oca Ice Skating", desc: "Seluncuran gess 🧊⛸️" },
     { src: "assets/img/15.jpg", title: "Jalan Tunjungan", desc: "Jalan-jalan malam 🌃🚶‍♀️" },
     { src: "assets/img/16.jpg", title: "Lift Lippo", desc: "Ngaca dulu di lift 🪞✨" },
-
-
-
   ];
 
-  const DUPLICATE_COUNT = 200;
-  for (let i = 0; i < DUPLICATE_COUNT; i++) {
-    imageData.forEach((data) => {
-      const card = document.createElement("div");
-      card.className = "min-w-[250px] card-cute rounded-xl shadow-lg shrink-0 cursor-pointer";
-      card.ondblclick = () => openModal(data.src);
-      card.innerHTML = `
-        <img src="${data.src}" class="w-full h-60 object-cover rounded-t-xl" alt="${data.title}" />
-        <div class="p-4 text-left">
-          <h3 class="text-lg font-bold text-pink-700">${data.title}</h3>
-          <p class="text-sm text-pink-600">${data.desc}</p>
-        </div>
-      `;
-      scrollContainer.appendChild(card);
-    });
+  // Bersihkan container agar tidak menumpuk saat reload
+  scrollContainer.innerHTML = "";
+
+  // Render 1 set foto murni agar bisa mentok kanan-kiri alami
+  imageData.forEach((data) => {
+    const card = document.createElement("div");
+    card.className = "min-w-[250px] card-cute rounded-xl shadow-lg shrink-0 cursor-pointer";
+    card.ondblclick = () => openModal(data.src);
+    card.innerHTML = `
+      <img src="${data.src}" class="w-full h-60 object-cover rounded-t-xl" alt="${data.title}" />
+      <div class="p-4 text-left">
+        <h3 class="text-lg font-bold text-pink-700">${data.title}</h3>
+        <p class="text-sm text-pink-600">${data.desc}</p>
+      </div>
+    `;
+    scrollContainer.appendChild(card);
+  });
+
+  // Posisi awal paling kiri
+  scrollContainer.scrollLeft = 0;
+
+  // Fungsi menggerakkan garis progres di bawah foto secara real-time
+  function updateProgressBar() {
+    if (!progressBar) return;
+    const maxScroll = scrollContainer.scrollWidth - scrollContainer.clientWidth;
+    if (maxScroll <= 0) return;
+    
+    const scrollPercentage = (scrollContainer.scrollLeft / maxScroll) * 100;
+    progressBar.style.width = `${scrollPercentage}%`;
   }
 
-  const sectionWidth = scrollContainer.scrollWidth / 3;
-  scrollContainer.scrollLeft = sectionWidth;
+  // Monitor pergerakan scroll
+  scrollContainer.addEventListener("scroll", updateProgressBar);
+  window.addEventListener("resize", updateProgressBar);
+  updateProgressBar();
 
   let isDragging = false;
   let startX;
   let scrollLeft;
 
+  // Manajemen Drag-to-scroll menggunakan mouse
   scrollContainer.addEventListener("mousedown", (e) => {
     isDragging = true;
     scrollContainer.classList.add("cursor-grabbing");
@@ -96,23 +111,16 @@ function enableInfiniteScroll() {
     if (!isDragging) return;
     e.preventDefault();
     const x = e.pageX - scrollContainer.offsetLeft;
-    const walk = (x - startX) * 2;
+    
+    // PERBAIKAN: Pengali diatur ke 1.5 agar pergeseran sangat akurat mengikuti gerakan mouse
+    const walk = (x - startX) * 1.5; 
     scrollContainer.scrollLeft = scrollLeft - walk;
-  });
-
-  scrollContainer.addEventListener("scroll", () => {
-    const currentScroll = scrollContainer.scrollLeft;
-    if (currentScroll < sectionWidth * 0.5) {
-      scrollContainer.scrollLeft = currentScroll + sectionWidth;
-    } else if (currentScroll > sectionWidth * 2.5) {
-      scrollContainer.scrollLeft = currentScroll - sectionWidth;
-    }
   });
 }
 
 // Jalankan fungsi saat dokumen siap
 if (document.readyState !== "loading") {
-  enableInfiniteScroll();
+  enableNormalScroll();
 } else {
-  document.addEventListener("DOMContentLoaded", enableInfiniteScroll);
+  document.addEventListener("DOMContentLoaded", enableNormalScroll);
 }

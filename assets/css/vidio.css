@@ -1,56 +1,91 @@
 .video-boundary {
-    overflow: hidden; /* Penting untuk menyembunyikan video lain */
-    max-width: 280px;
-    position: relative;
-    margin: 0 auto;
+  overflow: hidden; /* Penting untuk menyembunyikan video lain */
+  max-width: 280px;
+  position: relative;
+  margin: 0 auto;
+}
+
+#videoContainer {
+  position: relative;
+  width: 100%;
+}
+
+#videoSlider {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.video-item {
+  flex-shrink: 0;
+  width: 100%;
+  padding: 0 8px;
+  box-sizing: border-box;
+}
+
+.video-item video {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Gaya desain tombol panah baru di bagian bawah */
+.arrow-btn-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #ff69b4; /* Warna pink-dark sesuai tema Anda */
+  color: white;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.3s, transform 0.2s;
+  box-shadow: 0 4px 6px rgba(255, 105, 180, 0.3);
+}
+
+.arrow-btn-bottom:hover {
+  background-color: #ff1493; /* Pink lebih gelap saat hover */
+  transform: scale(1.05);
+}
+
+.arrow-btn-bottom:active {
+  transform: scale(0.95);
+}
+
+/* ========================================================
+   STYLE KHUSUS UNTUK SURPRISE VIDEO OVERLAY
+   ======================================================== */
+
+   #surpriseOverlay {
+    opacity: 1;
+    visibility: visible;
+    /* Memastikan scrollbar utama web terkunci saat video berputar */
+    overflow: hidden; 
   }
   
-  #videoContainer {
-    position: relative;
-    width: 100%;
+  /* Class bantuan saat video selesai diputar (efek fade-out) */
+  #surpriseOverlay.hide-overlay {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none; /* Agar tidak bisa diklik setelah hilang */
   }
   
-  #videoSlider {
-    display: flex;
-    transition: transform 0.5s ease-in-out;
+  /* Menghilangkan scrollbar pada body sementara video aktif */
+  body.video-active {
+    overflow: hidden !important;
+  }
+
+  @keyframes bounceSlow {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-8px);
+    }
   }
   
-  .video-item {
-    flex-shrink: 0;
-    width: 100%;
-    padding: 0 8px;
-    box-sizing: border-box;
+  .animate-bounce-slow {
+    animation: bounceSlow 2s infinite ease-in-out;
   }
-  
-  .video-item video {
-    width: 100%;
-    height: auto;
-    border-radius: 12px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .arrow-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    padding: 0.5rem;
-    border-radius: 50%;
-    background-color: #ff69b4;
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    z-index: 10;
-  }
-  
-  .arrow-btn:hover {
-    background-color: #ff1493;
-  }
-  
-  .left-arrow {
-    left: -30px;
-  }
-  
-  .right-arrow {
-    right: -30px;
-  }
-  

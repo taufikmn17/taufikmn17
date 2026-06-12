@@ -1,138 +1,178 @@
 :root {
-    --pink-primary: #ffb6c1;
-    --pink-dark: #ff69b4;
-    --soft-white: #fffafa;
-    --lavender: #e6e6fa;
-  }
-  
-  body {
-    background-color: var(--soft-white);
-    color: #4b4b4b;
-    font-family: 'Comic Neue', cursive;
-  }
-  
-  header {
-    background-color: var(--pink-primary);
-    color: white;
-  }
+  --pink-primary: #ffb6c1;
+  --pink-dark: #ff69b4;
+  --soft-white: #fffafa;
+  --lavender: #e6e6fa;
+}
 
-  header a {
-    color: #F472B6; /* Warna pink */
-    font-size: 1.1rem;
-    display: flex;
-    align-items: center;
-    z-index: 100; /* Menjamin tombol berada di atas elemen lain */
-    }
+/* Mengaktifkan transisi scroll halaman vertikal secara halus */
+html {
+  scroll-behavior: smooth;
+}
 
-    header a:hover {
-        color: #EC4899; /* Warna pink lebih gelap saat hover */
-    }
+body {
+  background-color: var(--soft-white);
+  color: #4b4b4b;
+  font-family: 'Comic Neue', cursive;
+}
 
-    header i {
-        margin-right: 8px; /* Memberikan sedikit jarak antara ikon dan teks (jika ada) */
-    }
+header {
+  background-color: var(--pink-primary);
+  color: white;
+}
 
-  
-  
-  header nav a {
-    color: white;
-  }
-  
-  header nav a:hover {
-    color: var(--lavender);
-  }
-  
-  .bg-pink-500 {
-    background-color: var(--pink-primary) !important;
-  }
-  
-  .bg-pink-600 {
-    background-color: var(--pink-dark) !important;
-  }
-  
-  .text-pink-500 {
-    color: var(--pink-primary) !important;
-  }
-  
-  .text-pink-600 {
-    color: var(--pink-dark) !important;
-  }
-  
-  .text-pink-700 {
-    color: #ff1493 !important;
-  }
-  
-  .card-cute {
-    background-color: var(--lavender);
-    border: 2px dashed var(--pink-dark);
-  }
-  
-  button {
-    cursor: pointer;
-  }
-  
-  .button-cute {
-    background-color: var(--pink-dark);
-    color: white;
-    padding: 0.75rem 1.5rem;
-    border-radius: 999px;
-    box-shadow: 0 4px 8px rgba(255, 182, 193, 0.4);
-    transition: all 0.3s ease;
-  }
-  
-  .button-cute:hover {
-    background-color: #ff1493;
-    transform: scale(1.05);
-  }
-  
-  .bg-pink-100 {
-    background-color: #ffc0cb;
-  }
-  
-  .bg-pink-300 {
-    background-color: #ffb6c1;
-  }
-  
-  .animate-bounce {
-    animation: bounce 1s infinite;
-  }
-  
-  @keyframes bounce {
-    0%, 100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-10px);
-    }
-  }
-  
-  .scrollbar-hide::-webkit-scrollbar {
-    display: none;
-  }
-  
-  .scrollbar-hide {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
+header a {
+  color: #F472B6; /* Warna pink */
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  z-index: 100; /* Menjamin tombol berada di atas elemen lain */
+}
 
-  /* Efek hover pada seluruh kartu */
+header a:hover {
+  color: #EC4899; /* Warna pink lebih gelap saat hover */
+}
+
+header i {
+  margin-right: 8px; /* Memberikan sedikit jarak antara ikon dan teks (jika ada) */
+}
+
+header nav a {
+  color: white;
+}
+
+header nav a:hover {
+  color: var(--lavender);
+}
+
+.bg-pink-500 {
+  background-color: var(--pink-primary) !important;
+}
+
+.bg-pink-600 {
+  background-color: var(--pink-dark) !important;
+}
+
+.text-pink-500 {
+  color: var(--pink-primary) !important;
+}
+
+.text-pink-600 {
+  color: var(--pink-dark) !important;
+}
+
+.text-pink-700 {
+  color: #ff1493 !important;
+}
+
+button {
+  cursor: pointer;
+}
+
+.button-cute {
+  background-color: var(--pink-dark);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 999px;
+  box-shadow: 0 4px 8px rgba(255, 182, 193, 0.4);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.button-cute:hover {
+  background-color: #ff1493;
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(255, 105, 180, 0.6);
+}
+
+.bg-pink-100 {
+  background-color: #ffc0cb;
+}
+
+.bg-pink-300 {
+  background-color: #ffb6c1;
+}
+
+.animate-bounce {
+  animation: bounce 1s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ========================================================
+   OPTIMASI & DESAIN KARTU GALERI FOTO (DISCOVER)
+   ======================================================== */
+
+#scrollContainer {
+  display: flex;
+  gap: 16px; 
+  overflow-x: auto;
+  padding: 24px 16px 12px 16px;
+  
+  /* PERBAIKAN: scroll-behavior DIKOSONGKAN agar tarikan mouse/jari bisa bebas dikit-dikit */
+  scroll-behavior: auto; 
+  
+  -webkit-overflow-scrolling: touch; /* Efek swipe lancar alami di layar HP */
+}
+
+/* Mempertahankan warna lavender & border putus-putus kesukaan Anda */
 .card-cute {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
+  background-color: var(--lavender);
+  border: 2px dashed var(--pink-dark);
+  border-radius: 16px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
   
-  .card-cute:hover {
-    transform: scale(1.05) translateY(-10px); /* Menambahkan translateY untuk menggeser card sedikit ke atas */
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2); /* Tambahkan shadow untuk efek hover */
-  }
+  /* Akselerasi hardware GPU untuk mencegah lag saat digeser bebas */
+  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease;
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
 
-  #scrollContainer {
-    display: flex;
-    gap: 16px; /* Pastikan ada jarak antara card */
-    overflow-x: auto;
-    padding: 20px;
-    /* Pastikan space cukup agar card bisa terzoom tanpa terpotong */
-  }
-  
-  
-  
-  
+.card-cute:hover {
+  transform: scale(1.03) translateY(-8px);
+  box-shadow: 0px 12px 24px rgba(255, 105, 180, 0.25);
+}
+
+.card-cute img {
+  border-top-left-radius: 14px;
+  border-top-right-radius: 14px;
+  object-fit: cover;
+}
+
+/* ========================================================
+   GAYA DESAIN KABEL/GARIS PROGRESS PENANDA BATAS SCROLL
+   ======================================================== */
+
+.progress-container-cute {
+  max-width: 300px;             
+  height: 6px;                  
+  background-color: #f3e8ee;     
+  border-radius: 999px;
+  margin: 16px auto 0 auto;     
+  overflow: hidden;
+  border: 1px solid rgba(255, 105, 180, 0.1);
+}
+
+.progress-bar-cute {
+  height: 100%;
+  width: 0%;                    
+  background: linear-gradient(to right, var(--pink-primary), var(--pink-dark));
+  border-radius: 999px;
+  transition: width 0.05s ease-out; /* Respon pemanjangan dipercepat agar sinkron dengan gerakan bebas */
+}
