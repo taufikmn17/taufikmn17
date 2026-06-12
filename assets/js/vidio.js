@@ -95,3 +95,38 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 });
+
+// ========================================================
+  // LOGIKA UTAMA: ANIMASI MUNCUL UNTUK KOMPONEN VIDEO
+  // ========================================================
+  const videoSectionTitle = document.querySelector("#vidioo h2");
+  const videoSliderWrapper = document.querySelector(".video-slider-wrapper");
+
+  // Pasang class animasi dasar terlebih dahulu
+  if (videoSectionTitle) videoSectionTitle.classList.add("scroll-reveal-element");
+  if (videoSliderWrapper) videoSliderWrapper.classList.add("scroll-reveal-element");
+
+  // Konfigurasi kapan animasi terpicu (15% elemen masuk layar)
+  const videoRevealOptions = {
+    root: null,
+    threshold: 0.15,
+    rootMargin: "0px 0px -20px 0px"
+  };
+
+  const videoObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach((entry, index) => {
+      if (entry.isIntersecting) {
+        // Efek delay bertingkat (judul muncul duluan baru slider-nya)
+        setTimeout(() => {
+          entry.target.classList.add("reveal-visible");
+        }, index * 200); 
+
+        // Berhenti mengawasi jika elemen sudah sukses tampil
+        observer.unobserve(entry.target);
+      }
+    });
+  }, videoRevealOptions);
+
+  // Daftarkan elemen video ke observer
+  if (videoSectionTitle) videoObserver.observe(videoSectionTitle);
+  if (videoSliderWrapper) videoObserver.observe(videoSliderWrapper);

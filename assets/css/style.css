@@ -176,3 +176,20 @@ button {
   border-radius: 999px;
   transition: width 0.05s ease-out; /* Respon pemanjangan dipercepat agar sinkron dengan gerakan bebas */
 }
+
+/* ========================================================
+   ANIMASI KHUSUS MASUK JUDUL SEKSI (FADE IN UP)
+   ======================================================== */
+   .section-title-fade {
+    opacity: 0;
+    transform: translateY(35px);
+    transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), 
+                transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+    will-change: transform, opacity;
+  }
+  
+  /* Aktif ketika disundul oleh scroll layar */
+  .section-title-fade.title-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }

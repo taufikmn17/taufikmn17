@@ -106,3 +106,31 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+
+/* ========================================================
+   LOGIKA INTERSECTION OBSERVER KHUSUS JUDUL SEKSI
+   ======================================================== */
+document.addEventListener("DOMContentLoaded", function () {
+  const sectionTitles = document.querySelectorAll(".section-title-fade");
+
+  if (sectionTitles.length === 0) return;
+
+  const titleOptions = {
+    root: null,
+    threshold: 0.1, // Terpicu langsung saat ujung atas judul mulai masuk layar
+    rootMargin: "0px 0px -50px 0px"
+  };
+
+  const titleObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("title-visible");
+        observer.unobserve(entry.target); // Cukup animasi sekali saat pertama di-scroll
+      }
+    });
+  }, titleOptions);
+
+  sectionTitles.forEach(title => {
+    titleObserver.observe(title);
+  });
+});
