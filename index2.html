@@ -362,6 +362,240 @@
           setTimeout(cekPosisiLayar, 800); 
       })();
       </script>
+
+    <!-- virtualWish   -->
+    <section id="virtualWish" class="py-24 bg-gray-100 overflow-hidden text-center relative">
+      <div class="absolute inset-0 opacity-10 pointer-events-none bg-[radial-gradient(#000000_1px,transparent_1px)] [background-size:16px_16px]"></div>
+      
+      <div class="container mx-auto px-6 relative z-10">
+          
+          <div class="max-w-2xl mx-auto mb-10 text-center">
+              <span class="text-xs font-bold uppercase tracking-widest text-white px-4 py-1.5 rounded-full inline-block mb-3 shadow-sm border" style="background-color: #ff69b4; border-color: #ff1493;">Sky Lantern</span>
+              <h2 class="text-4xl font-extrabold text-slate-800 font-sans tracking-tight">
+                  Make A Wish Virtual <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-[#ff69b4] to-amber-500">Terbangkan Lenteramu</span>
+              </h2>
+              <div class="w-16 h-1 bg-gradient-to-r from-[#ff69b4] to-amber-400 mx-auto mt-4 rounded-full"></div>
+          </div>
+
+          <div class="max-w-xl mx-auto bg-white p-6 md:p-8 rounded-3xl border border-slate-200 shadow-xl text-left transform transition-all duration-300 mb-16">
+              <form id="wishForm" onsubmit="event.preventDefault();">
+                  
+                  <div class="mb-6">
+                      <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">Ketik di Sini yaa :</label>
+                      <textarea id="wishText" rows="3" required maxlength="150"
+                          class="w-full bg-slate-50 border border-slate-200 rounded-2xl p-4 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 transition resize-none text-sm"
+                          style="focus-border-color: #ff69b4;"
+                          placeholder="Contoh: Semoga kita bisa bareng terus sampai nikah... Aamiin!"></textarea>
+                      <div class="text-right text-[10px] text-slate-400 mt-1" id="charCount">0 / 150 karakter</div>
+                  </div>
+
+                  <div class="mb-8">
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-3">Pilih Warna Lentera :</label>
+                    <div class="flex gap-4">
+                        <label class="flex items-center gap-2 cursor-pointer group">
+                            <input type="radio" name="lanternColor" value="pink" checked class="hidden peer">
+                            <span class="w-5 h-5 rounded-full ring-offset-2 ring-offset-white peer-checked:ring-2 block transition transform group-hover:scale-110" 
+                                  style="background-color: #ff69b4; --tw-ring-color: #ff69b4;"></span>
+                            <span class="text-xs text-slate-500 font-semibold peer-checked:text-[#ff1493]">Romantic Pink</span>
+                        </label>
+                        
+                        <label class="flex items-center gap-2 cursor-pointer group">
+                            <input type="radio" name="lanternColor" value="amber" class="hidden peer">
+                            <span class="w-5 h-5 rounded-full bg-amber-400 ring-offset-2 ring-offset-white peer-checked:ring-2 peer-checked:ring-amber-500 block transition transform group-hover:scale-110"></span>
+                            <span class="text-xs text-slate-500 peer-checked:text-amber-600 font-semibold">Warm Gold</span>
+                        </label>
+                    </div>
+                </div>
+
+                  <button type="submit" id="btnLaunchWish"
+                      class="w-full text-white font-bold text-sm py-4 px-6 rounded-2xl shadow-lg transform hover:-translate-y-0.5 active:translate-y-0 transition-all duration-150 flex items-center justify-center gap-2 tracking-wide uppercase"
+                      style="background: linear-gradient(to right, #ff69b4, #ff1493, #f59e0b); box-shadow: 0 10px 15px -3px rgba(255, 105, 180, 0.3);">
+                      <i class="ri-fire-fill text-amber-200 animate-pulse"></i> Terbangkan!
+                  </button>
+              </form>
+          </div>
+
+          <div class="max-w-2xl mx-auto border-t border-slate-200 pt-10 relative">
+              <h3 class="text-xl font-bold text-slate-700 mb-2 flex items-center justify-center gap-2">
+                  📌 Papan Harapan Terbaru
+              </h3>
+              <p class="text-xs text-slate-500 mb-8">Catatanmu bisa di lihat di sini</p>
+              
+              <div class="relative w-full min-h-[300px] bg-slate-50 rounded-3xl p-8 border border-slate-300/70 shadow-xl overflow-hidden">
+                  
+                  <div class="absolute inset-0 opacity-20 pointer-events-none bg-[linear-gradient(to_right,#808080_1px,transparent_1px),linear-gradient(to_bottom,#808080_1px,transparent_1px)] bg-[size:40px_40px]"></div>
+
+                  <div id="wishTreeContainer" class="relative w-full flex justify-center items-center gap-6 flex-wrap z-20 pt-4">
+                      <div id="emptyWishMessage" class="text-center py-6 text-sm text-slate-400 italic bg-white px-6 rounded-2xl border border-dashed border-slate-300 shadow-sm">
+                          Menghubungkan ke papan harapan...
+                      </div>
+                  </div>
+
+              </div>
+          </div>
+
+          <div id="lanternSkyContainer" class="absolute inset-x-0 bottom-0 top-0 overflow-hidden pointer-events-none z-0"></div>
+
+      </div>
+
+      <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, query, orderBy, limit, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        // Konfigurasi Firebase asli milik Altaf
+        const firebaseConfig = {
+          apiKey: "AIzaSyD0uGc0mir99fCuXeffZhrUv1lHPYYgucc",
+          authDomain: "web-altaf.firebaseapp.com",
+          projectId: "web-altaf",
+          storageBucket: "web-altaf.firebasestorage.app",
+          messagingSenderId: "217338414542",
+          appId: "1:217338414542:web:bcfc7d754f40c152b0579f",
+          measurementId: "G-1WD1VD59ZH"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const wishesCollection = collection(db, "wishes");
+
+        var wishForm = document.getElementById("wishForm");
+        var wishText = document.getElementById("wishText");
+        var charCount = document.getElementById("charCount");
+        var skyContainer = document.getElementById("lanternSkyContainer");
+        var wishTreeContainer = document.getElementById("wishTreeContainer");
+
+        if (wishText) {
+            wishText.addEventListener("focus", () => { wishText.style.borderColor = "#ff69b4"; wishText.style.boxShadow = "0 0 0 1px #ff69b4"; });
+            wishText.addEventListener("blur", () => { wishText.style.borderColor = "#e2e8f0"; wishText.style.boxShadow = "none"; });
+        }
+
+        if (wishText && charCount) {
+            wishText.addEventListener("input", function() {
+                charCount.textContent = wishText.value.length + " / 150 karakter";
+            });
+        }
+
+        // FUNGSI MEMBUAT LENTERA TERBANG INSTAN & BESAR
+        function buatLenteraTerbang(pesan, warna) {
+            var warnaBg = "rgba(255, 105, 180, 0.9)"; 
+            var warnaGlow = "rgba(255, 20, 147, 0.6)";
+            if (warna === "amber") {
+                warnaBg = "rgba(251, 191, 36, 0.85)"; 
+                warnaGlow = "rgba(251, 191, 36, 0.5)";
+            }
+
+            var lantern = document.createElement("div");
+            lantern.style.position = "absolute";
+            lantern.style.bottom = "-120px"; 
+            lantern.style.left = (Math.floor(Math.random() * 70) + 15) + "%";
+            lantern.style.display = "flex";
+            lantern.style.flexDirection = "column";
+            lantern.style.alignItems = "center";
+            lantern.style.transition = "all 7500ms cubic-bezier(0.25, 0.1, 0.25, 1)"; 
+            lantern.style.opacity = "1"; 
+            lantern.style.zIndex = "1";
+            
+            lantern.innerHTML = `
+                <div style="background: #ffffff; border: 2.5px solid ${warnaBg}; color: #1e293b; padding: 10px 16px; border-radius: 16px; font-size: 12px; max-width: 190px; text-align: center; white-space: normal; word-wrap: break-word; box-shadow: 0 6px 20px rgba(0,0,0,0.15); margin-bottom: 10px; font-style: italic; line-height: 1.4; font-weight: 500;">"${pesan}"</div>
+                <div style="width: 46px; height: 58px; background: ${warnaBg}; border-radius: 14px 14px 6px 6px; box-shadow: 0 0 25px ${warnaGlow}, inset 0 -15px 15px rgba(255,255,255,0.4); position: relative;">
+                    <div style="position: absolute; bottom: 4px; left: 50%; transform: translateX(-50%); width: 12px; height: 18px; background: #fb923c; border-radius: 50% 50% 20% 20%; box-shadow: 0 0 12px #f97316;"></div>
+                </div>
+            `;
+            
+            if (skyContainer) {
+                skyContainer.appendChild(lantern);
+                requestAnimationFrame(function() {
+                    setTimeout(function() {
+                        lantern.style.bottom = "115%";
+                        var goyanganSamping = (Math.random() > 0.5 ? 60 : -60);
+                        lantern.style.transform = `translateX(${goyanganSamping}px) scale(0.7)`;
+                    }, 5); 
+                });
+                setTimeout(function() { lantern.remove(); }, 8000);
+            }
+        }
+
+        if (wishForm) {
+            wishForm.addEventListener("submit", async function(e) {
+                e.preventDefault();
+                var pesan = wishText.value.trim();
+                if (!pesan) return;
+
+                var warnaDipilih = document.querySelector('input[name="lanternColor"]:checked').value;
+                var waktuSekarang = new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+
+                buatLenteraTerbang(pesan, warnaDipilih);
+
+                try {
+                    await addDoc(wishesCollection, {
+                        text: pesan,
+                        color: warnaDipilih,
+                        date: waktuSekarang,
+                        timestamp: new Date()
+                    });
+                } catch (error) {
+                    console.error("Firebase error:", error);
+                }
+
+                wishText.value = "";
+                charCount.textContent = "0 / 150 karakter";
+            });
+        }
+
+        // FIREBASE LISTENER (LIMIT 3 DATA TERBARU DENGAN ROTASI ESTETIK)
+        const q = query(wishesCollection, orderBy("timestamp", "desc"), limit(3));
+        let indexSiklus = 0;
+        
+        onSnapshot(q, (snapshot) => {
+            wishTreeContainer.innerHTML = "";
+            indexSiklus = 0;
+            
+            if (snapshot.empty) {
+                wishTreeContainer.innerHTML = `
+                    <div id="emptyWishMessage" class="text-center py-6 text-sm text-slate-400 italic bg-white px-6 rounded-2xl border border-dashed border-slate-300 shadow-sm">
+                        Belum ada memo yang dijepit. Yuk, tulis harapan pertamamu!
+                    </div>`;
+                return;
+            }
+
+            snapshot.forEach((doc) => {
+                const wish = doc.data();
+                
+                var styleMemo = "border-color: rgba(255, 105, 180, 0.4); background: linear-gradient(to bottom right, #fff5f8, rgba(255, 182, 193, 0.3)); color: #ff1493;";
+                var labelWarna = "🌸 Pink Wish";
+                var styleClip = "background-color: #ff69b4;";
+                
+                if (wish.color === "amber") {
+                    styleMemo = "border-color: rgba(251, 191, 36, 0.4); background: linear-gradient(to bottom right, #fffbeb, rgba(253, 230, 138, 0.3)); color: #b45309;";
+                    labelWarna = "✨ Golden Wish";
+                    styleClip = "background-color: #fb923c;";
+                }
+
+                var noteHarapan = document.createElement("div");
+                var rotasiAcak = (indexSiklus % 2 === 0) ? "rotate-2" : "-rotate-1";
+                indexSiklus++;
+
+                noteHarapan.className = `w-[180px] min-h-[145px] p-5 border rounded-xl flex flex-col justify-between transition-all duration-300 hover:scale-105 hover:rotate-0 relative text-center items-center bg-white shadow-md ${rotasiAcak}`;
+                noteHarapan.setAttribute("style", styleMemo);
+                
+                noteHarapan.innerHTML = `
+                    <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 w-4 h-6 rounded-full opacity-90 border border-white/50 shadow flex items-center justify-center z-30" style="${styleClip}">
+                        <div class="w-1.5 h-3 border-2 border-white/40 rounded-full"></div>
+                    </div>
+                    
+                    <div class="w-full relative z-10 pt-2">
+                        <span class="text-[9px] font-bold uppercase tracking-wider opacity-60 block mb-2">${labelWarna}</span>
+                        <p class="text-xs font-semibold leading-relaxed italic text-slate-800 px-1 break-words">"${wish.text}"</p>
+                    </div>
+                    <div class="mt-3 w-full pt-1.5 border-t border-slate-200/40 text-[9px] opacity-50 text-slate-500 font-medium">
+                        ${wish.date}
+                    </div>
+                `;
+                wishTreeContainer.appendChild(noteHarapan);
+            });
+        });
+      </script>
+</section> 
+  
     
     
 
