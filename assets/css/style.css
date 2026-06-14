@@ -193,3 +193,20 @@ button {
     opacity: 1;
     transform: translateY(0);
   }
+
+
+
+   
+
+  #gameArea { 
+    cursor: crosshair; 
+    position: relative; 
+}
+#gameArea div { 
+    position: absolute; 
+    transition: transform 0.1s;
+}
+#gameArea div:hover { 
+    transform: scale(1.2); 
+}
+
