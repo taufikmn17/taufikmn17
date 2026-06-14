@@ -456,8 +456,7 @@
     <button onclick="startGame()" id="startBtn" class="mb-4 px-6 py-2 bg-pink-500 text-white rounded-full font-bold hover:bg-pink-600">
         Mulai Game
     </button>
-    <div id="gameArea" class="relative w-full h-[400px] overflow-hidden border-4 border-pink-200 rounded-xl bg-white mx-auto max-w-md"></div>
-</section>
+    <div id="gameArea" class="relative w-full max-w-md mx-auto h-[500px] bg-slate-50 border-4 border-pink-200 rounded-3xl shadow-inner overflow-hidden my-4"></div>
 <div id="nameModal" class="fixed inset-0 z-[100] flex items-center justify-center hidden bg-black/50">
     <div class="bg-white p-8 rounded-3xl text-center max-w-sm mx-4 shadow-2xl relative">
         
@@ -890,8 +889,8 @@ function runGameLogic() {
 function spawnHeart() {
     const heart = document.createElement("div");
     heart.innerHTML = "🐦";
-    heart.className = "absolute text-3xl cursor-pointer";
-    heart.style.left = Math.random() * (gameArea.offsetWidth - 30) + "px";
+    heart.className = "absolute text-3xl cursor-pointer p-4"; // p-4 memperbesar area klik
+    heart.style.left = Math.random() * (gameArea.offsetWidth - 50) + "px";
     heart.style.top = "-50px";
     gameArea.appendChild(heart);
 
@@ -961,7 +960,7 @@ window.closeScoreModal = function() {
     if (startBtn) startBtn.disabled = false;
 
     // 3. RESET WAKTU KE 30 detik (atau 35 sesuai keinginan Anda)
-    timeLeft = 35; 
+    timeLeft = 3; 
     
     // 4. Update tampilan timer di layar agar tidak 0
     if (timerDisplay) {

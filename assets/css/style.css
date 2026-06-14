@@ -198,15 +198,8 @@ button {
 
    
 
-  #gameArea { 
-    cursor: crosshair; 
-    position: relative; 
-}
-#gameArea div { 
-    position: absolute; 
-    transition: transform 0.1s;
-}
-#gameArea div:hover { 
-    transform: scale(1.2); 
+  #gameArea {
+    touch-action: manipulation; /* Mencegah delay 300ms saat klik */
+    -webkit-tap-highlight-color: transparent; /* Menghilangkan bayangan biru saat diklik */
 }
 
