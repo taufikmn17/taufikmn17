@@ -889,7 +889,7 @@ function runGameLogic() {
 function spawnHeart() {
     const heart = document.createElement("div");
     heart.innerHTML = "🐦";
-    heart.className = "absolute text-3xl cursor-pointer p-4"; // p-4 memperbesar area klik
+    heart.className = "absolute text-3xl cursor-pointer p-8"; // p-8 memperbesar area klik
     heart.style.left = Math.random() * (gameArea.offsetWidth - 50) + "px";
     heart.style.top = "-50px";
     gameArea.appendChild(heart);
