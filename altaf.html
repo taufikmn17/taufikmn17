@@ -951,8 +951,24 @@ window.closeNameModal = function() {
 // Khusus untuk menutup modal skor akhir (setelah main)
 window.closeScoreModal = function() {
     const modal = document.getElementById("gameModal");
+    const startBtn = document.getElementById("startBtn");
+    const timerDisplay = document.getElementById("timer"); // Pastikan ini ID yang benar
+
+    // 1. Sembunyikan modal
     modal.classList.add("hidden");
-    startBtn.disabled = false; // Aktifkan lagi tombol start
+    
+    // 2. Aktifkan lagi tombol start
+    if (startBtn) startBtn.disabled = false;
+
+    // 3. RESET WAKTU KE 30 detik (atau 35 sesuai keinginan Anda)
+    timeLeft = 35; 
+    
+    // 4. Update tampilan timer di layar agar tidak 0
+    if (timerDisplay) {
+        timerDisplay.innerText = timeLeft;
+    }
+    
+    console.log("Modal ditutup dan waktu di-reset ke 30 detik");
 };
 
 
