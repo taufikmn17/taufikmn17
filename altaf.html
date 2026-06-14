@@ -449,7 +449,10 @@
 
 <!-- Bagian Game -->
 <section id="gameSection" class="py-24 bg-white overflow-hidden text-center">
-    <h2 class="text-2xl font-bold text-pink-600 mb-2">Birdy Catcher! 🐦</h2>
+    <h2 class="text-4xl font-extrabold text-pink-700 font-sans tracking-tight mb-8">
+        Tangkap Burung Yuks! 🐦
+    </h2>
+    
     <div class="text-xl mb-4 text-pink-600 font-semibold">
         Skor: <span id="myScore">0</span> | Waktu: <span id="timer">35</span>s
     </div>
@@ -826,6 +829,8 @@ let timeLeft = 35;
 let gameInterval, spawnInterval;
 let fallSpeed = 15;
 let currentPlayer = "";
+let spawnDelay = 800; // Mulai dari 800ms
+let spawnTimeoutId;   // Untuk menghentikan loop saat game selesai
 
 // --- FUNGSI GAME ---
 window.startGame = function() {
@@ -836,18 +841,9 @@ window.saveNameAndStart = function() {
     currentPlayer = document.getElementById("playerName").value || "Anonim";
     document.getElementById("nameModal").classList.add("hidden");
 
-    // Pastikan fungsi confetti tersedia
     if (typeof confetti === 'function') {
-        confetti({
-            particleCount: 150,
-            spread: 70,
-            origin: { y: 0.6 },
-            colors: ['#ff69b4', '#ff1493', '#ffffff']
-        });
-    } else {
-        console.error("Library Confetti belum dimuat!");
+        confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#ff69b4', '#ff1493', '#ffffff'] });
     }
-
     runGameLogic();
 };
 
@@ -855,48 +851,58 @@ function runGameLogic() {
     score = 0;
     timeLeft = 35;
     fallSpeed = 15;
+    spawnDelay = 800;
     scoreDisplay.innerText = score;
     timerDisplay.innerText = timeLeft;
     startBtn.disabled = true;
     
     clearInterval(gameInterval);
-    clearInterval(spawnInterval);
+    clearTimeout(spawnTimeoutId); // Hentikan loop lama
 
-    // START MUSIC
-    gameMusic.currentTime = 0; // Reset ke awal
-    gameMusic.play();          // Putar lagu
+    gameMusic.currentTime = 0;
+    gameMusic.play();
 
-    // AUTO STOP MUSIC SETELAH 30 DETIK
-    setTimeout(() => {
-        gameMusic.pause();
-        gameMusic.currentTime = 0;
-    }, 35000); // 35000ms = 35 detik
-    
     gameInterval = setInterval(() => {
         timeLeft--;
         if (timeLeft < 0) {
             timeLeft = 0;
-            timerDisplay.innerText = 0;
             endGame();
         } else {
             timerDisplay.innerText = timeLeft;
         }
     }, 1000);
 
-    spawnInterval = setInterval(spawnHeart, 800);
+    spawnBirdLoop(); // Mulai loop burung
+}
+
+function spawnBirdLoop() {
+    spawnHeart(); 
+
+    // Logika menambah burung semakin cepat
+    if (timeLeft > 25) spawnDelay = 800;
+    else if (timeLeft > 15) spawnDelay = 600;
+    else if (timeLeft > 5) spawnDelay = 400;
+    else spawnDelay = 250; // Hujan burung di akhir
+
+    // Semakin tinggi skor, munculkan burung tambahan dalam satu waktu
+    if (score > 20) spawnHeart(); 
+    if (score > 40) spawnHeart();
+
+    spawnTimeoutId = setTimeout(spawnBirdLoop, spawnDelay);
 }
 
 function spawnHeart() {
     const heart = document.createElement("div");
     heart.innerHTML = "🐦";
-    heart.className = "absolute text-3xl cursor-pointer p-8"; // p-8 memperbesar area klik
-    heart.style.left = Math.random() * (gameArea.offsetWidth - 50) + "px";
-    heart.style.top = "-50px";
+    // p-10 memperbesar area klik agar sangat mudah dipencet di HP
+    heart.className = "absolute text-4xl cursor-pointer p-10 transition-transform hover:scale-110"; 
+    heart.style.left = Math.random() * (gameArea.clientWidth - 80) + "px";
+    heart.style.top = "-80px";
     gameArea.appendChild(heart);
 
     const fall = setInterval(() => {
-        let top = parseInt(heart.style.top || -50);
-        if (top > gameArea.offsetHeight) {
+        let top = parseInt(heart.style.top || -80);
+        if (top > gameArea.clientHeight) {
             clearInterval(fall);
             heart.remove();
         } else {
@@ -909,21 +915,18 @@ function spawnHeart() {
         scoreDisplay.innerText = score;
         heart.remove();
         clearInterval(fall);
-        if (fallSpeed > 10) fallSpeed -= 0.5;
+        if (fallSpeed > 5) fallSpeed -= 0.5; // Burung jatuh makin cepat
     };
 }
 
 async function endGame() {
     clearInterval(gameInterval);
-    clearInterval(spawnInterval);
+    clearTimeout(spawnTimeoutId); // Hentikan loop burung
     gameArea.innerHTML = "";
     startBtn.disabled = false;
-
-    // STOP MUSIC KETIKA GAME BERAKHIR (jika selesai sebelum 30 detik)
     gameMusic.pause();
     gameMusic.currentTime = 0;
 
-    // Simpan ke Firestore Koleksi 'leaderboard'
     const sanitizedName = currentPlayer.replace(/\s+/g, '_');
     try {
         await setDoc(doc(db, "leaderboard", sanitizedName), {
@@ -931,13 +934,10 @@ async function endGame() {
             score: score,
             timestamp: new Date()
         });
-        console.log("Skor berhasil disimpan!");
-    } catch (e) {
-        console.error("Error simpan skor:", e);
-    }
+    } catch (e) { console.error(e); }
 
     document.getElementById("finalScoreText").innerText = `${currentPlayer}, skor kamu: ${score}!`;
-    modal.classList.remove("hidden");
+    document.getElementById("gameModal").classList.remove("hidden");
 }
 
 // Khusus untuk menutup modal input nama
@@ -949,25 +949,12 @@ window.closeNameModal = function() {
 
 // Khusus untuk menutup modal skor akhir (setelah main)
 window.closeScoreModal = function() {
-    const modal = document.getElementById("gameModal");
-    const startBtn = document.getElementById("startBtn");
-    const timerDisplay = document.getElementById("timer"); // Pastikan ini ID yang benar
-
-    // 1. Sembunyikan modal
-    modal.classList.add("hidden");
-    
-    // 2. Aktifkan lagi tombol start
-    if (startBtn) startBtn.disabled = false;
-
-    // 3. RESET WAKTU KE 30 detik (atau 35 sesuai keinginan Anda)
+    document.getElementById("gameModal").classList.add("hidden");
+    startBtn.disabled = false;
     timeLeft = 35; 
-    
-    // 4. Update tampilan timer di layar agar tidak 0
-    if (timerDisplay) {
-        timerDisplay.innerText = timeLeft;
-    }
-    
-    console.log("Modal ditutup dan waktu di-reset ke 30 detik");
+    timerDisplay.innerText = timeLeft;
+    score = 0;
+    scoreDisplay.innerText = score;
 };
 
 
