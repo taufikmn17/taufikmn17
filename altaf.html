@@ -47,14 +47,20 @@
         <i class="fas fa-arrow-left"></i>
       </a>
 
-      <nav>
+      <div class="flex space-x-4 text-sm font-mediumr">
+        <span class="text-2xl text-white font-bold tracking-widest">
+            (˶˘ ³˘)ˆᵕ ˆ˶)
+        </span>
+    </div>
+
+      <!-- <nav>
         <ul class="flex space-x-4 text-sm font-medium">
           <li><a href="#home" class="hover:text-pink-600">Home</a></li>
           <li><a href="#about" class="hover:text-pink-600">About</a></li>
           <li><a href="#discover" class="hover:text-pink-600">Image</a></li>
           <li><a href="#vidioo" class="hover:text-pink-600">Video</a></li>
         </ul>
-      </nav>
+      </nav> -->
     </div>
   </header>
 
@@ -179,7 +185,7 @@
           <div class="max-w-2xl mx-auto mb-16 section-title-fade">
               <span class="text-xs font-bold uppercase tracking-widest text-white px-4 py-1.5 rounded-full inline-block mb-3 shadow-sm border" style="background-color: #ff69b4; border-color: #ff1493;">Player Profile</span>
               <h2 class="text-4xl font-extrabold text-pink-700 font-sans tracking-tight">
-                  Karakter & Statistik <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-rose-600">Duo Maut Kita</span>
+                  Karakter & Statistik <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-rose-600">Duo A6</span>
               </h2>
               <div class="w-16 h-1 bg-gradient-to-r from-pink-300 to-pink-500 mx-auto mt-4 rounded-full"></div>
           </div>
@@ -340,8 +346,18 @@
                           requestAnimationFrame(update);
                       } else {
                           counter.textContent = targetAngka;
-                      }
-                  }
+                          // LOGIKA TAMBAHAN: Jika target mencapai 100 atau lebih, buat berkedip
+                            if (targetAngka >= 100) {
+                                // 'counter' adalah elemen <span> angka. 
+                                // Kita cari elemen bar yang berada di dalam div parent yang sama
+                                var parentDiv = counter.closest('div > div > div'); // Navigasi ke wrapper
+                                var bar = parentDiv.nextElementSibling.querySelector('.animate-bar');
+                                if (bar) {
+                                    bar.classList.add("animate-pulse-bar");
+                                }
+                        }
+                    }
+                }
                   
                   // Angka ikut berjalan bersamaan dengan luncuran bar setelah jeda singkat
                   setTimeout(function() {
@@ -449,10 +465,12 @@
 
 <!-- Bagian Game -->
 <section id="gameSection" class="py-24 bg-white overflow-hidden text-center">
-    <h2 class="text-4xl font-extrabold text-pink-700 font-sans tracking-tight mb-8">
-        Tangkap Burung Yuks! 🐦
-    </h2>
-    
+    <div class="max-w-2xl mx-auto mb-10 text-center section-title-fade">
+        <h2 class="text-4xl font-extrabold text-pink-700 font-sans tracking-tight mb-8">
+            Tangkap Burung Yuks! 🐦
+        </h2>
+    </div>
+
     <div class="text-xl mb-4 text-pink-600 font-semibold">
         Skor: <span id="myScore">0</span> | Waktu: <span id="timer">35</span>s
     </div>
@@ -470,7 +488,7 @@
         </button>
 
         <h2 class="text-2xl font-bold text-pink-600 mb-4">Siapa Namamu?</h2>
-        <input type="text" id="playerName" placeholder="Masukkan nama..." class="w-full p-2 border-2 border-pink-200 rounded-lg mb-4 text-center">
+        <input type="text" id="playerName" required placeholder="Masukkan nama..." class="w-full p-2 border-2 border-pink-200 rounded-lg mb-4 text-center">
         <button onclick="saveNameAndStart()" class="px-6 py-2 bg-pink-500 text-white rounded-full">Mulai!</button>
     </div>
 </div>
@@ -838,9 +856,19 @@ window.startGame = function() {
 };
 
 window.saveNameAndStart = function() {
-    currentPlayer = document.getElementById("playerName").value || "Anonim";
+    const nameInput = document.getElementById("playerName");
+
+    // 1. Cek validasi HTML5 (ini akan memunculkan pesan "Harap isi bidang ini")
+    if (!nameInput.checkValidity()) {
+        nameInput.reportValidity(); // Memunculkan bubble peringatan
+        return; // Hentikan fungsi jika belum valid
+    }
+
+    // 2. Jika valid, simpan nama dan jalankan game
+    currentPlayer = nameInput.value.trim();
     document.getElementById("nameModal").classList.add("hidden");
 
+    // ... lanjut kode confetti dan runGameLogic() ...
     if (typeof confetti === 'function') {
         confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#ff69b4', '#ff1493', '#ffffff'] });
     }

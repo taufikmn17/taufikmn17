@@ -194,12 +194,19 @@ button {
     transform: translateY(0);
   }
 
-
-
-   
-
+  
   #gameArea {
     touch-action: manipulation; /* Mencegah delay 300ms saat klik */
     -webkit-tap-highlight-color: transparent; /* Menghilangkan bayangan biru saat diklik */
+}
+
+
+
+@keyframes bar-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+.animate-pulse-bar {
+  animation: bar-pulse 1.5s infinite ease-in-out;
 }
 
