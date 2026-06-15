@@ -59,7 +59,8 @@ document.addEventListener("DOMContentLoaded", () => {
   container.innerHTML = "";
   data.forEach((item) => {
     const card = document.createElement("div");
-    card.className = "discover-card group hover:shadow-lg transition-all duration-300";
+    // Di dalam loop data.forEach
+    card.className = "discover-card group hover:shadow-lg transition-all duration-300 snap-start";
     card.style.cursor = "pointer"; // Menandakan bisa diklik
     
     card.innerHTML = `

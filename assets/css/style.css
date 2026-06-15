@@ -118,16 +118,24 @@ button {
    OPTIMASI & DESAIN KARTU GALERI FOTO (DISCOVER)
    ======================================================== */
 
+/* Pastikan container scroll tidak memotong konten */
 #scrollContainer {
   display: flex;
   gap: 16px; 
   overflow-x: auto;
-  padding: 24px 16px 12px 16px;
+  padding: 24px 16px;
   
-  /* PERBAIKAN: scroll-behavior DIKOSONGKAN agar tarikan mouse/jari bisa bebas dikit-dikit */
+  /* PENTING: Gunakan 'auto' agar tidak ada animasi meluncur/smooth */
   scroll-behavior: auto; 
   
-  -webkit-overflow-scrolling: touch; /* Efek swipe lancar alami di layar HP */
+  /* PENTING: Matikan snapping agar tidak tertahan di titik tertentu */
+  scroll-snap-type: none;
+  
+  /* Matikan akselerasi momentum pada perangkat touch */
+  -webkit-overflow-scrolling: auto;
+  
+  /* Sembunyikan scrollbar */
+  scrollbar-width: none;
 }
 
 /* Mempertahankan warna lavender & border putus-putus kesukaan Anda */
@@ -158,21 +166,12 @@ button {
 
 /* Container khusus untuk Discover agar tidak terpengaruh CSS Places */
 .discover-card {
-  min-width: 300px; /* Lebar default desktop */
-  width: 300px;
-  flex-shrink: 0;
+  flex: 0 0 85%; /* Di HP, kartu ambil 85% lebar layar */
+  max-width: 300px; /* Di laptop, kartu tidak akan lebih lebar dari 300px */
   border-radius: 16px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-}
-
-/* Responsif untuk HP */
-@media (max-width: 640px) {
-  .discover-card {
-      min-width: 85vw; /* Lebih fleksibel di layar HP */
-      width: 85vw;
-  }
 }
 
 /* Khusus gambar agar tidak gepeng */
@@ -189,6 +188,13 @@ button {
   display: block;
 }
 
+
+/* Khusus Laptop/Desktop */
+@media (min-width: 768px) {
+  .discover-card {
+    flex: 0 0 300px; /* Di layar besar, kartu akan tetap 300px */
+  }
+}
 
 
 
