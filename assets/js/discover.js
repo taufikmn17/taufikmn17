@@ -26,101 +26,110 @@ document.addEventListener("keydown", function (e) {
 // Tombol silang
 document.getElementById("closeModalBtn").addEventListener("click", closeModal);
 
-function enableNormalScroll() {
-  const scrollContainer = document.getElementById("scrollContainer");
+document.addEventListener("DOMContentLoaded", () => {
+  const container = document.getElementById("scrollContainer");
   const progressBar = document.getElementById("scrollProgressBar");
-  if (!scrollContainer) return;
 
-  const imageData = [
-    { src: "assets/img/2.jpg", title: "Kaliurang", desc: "Main skuter 🛴🍃" },
-    { src: "assets/img/3.jpg", title: "Kopi Tuku", desc: "Habis ngopi foto mirror ☕📷" },
-    { src: "assets/img/4.jpg", title: "Photobooth SCH", desc: "Foto tambahan ceritanya 🎞️💫" },
-    { src: "assets/img/5.jpg", title: "Popsnap", desc: "Pinky 💕📸" },
-    { src: "assets/img/6.jpg", title: "Jalan Kaliurang", desc: "Foto mirror atas motor 🛵🌌" },
-    { src: "assets/img/7.jpg", title: "Popsnap", desc: "Sambil menunggu 🤭⏳" },
-    { src: "assets/img/8.jpg", title: "UTY", desc: "Wisata jam batu 🕰️🏛️" },
-    { src: "assets/img/9.jpg", title: "Popsnap", desc: "Gemashh 🥹💗" },
-    { src: "assets/img/10.jpg", title: "Alun-alun Kidul", desc: "Menunggu berbuka puasa 🌙🕌" },
-    { src: "assets/img/11.jpg", title: "Popsnap", desc: "Prepare sebelum foto 🎀📷" },
-    { src: "assets/img/12.jpg", title: "Union Pizza", desc: "Bikin pizza sendiri 👩‍🍳🍕" },
-    { src: "assets/img/13.jpg", title: "Gwiyomi", desc: "Pose gemes 🐣🎶" },
-    { src: "assets/img/14.jpg", title: "Oca Ice Skating", desc: "Seluncuran gess 🧊⛸️" },
-    { src: "assets/img/15.jpg", title: "Jalan Tunjungan", desc: "Jalan-jalan malam 🌃🚶‍♀️" },
-    { src: "assets/img/16.jpg", title: "Lift Lippo", desc: "Ngaca dulu di lift 🪞✨" },
+  const data = [
+    { src: "assets/img/2.jpg", title: "Kaliurang", tag: "Wisata", desc: "Skuteran bareng di Kaliurang suasana sejuk, bahagianya juga dapet karena kamu yang nemenin hihi 🛴🍃", geo: "Sleman"},
+    { src: "assets/img/3.jpg", title: "Photo Mirror", tag: "Kopi Tuku", desc: "Cuma modal ngopi, ujung-ujungnya malah jadi sesi foto mirror gemes ☕📸", geo: "Sleman"},
+    { src: "assets/img/4.jpeg", title: "Tunjungan Plaza", tag: "Color Time", desc: "Mewarnai bareng di mall, cara sederhana buat bikin hari jadi berwarna 🎨✨", geo: "Surabaya"},
+    { src: "assets/img/5.jpg", title: "Photobooth", tag: "Pop Snap", desc: "Pose cakep di photobooth, hasilnya secakep masa depan kita 📸💖", geo: "Sleman"},
+    { src: "assets/img/6.jpg", title: "Kaliurang", tag: "Wisata", desc: "Cuma mirror selfie di pinggir jalan deket Kopmer bareng kamu tapi rasanya ngangenin 📸🏍️", geo: "Sleman"},
+    { src: "assets/img/7.jpg", title: "Foto Mirror", tag: "Pop Snap", desc: "Foto random langsung jepret, tapi kok ya malah jadi favorit banget 📷✨", geo: "Sleman"},
+    { src: "assets/img/8.jpg", title: "UTY", tag: "Wisata Jam Batu", desc: "Berkunjung ke Jam Batu UTY, spot wajib prasasti kampus bersejarah wkwk 🎓✨", geo: "Sleman"},
+    { src: "assets/img/9.jpeg", title: "Photobooth", tag: "Pop Snap", desc: "Pose sedikit jongkok kayak pemain bola lucu amay kita 👯‍♂️📸", geo: "Sleman"},
+    { src: "assets/img/10.jpg", title: "Bukber", tag: "Alkid", desc: "Tujuan utamanya sih bukber, tapi poin plusnya bisa menikmati sore di alkid bareng kamu 🌙🍽️", geo: "Yogyakarta"},
+    { src: "assets/img/11.jpeg", title: "Tunjungan Plaza", tag: "Fun World", desc: "Habis main game langsung foto bareng deh 🎮🎢", geo: "Surabaya"},
+    { src: "assets/img/12.jpg", title: "Union Pizza", tag: "Masak", desc: "Belajar bikin pizza bareng, ternyata kunci enaknya bukan di topping, tapi masaknya bareng kamu cihuyy 🍕✨", geo: "Yogyakarta"},
+    { src: "assets/img/13.jpg", title: "Photobooth", tag: "Gwiyomi", desc: "Sesi foto lucu gandeng tangan cantikku karena lagi pose jongkok 😆💖", geo: "Surabaya"},
+    { src: "assets/img/14.jpg", title: "Ice Skating", tag: "Oca", desc: "Ice skating bareng, sering hampir jatuh tapi seru wkwkwk ⛸️❄️", geo: "Surabaya"},
+    { src: "assets/img/15.jpg", title: "Foto Mirror", tag: "Jalan-jalan", desc: "Lagi jalan tiba tiba nemu spot foto, hasilnya cekrek aja 🛍️📸", geo: "Surabaya"},
+    { src: "assets/img/16.jpg", title: "Foto Mirror", tag: "Lift Lippo", desc: "Foto di lift ala-ala, random banget tapi ya lucu 🏢✨", geo: "Yogyakarta"},
+    { src: "assets/img/17.jpeg", title: "Paralayan Batu", tag: "Wisata", desc: "Menikmati malam di paralayang batu, best night view with the best person! 🌌💖", geo: "Malang"},
+    { src: "assets/img/18.jpeg", title: "Alun-alun 1", tag: "Jalan-jalan Malam", desc: "Mulai dari keliling kota Jepara, lanjut mewarnai di alun-alun, terus ditutup ngopi bareng 🎨☕", geo: "Jepara"},
+    { src: "assets/img/19.jpeg", title: "Photobooth", tag: "Malioboro", desc: "Malioboro night vibe, pose ole romeny, tegakkan kepala dan fokus masa depan ✊⚡", geo: "Yogyakarta"},
   ];
 
-  // Bersihkan container agar tidak menumpuk saat reload
-  scrollContainer.innerHTML = "";
-
-  // Render 1 set foto murni agar bisa mentok kanan-kiri alami
-  imageData.forEach((data) => {
+  // 1. Rendering Kartu
+  container.innerHTML = "";
+  data.forEach((item) => {
     const card = document.createElement("div");
-    card.className = "min-w-[250px] card-cute rounded-xl shadow-lg shrink-0 cursor-pointer";
-    card.ondblclick = () => openModal(data.src);
+    card.className = "place-card-premium group";
+    card.style.cursor = "pointer"; // Menandakan bisa diklik
+    
     card.innerHTML = `
-      <img src="${data.src}" class="w-full h-60 object-cover rounded-t-xl" alt="${data.title}" />
-      <div class="p-4 text-left">
-        <h3 class="text-lg font-bold text-pink-700">${data.title}</h3>
-        <p class="text-sm text-pink-600">${data.desc}</p>
+      <div class="card-inner-wrapper">
+          <div class="card-image-box">
+              <img src="${item.src}" alt="${item.title}" class="group-hover:scale-110 transition-transform duration-700 ease-out" />
+          </div>
+          <div class="card-info-content">
+              <span class="content-tag text-pink-600">${item.tag || 'Adventure'}</span>
+              <h3 class="text-xl font-bold text-gray-800 group-hover:text-pink-600">${item.title}</h3>
+              <p class="text-sm text-gray-500 leading-relaxed mb-4">${item.desc}</p>
+              <div class="flex items-center justify-between pt-3 border-t border-pink-100/50 mt-auto">
+                  <span class="text-xs text-pink-400 font-medium">
+                      <i class="fas fa-map-marker-alt mr-1"></i> ${item.geo || 'N/A'}
+                  </span>
+              </div>
+          </div>
       </div>
     `;
-    scrollContainer.appendChild(card);
+
+    card.addEventListener("dblclick", () => {
+        openModal(item.src);
+    });
+
+    container.appendChild(card);
   });
 
-  // Posisi awal paling kiri
-  scrollContainer.scrollLeft = 0;
-
-  // Fungsi menggerakkan garis progres di bawah foto secara real-time
+  // 2. Fungsi Progres Bar
   function updateProgressBar() {
     if (!progressBar) return;
-    const maxScroll = scrollContainer.scrollWidth - scrollContainer.clientWidth;
-    if (maxScroll <= 0) return;
-    
-    const scrollPercentage = (scrollContainer.scrollLeft / maxScroll) * 100;
+    const maxScroll = container.scrollWidth - container.clientWidth;
+    if (maxScroll <= 0) {
+        progressBar.style.width = "100%";
+        return;
+    }
+    const scrollPercentage = (container.scrollLeft / maxScroll) * 100;
     progressBar.style.width = `${scrollPercentage}%`;
   }
 
-  // Monitor pergerakan scroll
-  scrollContainer.addEventListener("scroll", updateProgressBar);
+  container.addEventListener("scroll", updateProgressBar);
   window.addEventListener("resize", updateProgressBar);
   updateProgressBar();
 
+  // 3. Drag to Scroll
   let isDragging = false;
   let startX;
   let scrollLeft;
 
-  // Manajemen Drag-to-scroll menggunakan mouse
-  scrollContainer.addEventListener("mousedown", (e) => {
+  container.addEventListener("mousedown", (e) => {
     isDragging = true;
-    scrollContainer.classList.add("cursor-grabbing");
-    startX = e.pageX - scrollContainer.offsetLeft;
-    scrollLeft = scrollContainer.scrollLeft;
+    container.classList.add("cursor-grabbing");
+    startX = e.pageX - container.offsetLeft;
+    scrollLeft = container.scrollLeft;
   });
 
-  scrollContainer.addEventListener("mouseleave", () => {
+  container.addEventListener("mouseleave", () => {
     isDragging = false;
-    scrollContainer.classList.remove("cursor-grabbing");
+    container.classList.remove("cursor-grabbing");
   });
 
-  scrollContainer.addEventListener("mouseup", () => {
+  container.addEventListener("mouseup", () => {
     isDragging = false;
-    scrollContainer.classList.remove("cursor-grabbing");
+    container.classList.remove("cursor-grabbing");
   });
 
-  scrollContainer.addEventListener("mousemove", (e) => {
+  container.addEventListener("mousemove", (e) => {
     if (!isDragging) return;
     e.preventDefault();
-    const x = e.pageX - scrollContainer.offsetLeft;
-    
-    // PERBAIKAN: Pengali diatur ke 1.5 agar pergeseran sangat akurat mengikuti gerakan mouse
+    const x = e.pageX - container.offsetLeft;
     const walk = (x - startX) * 1.5; 
-    scrollContainer.scrollLeft = scrollLeft - walk;
+    container.scrollLeft = scrollLeft - walk;
+    updateProgressBar(); // Update progress saat drag
   });
-}
 
-// Jalankan fungsi saat dokumen siap
-if (document.readyState !== "loading") {
-  enableNormalScroll();
-} else {
-  document.addEventListener("DOMContentLoaded", enableNormalScroll);
-}
+  // Set posisi awal
+  container.scrollLeft = 0;
+});

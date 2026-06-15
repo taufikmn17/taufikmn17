@@ -155,6 +155,20 @@ button {
   object-fit: cover;
 }
 
+
+/* Pastikan kartu punya lebar tetap agar tidak gepeng di flex container */
+.place-card-premium {
+  min-width: 300px; /* Lebar kartu di mode horizontal */
+  max-width: 300px;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s, transform 0.8s;
+}
+
+
+
+
+
 /* ========================================================
    GAYA DESAIN KABEL/GARIS PROGRESS PENANDA BATAS SCROLL
    ======================================================== */
