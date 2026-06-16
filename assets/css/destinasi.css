@@ -36,3 +36,15 @@
 #destinasiGridContainer::-webkit-scrollbar-thumb:hover {
     background-color: #ff1493; /* Warna saat di-hover */
 }
+
+/* Tambahkan ini ke destinasi.css */
+.section-title-fade {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.section-title-fade.title-visible {
+    opacity: 1;
+    transform: translateY(0);
+}

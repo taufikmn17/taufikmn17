@@ -31,13 +31,17 @@ document.addEventListener("DOMContentLoaded", () => {
       // Hapus kelas tailwind yang bertabrakan dengan CSS custom (seperti border-pink-100)
       card.className = "destinasi-card p-4"; 
       card.innerHTML = `
-          <div class="card-inner-wrapper p-4">
-          <img src="${item.src}" class="w-full h-48 object-cover rounded-2xl mb-4" alt="${item.title}">
-          <span class="bg-pink-100 text-pink-600 text-xs font-bold px-3 py-1 rounded-full">${item.tag}</span>
-          <h3 class="text-xl font-bold text-gray-800 mt-2">${item.title}</h3>
-          <p class="text-gray-500 text-sm mt-1 mb-3">${item.desc}</p>
-          <p class="text-pink-500 text-xs font-semibold"><i class="fas fa-map-marker-alt mr-1"></i>${item.geo}</p>
-      </div>
+            <div class="card-inner-wrapper p-4 group"> 
+            <img src="${item.src}" class="w-full h-48 object-cover rounded-2xl mb-4" alt="${item.title}">
+            <span class="bg-pink-100 text-pink-600 text-xs font-bold px-3 py-1 rounded-full">${item.tag}</span>
+            
+            <h3 class="text-xl font-bold text-gray-800 group-hover:text-pink-600 transition-colors duration-300 mt-2">
+                ${item.title}
+            </h3>
+            
+            <p class="text-gray-500 text-sm mt-1 mb-3">${item.desc}</p>
+            <p class="text-pink-500 text-xs font-semibold"><i class="fas fa-map-marker-alt mr-1"></i>${item.geo}</p>
+        </div>
       `;
       gridContainer.appendChild(card);
   });
@@ -72,4 +76,19 @@ document.addEventListener("DOMContentLoaded", () => {
           inner.style.transform = "rotateX(0deg) rotateY(0deg) translateY(0px)";
       });
   });
+
+  
+
+  // INTERSECTION OBSERVER JUDUL
+  const sectionTitles = document.querySelectorAll(".section-title-fade");
+  const titleObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+              entry.target.classList.add("title-visible");
+              observer.unobserve(entry.target);
+          }
+      });
+  }, { threshold: 0.1 });
+
+  sectionTitles.forEach(title => titleObserver.observe(title));
 });
