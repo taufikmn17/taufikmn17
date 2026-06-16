@@ -2,9 +2,9 @@
 .destinasi-card {
     min-width: 280px;
     scroll-snap-align: start;
-    perspective: 1000px; /* Sangat penting untuk efek 3D */
+    perspective: 1000px;
     cursor: pointer;
-    padding: 10px; /* Ruang untuk efek hover */
+    padding: 10px;
 }
 
 .card-inner-wrapper {
@@ -12,17 +12,27 @@
     border: 2px dashed #ff69b4;
     border-radius: 24px;
     overflow: hidden;
-    transition: transform 0.1s ease-out; /* Smooth transition */
+    transition: transform 0.1s ease-out;
     transform-style: preserve-3d;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
 }
 
-/* Tambahkan ini di destinasi.css */
-.scrollbar-hide {
-    -ms-overflow-style: none; /* Untuk Internet Explorer & Edge */
-    scrollbar-width: none;    /* Untuk Firefox */
+/* Custom Scrollbar */
+#destinasiGridContainer::-webkit-scrollbar {
+    height: 8px; /* Tinggi scrollbar horizontal */
 }
 
-.scrollbar-hide::-webkit-scrollbar {
-    display: none; /* Untuk Chrome, Safari, dan Opera */
+#destinasiGridContainer::-webkit-scrollbar-track {
+    background: #fdf2f8; /* Warna background track (pink muda) */
+    border-radius: 10px;
+}
+
+#destinasiGridContainer::-webkit-scrollbar-thumb {
+    background-color: #ff69b4; /* Warna scrollbar */
+    border-radius: 10px;
+    border: 2px solid #fdf2f8;
+}
+
+#destinasiGridContainer::-webkit-scrollbar-thumb:hover {
+    background-color: #ff1493; /* Warna saat di-hover */
 }

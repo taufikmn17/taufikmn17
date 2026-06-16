@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
       { src: "assets/img/18.jpeg", title: "Alun-alun 1", tag: "Jalan-jalan Malam", desc: "Mulai dari keliling kota Jepara, lanjut mewarnai di alun-alun, terus ditutup ngopi bareng 🎨☕", geo: "Jepara"},
       { src: "assets/img/19.jpeg", title: "Photobooth", tag: "Malioboro", desc: "Malioboro night vibe, pose ole romeny, tegakkan kepala dan fokus masa depan ✊⚡", geo: "Yogyakarta"},
       { src: "assets/img/20.jpeg", title: "Photobooth", tag: "Tugu", desc: "Jam 2 pagi di tugu demi menghindari keramaian biar bisa foto leluasa dan gak perlu antre lama 🌃✨", geo: "Yogyakarta"},
-      { src: "assets/img/21.jpeg", title: "Photobooth", tag: "K3 Mart", desc: "Semarang Kota Lama night walk. Suka banget sama suasana klasiknya 🌃✨", geo: "Semarang"}
+      { src: "assets/img/21.jpeg", title: "Photobooth", tag: "K3 Mart", desc: "Semarang Kota Lama night walk, Suka banget sama suasana klasiknya 🌃✨", geo: "Semarang"}
   ];
 
   destinasiData.forEach(item => {
