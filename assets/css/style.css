@@ -142,21 +142,6 @@ button {
   object-fit: cover;
 }
 
-/* CARD DESTINASI */
-.scrollbar-hide::-webkit-scrollbar { display: none; }
-.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
-
-.place-card {
-  min-width: 300px; /* Lebar kartu */
-  snap-align: start;
-  transition: transform 0.3s ease;
-}
-
-.place-card:hover { transform: translateY(-10px); }
-
-/* Efek gambar */
-.card-img { height: 200px; object-fit: cover; width: 100%; border-radius: 20px 20px 0 0; }
-
 
 
 

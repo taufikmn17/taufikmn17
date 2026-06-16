@@ -1,0 +1,19 @@
+/* destinasi.css */
+.destinasi-card {
+    min-width: 280px; /* Lebar kartu */
+    scroll-snap-align: start;
+    transition: transform 0.3s ease;
+}
+
+.destinasi-card:hover {
+    transform: translateY(-10px);
+}
+
+/* Sembunyikan scrollbar agar lebih estetis */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}

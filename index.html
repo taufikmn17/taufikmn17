@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="assets/css/vidio.css" />
   <link rel="stylesheet" href="assets/css/place.css"/>
   <link rel="stylesheet" href="assets/css/music.css"/>
+  <link rel="stylesheet" href="assets/css/destinasi.css">
   <script src="https://cdn.tailwindcss.com"></script>
   <title>Altaf - Cerita Kita</title>
 </head>
@@ -531,35 +532,29 @@
     </div>
 
 </section> -->
+
+
+    
     
 
     <!-- Destinasi Section -->
-    <section class="py-10">
-        <h2 class="text-3xl font-bold text-center mb-8">Destinasi Kita</h2>
+    <div class="max-w-2xl mx-auto mb-10 text-center section-title-fade">
+        <span class="text-xs font-bold uppercase tracking-widest text-white px-4 py-1.5 rounded-full inline-block mb-3 shadow-sm border" style="background-color: #ff69b4; border-color: #ff1493;">Our Adventure</span>
         
-        <div class="relative w-full max-w-6xl mx-auto px-4">
-          <div id="scrollContainer" class="flex overflow-x-auto gap-6 pb-8 snap-x scrollbar-hide cursor-grab">
-            </div>
-          
-          <div class="w-full bg-gray-200 h-1 mt-4 rounded-full overflow-hidden">
-            <div id="scrollProgressBar" class="h-full bg-pink-500 w-0 transition-all duration-300"></div>
-          </div>
-        </div>
-      </section>
-      
-      <div id="imageModal" class="hidden fixed inset-0 z-[1000] bg-black/80 flex items-center justify-center p-4">
-        <button id="closeModalBtn" class="absolute top-5 right-5 text-white text-3xl">&times;</button>
-        <img id="modalImage" src="" class="max-w-full max-h-[80vh] rounded-lg shadow-2xl" />
-      </div>
-    
-    <div id="imageModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-80 p-4">
-        <button id="closeModalBtn" class="absolute top-5 right-5 text-white text-3xl font-bold">&times;</button>
-        <img id="modalImage" src="" alt="Zoom" class="max-h-[90vh] max-w-[90vw] object-contain rounded-lg">
+        <h2 class="text-4xl font-extrabold text-pink-700 font-sans tracking-tight">
+            Geser Ke Kanan <br>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-rose-600">Lihat Berbagai Destinasi Kita</span>
+        </h2>
+        
+        <div class="w-16 h-1 bg-gradient-to-r from-[#ff69b4] to-amber-400 mx-auto mt-4 rounded-full"></div>
     </div>
+    
+    <div id="destinasiGridContainer" class="flex overflow-x-auto pb-8 gap-6 px-4 scrollbar-hide snap-x">
+        </div>
+    
+    
+    
   
-
-
-
     <!-- Video -->
     <section id="vidioo" class="py-24 bg-white overflow-hidden text-center">
       <div class="container mx-auto px-6">
@@ -1010,10 +1005,11 @@ onSnapshot(qLeaderboard, (snapshot) => {
   <script src="assets/js/scrollreveal.min.js"></script>
   <script src="assets/js/swiper-bundle.min.js"></script>
   <script src="assets/js/main.js"></script>
-  <script src="assets/js/destinasi.js"></script>
+  <script src="assets/js/discover.js"></script>
   <script src="assets/js/vidio.js"></script>
   <script src="assets/js/place.js"></script>
   <script src="assets/js/music.js"></script>
+  <script src="assets/js/destinasi.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
 
 </body>
