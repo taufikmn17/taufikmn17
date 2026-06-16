@@ -117,27 +117,6 @@ button {
 /* ========================================================
    OPTIMASI & DESAIN KARTU GALERI FOTO (DISCOVER)
    ======================================================== */
-
-/* Pastikan container scroll tidak memotong konten */
-#scrollContainer {
-  display: flex;
-  gap: 16px; 
-  overflow-x: auto;
-  padding: 24px 16px;
-  
-  /* PENTING: Gunakan 'auto' agar tidak ada animasi meluncur/smooth */
-  scroll-behavior: auto; 
-  
-  /* PENTING: Matikan snapping agar tidak tertahan di titik tertentu */
-  scroll-snap-type: none;
-  
-  /* Matikan akselerasi momentum pada perangkat touch */
-  -webkit-overflow-scrolling: auto;
-  
-  /* Sembunyikan scrollbar */
-  scrollbar-width: none;
-}
-
 /* Mempertahankan warna lavender & border putus-putus kesukaan Anda */
 .card-cute {
   background-color: var(--lavender);
@@ -163,38 +142,145 @@ button {
   object-fit: cover;
 }
 
-
-/* Container khusus untuk Discover agar tidak terpengaruh CSS Places */
+/* CARD DISCOVER */
 .discover-card {
-  flex: 0 0 85%; /* Di HP, kartu ambil 85% lebar layar */
-  max-width: 300px; /* Di laptop, kartu tidak akan lebih lebar dari 300px */
-  border-radius: 16px;
+  width: 320px; /* ukuran tetap */
+  min-width: 320px;
+  max-width: 320px;
+
+  height: 500px;
+
+  flex-shrink: 0; /* jangan mengecil */
+}
+
+/* WRAPPER */
+.discover-inner {
+  height: 100%;
+  overflow: hidden;
+
+  background: #fdf7fb;
+  border: 3px dashed #ff7ab6;
+  border-radius: 28px;
+
   display: flex;
   flex-direction: column;
+
+  transition: all 0.35s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,.06);
+}
+
+/* Hover */
+.discover-inner:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 30px rgba(255,105,180,.25);
+}
+
+/* IMAGE */
+.discover-image {
+  height: 260px;
   overflow: hidden;
 }
 
-/* Khusus gambar agar tidak gepeng */
-.discover-card .card-image-box {
-  width: 100%;
-  height: 200px; /* Tinggi seragam */
-  overflow: hidden;
-}
-
-.discover-card .card-image-box img {
+.discover-image img {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Kunci agar tidak gepeng */
-  display: block;
+  object-fit: cover;
+
+  transition: transform .6s ease;
 }
 
+/* CONTENT */
+.discover-content {
+  flex: 1;
 
-/* Khusus Laptop/Desktop */
-@media (min-width: 768px) {
+  display: flex;
+  flex-direction: column;
+
+  padding: 24px;
+}
+
+/* TAG */
+.discover-tag {
+  color: #f472b6;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* TITLE */
+.discover-title {
+  margin-top: 8px;
+  margin-bottom: 10px;
+
+  font-size: 34px;
+  font-weight: 700;
+  color: #222;
+}
+
+/* DESCRIPTION */
+.discover-desc {
+  color: #666;
+  line-height: 1.8;
+  font-size: 15px;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+
+  overflow: hidden;
+}
+
+/* FOOTER */
+.discover-footer {
+  margin-top: auto;
+
+  padding-top: 16px;
+  border-top: 1px solid #fbcfe8;
+
+  color: #f472b6;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* SCROLLBAR HIDE */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.discover-scroll{
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  scroll-behavior: smooth;
+
+  -webkit-overflow-scrolling: touch;
+
+  /* Momentum scroll untuk mobile */
+  touch-action: pan-x;
+
+  padding-bottom: 10px;
+}
+
+@media (max-width: 768px) {
   .discover-card {
-    flex: 0 0 300px; /* Di layar besar, kartu akan tetap 300px */
+      width: 280px;
+      min-width: 280px;
+      max-width: 280px;
+  }
+
+  .discover-image {
+      height: 220px;
+  }
+
+  .discover-title {
+      font-size: 28px;
   }
 }
+
 
 
 

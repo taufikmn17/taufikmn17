@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
     { src: "assets/img/14.jpg", title: "Ice Skating", tag: "Oca", desc: "Ice skating bareng, sering hampir jatuh tapi seru wkwkwk ⛸️❄️", geo: "Surabaya"},
     { src: "assets/img/15.jpg", title: "Foto Mirror", tag: "Jalan-jalan", desc: "Lagi jalan tiba tiba nemu spot foto, hasilnya cekrek aja 🛍️📸", geo: "Surabaya"},
     { src: "assets/img/16.jpg", title: "Foto Mirror", tag: "Lift Lippo", desc: "Foto di lift ala-ala, random banget tapi ya lucu 🏢✨", geo: "Yogyakarta"},
-    { src: "assets/img/17.jpeg", title: "Paralayan Batu", tag: "Wisata", desc: "Menikmati malam di paralayang batu, best night view with the best person! 🌌💖", geo: "Malang"},
+    { src: "assets/img/17.jpeg", title: "Paralayang Batu", tag: "Wisata", desc: "Menikmati malam di paralayang batu, best night view with the best person! 🌌💖", geo: "Malang"},
     { src: "assets/img/18.jpeg", title: "Alun-alun 1", tag: "Jalan-jalan Malam", desc: "Mulai dari keliling kota Jepara, lanjut mewarnai di alun-alun, terus ditutup ngopi bareng 🎨☕", geo: "Jepara"},
     { src: "assets/img/19.jpeg", title: "Photobooth", tag: "Malioboro", desc: "Malioboro night vibe, pose ole romeny, tegakkan kepala dan fokus masa depan ✊⚡", geo: "Yogyakarta"},
     { src: "assets/img/20.jpeg", title: "Photobooth", tag: "Tugu", desc: "Jam 2 pagi di tugu demi menghindari keramaian biar bisa foto leluasa dan gak perlu antre lama 🌃✨", geo: "Yogyakarta"},
@@ -60,26 +60,43 @@ document.addEventListener("DOMContentLoaded", () => {
   data.forEach((item) => {
     const card = document.createElement("div");
     // Di dalam loop data.forEach
-    card.className = "discover-card group hover:shadow-lg transition-all duration-300 snap-start";
     card.style.cursor = "pointer"; // Menandakan bisa diklik
     
+    card.className =
+        "discover-card snap-start flex-shrink-0 group";
+
     card.innerHTML = `
-    <div class="card-inner-wrapper flex flex-col h-full">
-    <div class="card-image-box">
-        <img src="${item.src}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out" />
-    </div>
-    <div class="card-info-content p-5 flex flex-col flex-grow">
-        <span class="content-tag text-pink-600 text-sm font-semibold mb-1">${item.tag || 'Adventure'}</span>
-        <h3 class="text-xl font-bold text-gray-800 mb-2">${item.title}</h3>
-        <p class="text-sm text-gray-500 leading-relaxed mb-4">${item.desc}</p>
-        <div class="mt-auto pt-3 border-t border-pink-100/50">
-            <span class="text-xs text-pink-400 font-medium">
-                <i class="fas fa-map-marker-alt mr-1"></i> ${item.geo || 'N/A'}
-            </span>
+        <div class="discover-inner">
+            
+            <div class="discover-image">
+                <img
+                    src="${item.src}"
+                    alt="${item.title}"
+                    class="group-hover:scale-110 transition duration-700"
+                />
+            </div>
+
+            <div class="discover-content">
+                <span class="discover-tag">
+                    ${item.tag || "Adventure"}
+                </span>
+
+                <h3 class="discover-title">
+                    ${item.title}
+                </h3>
+
+                <p class="discover-desc">
+                    ${item.desc}
+                </p>
+
+                <div class="discover-footer">
+                    <i class="fas fa-map-marker-alt"></i>
+                    ${item.geo || "N/A"}
+                </div>
+            </div>
+
         </div>
-    </div>
-</div>
-`;
+    `;
 
     card.addEventListener("dblclick", () => {
         openModal(item.src);
