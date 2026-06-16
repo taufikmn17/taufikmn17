@@ -558,15 +558,26 @@
         
 
         <!-- Modal Preview -->
-        <div id="imageModal" class="fixed inset-0 bg-black bg-opacity-80 hidden z-50 flex justify-center items-center">
-          <div class="relative max-w-5xl w-full px-4">
-              <!-- Tombol Close yang dipindahkan ke bawah tengah dan diperbesar tanpa lingkaran -->
-              <button id="closeModalBtn" class="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-white text-5xl font-bold z-50">
-                  &times;
-              </button>
-              <!-- Gambar yang lebih besar -->
-              <img id="modalImage" src="" class="w-full max-h-[95vh] object-contain mx-auto rounded-xl" />
-          </div>
+        <div id="imageModal"
+        class="fixed inset-0 bg-black/80 hidden z-[9999] flex justify-center items-center">
+
+        <div class="relative max-w-5xl w-full px-4">
+
+        <!-- Gambar -->
+        <img id="modalImage"
+                src=""
+                class="w-full max-h-[95vh] object-contain mx-auto rounded-xl">
+
+        <!-- Tombol Close bawah tengah -->
+        <button id="closeModalBtn"
+                class="absolute bottom-4 left-1/2 -translate-x-1/2
+                        text-white text-6xl font-bold
+                        hover:scale-110 transition-all duration-300
+                        z-50">
+            &times;
+        </button>
+
+        </div>
         </div>
     </section>
   

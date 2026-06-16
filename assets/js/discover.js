@@ -1,30 +1,59 @@
 function openModal(src) {
   const modal = document.getElementById("imageModal");
   const modalImage = document.getElementById("modalImage");
+
   modalImage.src = src;
   modal.classList.remove("hidden");
-  modal.scrollIntoView({ behavior: "smooth", block: "center" });
+
+  // Tambahkan state ke history
+  history.pushState({ modalOpen: true }, "");
+
+  modal.scrollIntoView({
+    behavior: "smooth",
+    block: "center"
+  });
 }
 
-function closeModal() {
+function closeModal(useHistoryBack = true) {
   const modal = document.getElementById("imageModal");
-  modal.classList.add("hidden");
   const modalImage = document.getElementById("modalImage");
+
+  modal.classList.add("hidden");
   modalImage.src = "";
+
+  // Jika ditutup manual (X, klik luar, ESC)
+  if (useHistoryBack && history.state?.modalOpen) {
+    history.back();
+  }
 }
 
-// Klik di luar gambar untuk tutup modal
-document.getElementById("imageModal").addEventListener("click", function (e) {
-  if (e.target === this) closeModal();
+// Tombol Back HP
+window.addEventListener("popstate", function () {
+  const modal = document.getElementById("imageModal");
+
+  if (!modal.classList.contains("hidden")) {
+    closeModal(false);
+  }
 });
 
-// Tekan ESC untuk menutup modal
+// Klik area luar gambar
+document.getElementById("imageModal").addEventListener("click", function (e) {
+  if (e.target === this) {
+    closeModal();
+  }
+});
+
+// Tombol ESC
 document.addEventListener("keydown", function (e) {
-  if (e.key === "Escape") closeModal();
+  if (e.key === "Escape") {
+    closeModal();
+  }
 });
 
 // Tombol silang
-document.getElementById("closeModalBtn").addEventListener("click", closeModal);
+document.getElementById("closeModalBtn").addEventListener("click", function () {
+  closeModal();
+});
 
 document.addEventListener("DOMContentLoaded", () => {
   const container = document.getElementById("scrollContainer");
