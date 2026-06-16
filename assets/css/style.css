@@ -142,140 +142,20 @@ button {
   object-fit: cover;
 }
 
-/* CARD DISCOVER */
-.discover-card {
-  width: 320px; /* ukuran tetap */
-  min-width: 320px;
-  max-width: 320px;
+/* CARD DESTINASI */
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
 
-  height: 500px;
-
-  flex-shrink: 0; /* jangan mengecil */
+.place-card {
+  min-width: 300px; /* Lebar kartu */
+  snap-align: start;
+  transition: transform 0.3s ease;
 }
 
-/* WRAPPER */
-.discover-inner {
-  height: 100%;
-  overflow: hidden;
+.place-card:hover { transform: translateY(-10px); }
 
-  background: #fdf7fb;
-  border: 3px dashed #ff7ab6;
-  border-radius: 28px;
-
-  display: flex;
-  flex-direction: column;
-
-  transition: all 0.35s ease;
-  box-shadow: 0 4px 12px rgba(0,0,0,.06);
-}
-
-/* Hover */
-.discover-inner:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 12px 30px rgba(255,105,180,.25);
-}
-
-/* IMAGE */
-.discover-image {
-  height: 260px;
-  overflow: hidden;
-}
-
-.discover-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-
-  transition: transform .6s ease;
-}
-
-/* CONTENT */
-.discover-content {
-  flex: 1;
-
-  display: flex;
-  flex-direction: column;
-
-  padding: 24px;
-}
-
-/* TAG */
-.discover-tag {
-  color: #f472b6;
-  font-size: 14px;
-  font-weight: 600;
-}
-
-/* TITLE */
-.discover-title {
-  margin-top: 8px;
-  margin-bottom: 10px;
-
-  font-size: 34px;
-  font-weight: 700;
-  color: #222;
-}
-
-/* DESCRIPTION */
-.discover-desc {
-  color: #666;
-  line-height: 1.8;
-  font-size: 15px;
-
-  display: -webkit-box;
-  -webkit-line-clamp: 4;
-  -webkit-box-orient: vertical;
-
-  overflow: hidden;
-}
-
-/* FOOTER */
-.discover-footer {
-  margin-top: auto;
-
-  padding-top: 16px;
-  border-top: 1px solid #fbcfe8;
-
-  color: #f472b6;
-  font-size: 14px;
-  font-weight: 600;
-}
-
-/* SCROLLBAR HIDE */
-.scrollbar-hide::-webkit-scrollbar {
-  display: none;
-}
-
-.scrollbar-hide {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-.discover-scroll{
-  overflow-x: auto;
-  overflow-y: hidden;
-
-  scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
-
-  padding-bottom: 10px;
-}
-
-@media (max-width: 768px) {
-  .discover-card {
-      width: 280px;
-      min-width: 280px;
-      max-width: 280px;
-  }
-
-  .discover-image {
-      height: 220px;
-  }
-
-  .discover-title {
-      font-size: 28px;
-  }
-}
+/* Efek gambar */
+.card-img { height: 200px; object-fit: cover; width: 100%; border-radius: 20px 20px 0 0; }
 
 
 

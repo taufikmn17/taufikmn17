@@ -85,54 +85,27 @@ document.addEventListener("DOMContentLoaded", () => {
   ];
 
   // 1. Rendering Kartu
-  container.innerHTML = "";
-  data.forEach((item) => {
-    const card = document.createElement("div");
-    // Di dalam loop data.forEach
-    card.style.cursor = "pointer"; // Menandakan bisa diklik
-    
-    card.className =
-        "discover-card snap-start flex-shrink-0 group";
-
-    card.innerHTML = `
-        <div class="discover-inner">
-            
-            <div class="discover-image">
-                <img
-                    src="${item.src}"
-                    alt="${item.title}"
-                    class="group-hover:scale-110 transition duration-700"
-                />
-            </div>
-
-            <div class="discover-content">
-                <span class="discover-tag">
-                    ${item.tag || "Adventure"}
-                </span>
-
-                <h3 class="discover-title">
-                    ${item.title}
-                </h3>
-
-                <p class="discover-desc">
-                    ${item.desc}
-                </p>
-
-                <div class="discover-footer">
-                    <i class="fas fa-map-marker-alt"></i>
-                    ${item.geo || "N/A"}
-                </div>
-            </div>
-
+  const renderCards = () => {
+    const container = document.getElementById("scrollContainer");
+    container.innerHTML = data.map(item => `
+      <div class="place-card bg-white rounded-[24px] shadow-lg border border-pink-100 overflow-hidden flex flex-col">
+        <div class="relative overflow-hidden cursor-pointer" onclick="openModal('${item.src}')">
+          <img src="${item.src}" alt="${item.title}" class="card-img">
+          <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-pink-600 shadow-sm">
+            ${item.geo}
+          </div>
         </div>
-    `;
-
-    card.addEventListener("dblclick", () => {
-        openModal(item.src);
-    });
-
-    container.appendChild(card);
-  });
+        <div class="p-5 flex-1 flex flex-col">
+          <span class="text-pink-400 text-xs font-bold uppercase tracking-wider">${item.tag}</span>
+          <h3 class="text-xl font-bold text-gray-800 mt-1">${item.title}</h3>
+          <p class="text-gray-600 text-sm mt-2 line-clamp-3">${item.desc}</p>
+        </div>
+      </div>
+    `).join('');
+  };
+  
+  renderCards();
+  
 
   // 2. Fungsi Progres Bar
   function updateProgressBar() {
