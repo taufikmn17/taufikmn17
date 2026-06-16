@@ -114,33 +114,7 @@ button {
   scrollbar-width: none;
 }
 
-/* ========================================================
-   OPTIMASI & DESAIN KARTU GALERI FOTO (DISCOVER)
-   ======================================================== */
-/* Mempertahankan warna lavender & border putus-putus kesukaan Anda */
-.card-cute {
-  background-color: var(--lavender);
-  border: 2px dashed var(--pink-dark);
-  border-radius: 16px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
-  
-  /* Akselerasi hardware GPU untuk mencegah lag saat digeser bebas */
-  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease;
-  will-change: transform;
-  transform: translateZ(0);
-  backface-visibility: hidden;
-}
 
-.card-cute:hover {
-  transform: scale(1.03) translateY(-8px);
-  box-shadow: 0px 12px 24px rgba(255, 105, 180, 0.25);
-}
-
-.card-cute img {
-  border-top-left-radius: 14px;
-  border-top-right-radius: 14px;
-  object-fit: cover;
-}
 
 
 

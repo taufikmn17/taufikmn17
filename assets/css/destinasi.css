@@ -1,19 +1,28 @@
 /* destinasi.css */
 .destinasi-card {
-    min-width: 280px; /* Lebar kartu */
+    min-width: 280px;
     scroll-snap-align: start;
-    transition: transform 0.3s ease;
+    perspective: 1000px; /* Sangat penting untuk efek 3D */
+    cursor: pointer;
+    padding: 10px; /* Ruang untuk efek hover */
 }
 
-.destinasi-card:hover {
-    transform: translateY(-10px);
+.card-inner-wrapper {
+    background-color: #ffffff;
+    border: 2px dashed #ff69b4;
+    border-radius: 24px;
+    overflow: hidden;
+    transition: transform 0.1s ease-out; /* Smooth transition */
+    transform-style: preserve-3d;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
 }
 
-/* Sembunyikan scrollbar agar lebih estetis */
-.scrollbar-hide::-webkit-scrollbar {
-    display: none;
-}
+/* Tambahkan ini di destinasi.css */
 .scrollbar-hide {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+    -ms-overflow-style: none; /* Untuk Internet Explorer & Edge */
+    scrollbar-width: none;    /* Untuk Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+    display: none; /* Untuk Chrome, Safari, dan Opera */
 }
