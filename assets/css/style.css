@@ -256,11 +256,7 @@ button {
   overflow-y: hidden;
 
   scroll-behavior: smooth;
-
   -webkit-overflow-scrolling: touch;
-
-  /* Momentum scroll untuk mobile */
-  touch-action: pan-y;
 
   padding-bottom: 10px;
 }
