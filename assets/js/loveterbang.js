@@ -112,6 +112,8 @@ function handleInteraction(e) {
     const mouseX = clientX - rect.left;
     const mouseY = clientY - rect.top;
 
+    let hit = false; // Deteksi apakah mengenai lentera
+
     for (let i = lantaners.length - 1; i >= 0; i--) {
         const lantern = lantaners[i];
         const dist = Math.hypot(lantern.x - mouseX, lantern.y - mouseY);
@@ -119,8 +121,13 @@ function handleInteraction(e) {
             bigLoves.push(new BigLove(lantern.x, lantern.y));
             for (let j = 0; j < 40; j++) particles.push(new Confetti(lantern.x, lantern.y));
             lantaners.splice(i, 1);
+            hit = true;
             break;
         }
+    }
+    if (!hit) {
+        // Opsional: Jika ingin tetap bisa scroll meski menyentuh canvas kosong
+        return; 
     }
 }
 
@@ -141,6 +148,8 @@ function animate() {
         particles[i].update(); particles[i].draw();
         if (particles[i].opacity <= 0 || particles[i].y > canvas.height) particles.splice(i, 1);
     }
+
+    canvas.style.pointerEvents = lantaners.length > 0 ? 'auto' : 'none';
     requestAnimationFrame(animate);
 }
 animate();

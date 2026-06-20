@@ -176,10 +176,15 @@ button {
 }
 
 
-/* TAMBAHAN KLIK LOVE */
+
+ /* LOVE GERAK DI HOME */
 #loveLanternCanvas {
-  position: absolute; /* Mengikuti parent (section home) */
-  touch-action: none; /* Menghilangkan delay respons di mobile */
-  pointer-events: auto; /* Agar bisa diklik */
-  -webkit-tap-highlight-color: transparent;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Mencegah canvas menangkap event scroll/klik secara default */
+  pointer-events: none; 
+  z-index: 0;
 }
