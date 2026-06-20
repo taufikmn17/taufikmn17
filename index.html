@@ -18,7 +18,6 @@
 <body class="bg-soft-white text-pink-700 font-sans">
 
   <div id="surpriseOverlay" class="fixed inset-0 bg-black z-[9999] flex justify-center items-center overflow-hidden transition-opacity duration-1000">
-    
     <div id="surpriseStartContainer" class="absolute inset-0 flex flex-col justify-center items-center bg-pink-500 z-30 px-6 text-center transition-all duration-500">
       <div class="bg-white p-8 rounded-2xl shadow-2xl max-w-sm border-4 border-dashed border-pink-400 animate-bounce-slow">
         <h3 class="text-2xl font-bold text-pink-600 mb-2">Haloo</h3>
@@ -1005,17 +1004,21 @@ onSnapshot(qLeaderboard, (snapshot) => {
 </script>
 
 
+<canvas id="loveLanternCanvas" class="fixed inset-0 pointer-events-none z-[999]"></canvas>
+
+
 
   <!-- Scripts -->
   <script src="assets/js/scrollreveal.min.js"></script>
   <script src="assets/js/swiper-bundle.min.js"></script>
-  <script src="assets/js/main.js"></script>
+  <script src="assets/js/loveterbang.js"></script>
   <script src="assets/js/discover.js"></script>
   <script src="assets/js/vidio.js"></script>
   <script src="assets/js/place.js"></script>
   <script src="assets/js/music.js"></script>
   <script src="assets/js/destinasi.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
 
 </body>
 </html>
