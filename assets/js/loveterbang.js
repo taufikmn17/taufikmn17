@@ -3,8 +3,18 @@ const ctx = canvas.getContext('2d');
 
 // Atur ukuran canvas penuh layar
 function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    // 1. Dapatkan ukuran layar yang benar
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
+    // 2. Set atribut canvas sesuai ukuran layar
+    canvas.width = width;
+    canvas.height = height;
+
+    // 3. (Opsional) Jika CSS Anda sudah 100%, ini memastikan context 
+    // sinkron dengan resolusi fisik layar
+    canvas.style.width = width + 'px';
+    canvas.style.height = height + 'px';
 }
 resizeCanvas();
 window.addEventListener('resize', resizeCanvas);
@@ -124,32 +134,34 @@ setInterval(() => {
     }
 }, 2500);
 
-// --- PERBAIKAN DI BAGIAN INI ---
-// Menggunakan 'window' agar klik bisa menembus canvas transparan dan tetap mendeteksi koordinat lentera
-window.addEventListener('click', (e) => {
+function handleInteraction(e) {
     const rect = canvas.getBoundingClientRect();
-    const mouseX = e.clientX - rect.left;
-    const mouseY = e.clientY - rect.top;
+    // Jika mobile, ambil koordinat dari sentuhan pertama
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+    
+    const mouseX = clientX - rect.left;
+    const mouseY = clientY - rect.top;
 
-    // Cek apakah area klik mengenai salah satu love lentera
-    lantaners.forEach((lantern, index) => {
-        // Toleransi radius klik sedikit diperbesar agar lebih responsif (lantern.size * 2)
+    // Iterasi terbalik agar jika ada lentera tumpang tindih, 
+    // yang di depan yang terkena klik
+    for (let i = lantaners.length - 1; i >= 0; i--) {
+        const lantern = lantaners[i];
         const dist = Math.hypot(lantern.x - mouseX, lantern.y - mouseY);
         
         if (dist < lantern.size * 2) {
-            // 1. Munculkan Love Besar di titik tersebut
             bigLoves.push(new BigLove(lantern.x, lantern.y));
-
-            // 2. Ledakkan 40 buah Serpihan Confetti
-            for (let i = 0; i < 40; i++) {
+            for (let j = 0; j < 40; j++) {
                 particles.push(new Confetti(lantern.x, lantern.y));
             }
-
-            // 3. Hapus lentera kecil yang berhasil diklik
-            lantaners.splice(index, 1);
+            lantaners.splice(i, 1);
+            break; // Berhenti setelah satu lentera terpencet
         }
-    });
-});
+    }
+}
+
+window.addEventListener('click', handleInteraction);
+window.addEventListener('touchstart', handleInteraction, {passive: false});
 
 // Loop Animasi Canvas utama (60 FPS perkiraan)
 function animate() {
