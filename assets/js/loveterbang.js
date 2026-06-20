@@ -3,10 +3,18 @@ const ctx = canvas.getContext('2d');
 
 
 // Fungsi untuk memutar suara klik
+// 1. Inisialisasi satu kali di luar fungsi
+const clickSound = new Audio('assets/music/klik_love.mp3');
+clickSound.preload = 'auto'; // Memaksa browser memuat file saat halaman dibuka
+
+// 2. Gunakan cloneNode untuk respons instan
 function playClickSound() {
-    const audio = new Audio('assets/music/klik_love.mp3');
-    audio.volume = 0.5;
-    audio.play().catch(e => console.log("Audio diblokir browser: " + e));
+    // Clone node agar suara bisa ditumpuk (overlap) jika diklik cepat
+    const sound = clickSound.cloneNode();
+    sound.volume = 0.5;
+    
+    // play() akan langsung berjalan karena sudah di-preload
+    sound.play().catch(e => console.log("Audio diblokir atau belum ada interaksi: " + e));
 }
 
 // Atur ukuran canvas penuh layar
@@ -212,6 +220,23 @@ function animate() {
     
     requestAnimationFrame(animate);
 }
+
+// Tambahkan ini di bagian bawah skrip Anda
+let audioUnlocked = false;
+
+function unlockAudio() {
+    if (!audioUnlocked) {
+        clickSound.play().then(() => {
+            clickSound.pause(); // Langsung pause lagi agar tidak bunyi
+            audioUnlocked = true;
+        }).catch(() => {});
+        document.removeEventListener('touchstart', unlockAudio);
+        document.removeEventListener('click', unlockAudio);
+    }
+}
+
+document.addEventListener('touchstart', unlockAudio);
+document.addEventListener('click', unlockAudio);
 
 // Mulai loop animasi
 animate();

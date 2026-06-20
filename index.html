@@ -68,7 +68,7 @@
   <main>
     <!-- Home -->
     <section id="home" class="relative h-screen flex items-center justify-center bg-cover bg-center overflow-hidden" style="background-image: url('assets/img/foto_home.jpeg');">
-    
+        <canvas id="loveLanternCanvas" class="absolute inset-0 z-0 w-full h-full"></canvas>
         <div class="relative z-10 bg-black bg-opacity-50 p-10 rounded-xl text-white text-center max-w-xl">
             <h2 class="text-lg mb-2 text-pink-400">Berdua, satu cerita</h2>
             <h1 class="text-4xl font-bold mb-4 text-pink-400">Petualangan Ini<br><span>Dimulai Dengan Kamu 🤍</span></h1>
@@ -1004,8 +1004,6 @@ onSnapshot(qLeaderboard, (snapshot) => {
     });
 });
 </script>
-
-<canvas id="loveLanternCanvas" class="fixed inset-0 z-0 w-full h-full pointer-events-none"></canvas>
 
 
 
