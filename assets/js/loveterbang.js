@@ -165,36 +165,34 @@ window.addEventListener('touchstart', handleInteraction, {passive: false});
 
 // Loop Animasi Canvas utama (60 FPS perkiraan)
 function animate() {
-    // Membersihkan canvas di setiap frame baru tanpa menghapus background asli web
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Jalankan & Gambar Lentera Terbang
-    lantaners.forEach((lantern, index) => {
-        lantern.update();
-        lantern.draw();
-        // Hapus jika sudah lolos melewati layar kanan
-        if (lantern.x - lantern.size * 2 > canvas.width) {
-            lantaners.splice(index, 1);
+    // 1. Loop Lentera (Mundur)
+    for (let i = lantaners.length - 1; i >= 0; i--) {
+        lantaners[i].update();
+        lantaners[i].draw();
+        if (lantaners[i].x - lantaners[i].size * 2 > canvas.width) {
+            lantaners.splice(i, 1);
         }
-    });
+    }
 
-    // Jalankan & Gambar Efek Love Besar
-    bigLoves.forEach((bigLove, index) => {
-        bigLove.update();
-        bigLove.draw();
-        if (bigLove.opacity <= 0) {
-            bigLoves.splice(index, 1);
+    // 2. Loop Efek Love Besar (Mundur)
+    for (let i = bigLoves.length - 1; i >= 0; i--) {
+        bigLoves[i].update();
+        bigLoves[i].draw();
+        if (bigLoves[i].opacity <= 0) {
+            bigLoves.splice(i, 1);
         }
-    });
+    }
 
-    // Jalankan & Gambar Confetti jatuh
-    particles.forEach((particle, index) => {
-        particle.update();
-        particle.draw();
-        if (particle.opacity <= 0 || particle.y > canvas.height) {
-            particles.splice(index, 1);
+    // 3. Loop Confetti (Mundur)
+    for (let i = particles.length - 1; i >= 0; i--) {
+        particles[i].update();
+        particles[i].draw();
+        if (particles[i].opacity <= 0 || particles[i].y > canvas.height) {
+            particles.splice(i, 1);
         }
-    });
+    }
 
     requestAnimationFrame(animate);
 }
