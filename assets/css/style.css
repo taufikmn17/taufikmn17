@@ -175,3 +175,9 @@ button {
   animation: bar-pulse 1.5s infinite ease-in-out;
 }
 
+
+/* TAMBAHAN KLIK LOVE AGAR TIDAK KEDIP2 */
+#loveLanternCanvas {
+  touch-action: none;
+  display: block; /* Mencegah spasi bawah canvas */
+}
