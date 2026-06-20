@@ -4,7 +4,7 @@
     scroll-snap-align: start;
     perspective: 1000px;
     cursor: pointer;
-    padding: 10px;
+    padding: 5px;
 }
 
 .card-inner-wrapper {
