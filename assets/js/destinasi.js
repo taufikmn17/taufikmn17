@@ -1,19 +1,3 @@
-const container = document.getElementById('destinasiGridContainer');
-const progressBar = document.getElementById('scrollProgressBar');
-
-container.addEventListener('scroll', () => {
-  // Menghitung seberapa jauh user telah scroll
-  const scrollLeft = container.scrollLeft;
-  // Menghitung total area yang bisa di-scroll
-  const scrollWidth = container.scrollWidth - container.clientWidth;
-  
-  // Menghitung persentase (0 sampai 100)
-  const scrollPercentage = (scrollLeft / scrollWidth) * 100;
-  
-  // Terapkan ke lebar progress bar
-  progressBar.style.width = scrollPercentage + '%';
-});
-
 document.addEventListener("DOMContentLoaded", () => {
     const gridContainer = document.getElementById("destinasiGridContainer");
     if (!gridContainer) return;
