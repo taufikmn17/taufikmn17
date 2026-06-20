@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!gridContainer) return;
 
   // URL Web App Apps Script Anda
-  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyjkU7fYLqlm-Jq0LJxShq3jGkzaKV_d1h7B2yvFvxpHkr32IkYctpdh1pQ_seo8xcjLg/exec";
+  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzASJdqQDUBXMrHnW2To4ItaGUePT6Orp3_iSvudgGgtbxdRvcHoNyIBye54GHfZFLomQ/exec";
 
   // Fungsi global penampung data khusus untuk tab 'place'
   window.renderPlaceData = function(placeData) {
