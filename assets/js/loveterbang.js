@@ -11,6 +11,8 @@ function playClickSound() {
 
 // Atur ukuran canvas penuh layar
 function resizeCanvas() {
+    const parent = canvas.parentElement; // Ambil section home
+
     // 1. Dapatkan ukuran layar yang benar
     const width = window.innerWidth;
     const height = window.innerHeight;
@@ -173,8 +175,8 @@ function handleInteraction(e) {
     }
 }
 
-window.addEventListener('click', handleInteraction);
-window.addEventListener('touchstart', handleInteraction, {passive: false});
+canvas.addEventListener('click', handleInteraction);
+canvas.addEventListener('touchstart', handleInteraction, {passive: false});
 
 // Loop Animasi Canvas utama (60 FPS perkiraan)
 function animate() {
@@ -206,7 +208,8 @@ function animate() {
             particles.splice(i, 1);
         }
     }
-
+    canvas.style.pointerEvents = lantaners.length > 0 ? 'auto' : 'none';
+    
     requestAnimationFrame(animate);
 }
 
