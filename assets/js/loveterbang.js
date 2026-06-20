@@ -1,6 +1,14 @@
 const canvas = document.getElementById('loveLanternCanvas');
 const ctx = canvas.getContext('2d');
 
+
+// Fungsi untuk memutar suara klik
+function playClickSound() {
+    const audio = new Audio('assets/music/klik_love.mp3');
+    audio.volume = 0.5;
+    audio.play().catch(e => console.log("Audio diblokir browser: " + e));
+}
+
 // Atur ukuran canvas penuh layar
 function resizeCanvas() {
     // 1. Dapatkan ukuran layar yang benar
@@ -150,6 +158,11 @@ function handleInteraction(e) {
         const dist = Math.hypot(lantern.x - mouseX, lantern.y - mouseY);
         
         if (dist < lantern.size * 2) {
+            
+            // --- BAGIAN YANG PERLU ANDA TAMBAHKAN DI SINI ---
+            playClickSound(); 
+            // ------------------------------------------------
+
             bigLoves.push(new BigLove(lantern.x, lantern.y));
             for (let j = 0; j < 40; j++) {
                 particles.push(new Confetti(lantern.x, lantern.y));
