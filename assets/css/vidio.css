@@ -1,7 +1,7 @@
 .video-boundary {
-  overflow: hidden; /* Penting untuk menyembunyikan video lain */
-  max-width: 280px;
-  position: relative;
+  overflow: hidden;
+  width: 100%;
+  max-width: 700px;
   margin: 0 auto;
 }
 
@@ -16,10 +16,8 @@
 }
 
 .video-item {
-  flex-shrink: 0;
-  width: 100%;
-  padding: 0 8px;
-  box-sizing: border-box;
+  flex: 0 0 100%;
+  padding: 0;
 }
 
 .video-item video {

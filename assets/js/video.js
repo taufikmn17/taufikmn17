@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
     videoSlider.innerHTML = ""; 
 
     if (videoContainer) {
-      videoContainer.style.maxWidth = "400px"; 
+      videoContainer.style.maxWidth = "600px"; 
       videoContainer.style.width = "100%";
     }
 
@@ -47,10 +47,16 @@ document.addEventListener("DOMContentLoaded", function () {
         videoItem.className = "video-item"; 
         
         videoItem.innerHTML = `
-          <iframe 
-            src="${item.video_url.trim()}" 
-            style="width: 100%; aspect-ratio: 4/3; border-radius: 12px; border: none; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);"
-            allow="autoplay" 
+        <iframe
+            src="${item.video_url.trim()}"
+            style="
+              width:100%;
+              aspect-ratio:4/3;
+              border:none;
+              border-radius:12px;
+              box-shadow:0 4px 15px rgba(0,0,0,.15);
+            "
+            allow="autoplay"
             allowfullscreen>
           </iframe>
         `;
