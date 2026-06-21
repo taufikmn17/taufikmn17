@@ -51,10 +51,11 @@ document.addEventListener("DOMContentLoaded", function () {
             src="${item.video_url.trim()}"
             style="
               width:100%;
-              aspect-ratio:4/3;
+              aspect-ratio:16/9; /* Diubah dari 4/3 menjadi 16/9 */
               border:none;
               border-radius:12px;
               box-shadow:0 4px 15px rgba(0,0,0,.15);
+              display:block; /* Menghindari gap aneh di bawah iframe */
             "
             allow="autoplay"
             allowfullscreen>
