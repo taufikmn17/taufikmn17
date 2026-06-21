@@ -37,44 +37,56 @@ document.addEventListener("DOMContentLoaded", function () {
     videoSlider.innerHTML = ""; 
   
     if (videoContainer) {
-      // KUNCI UTAMA: Lebar container dinaikkan menjadi 550px (Horizontal)
-      // agar Google Drive mendeteksi ruangan yang luas dan merapikan kontrolnya ke bawah.
-      videoContainer.style.maxWidth = "550px"; 
+      // Container luar dibatasi 340px agar tetap pas dengan layar HP potret
+      videoContainer.style.maxWidth = "340px"; 
       videoContainer.style.width = "100%";
+      videoContainer.style.height = "192px"; // Mengunci tinggi total container luar
     }
   
     videos.forEach(item => {
       if (item.video_url && item.video_url.trim() !== "") {
         let embedUrl = item.video_url.trim();
-        
-        if (embedUrl.includes('/view')) {
-          embedUrl = embedUrl.replace('/view', '/preview');
-        } else if (embedUrl.includes('/file/d/')) {
-          const videoId = embedUrl.split('/file/d/')[1].split('/')[0];
+        let videoId = "";
+  
+        if (embedUrl.includes('/file/d/')) {
+          videoId = embedUrl.split('/file/d/')[1].split('/')[0];
+        } else if (embedUrl.includes('id=')) {
+          videoId = embedUrl.split('id=')[1].split('&')[0];
+        }
+  
+        // WAJIB /preview agar TIDAK meminta login atau hak akses lagi
+        if (videoId) {
           embedUrl = `https://drive.google.com/file/d/${videoId}/preview`;
         }
   
         const videoItem = document.createElement("div");
         videoItem.className = "video-item"; 
         
-        // Kita buat kontainernya horizontal dengan rasio widescreen (16/9)
-        // agar seluruh kontrol bawaan Drive dipaksa berbaris rapi di bagian bawah bawah.
+        // TRIK PAMUNGKAS:
+        // Kita buat iframe berukuran lebar asli desktop (640px x 360px) di latar belakang 
+        // agar Google Drive mendeteksi layar lebar dan merapikan kontrolnya ke bawah.
+        // Lalu kita perkecil ukurannya (scale) secara visual ke 0.53 agar muat di kotak HP 340px.
         videoItem.innerHTML = `
           <div style="
-            width: 100%; 
-            aspect-ratio: 16/9; 
+            width: 340px; 
+            height: 192px; 
             border-radius: 16px; 
             overflow: hidden; 
+            position: relative;
             box-shadow: 0 10px 25px rgba(0,0,0,.15);
             background-color: #000;
           ">
             <iframe
               src="${embedUrl}"
               style="
-                width: 100%;
-                height: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 640px;
+                height: 360px;
                 border: none;
-                display: block;
+                transform: scale(0.53125);
+                transform-origin: top left;
               "
               allow="autoplay"
               allowfullscreen>
