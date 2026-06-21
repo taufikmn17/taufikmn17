@@ -1,7 +1,7 @@
 .video-boundary {
   overflow: hidden;
   width: 100%;
-  max-width: 360px; /* Dikunci sama dengan JS agar sinkron */
+  max-width: 340px; /* Sesuaikan dengan JS */
   margin: 0 auto;
   box-sizing: border-box;
 }
@@ -9,6 +9,7 @@
 #videoSlider {
   display: flex;
   width: 100%;
+  align-items: center; /* Memastikan posisi slide seimbang di tengah */
   transition: transform 0.5s ease-in-out;
 }
 
@@ -16,7 +17,7 @@
   flex: 0 0 100%;
   width: 100%;
   max-width: 100%;
-  padding: 0 8px; /* Memberi sedikit jarak manis di kiri-kanan video */
+  padding: 0 6px; 
   box-sizing: border-box;
 }
 

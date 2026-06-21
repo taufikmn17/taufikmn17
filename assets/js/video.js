@@ -37,8 +37,8 @@ document.addEventListener("DOMContentLoaded", function () {
     videoSlider.innerHTML = ""; 
   
     if (videoContainer) {
-      // Membatasi lebar maksimal video agar pas di layar HP
-      videoContainer.style.maxWidth = "360px"; 
+      // Membatasi lebar agar tetap proporsional sebagai video vertikal HP
+      videoContainer.style.maxWidth = "340px"; 
       videoContainer.style.width = "100%";
     }
   
@@ -46,11 +46,9 @@ document.addEventListener("DOMContentLoaded", function () {
       if (item.video_url && item.video_url.trim() !== "") {
         let embedUrl = item.video_url.trim();
         
-        // Memastikan tautan menggunakan format pemutar /preview bawaan Drive
         if (embedUrl.includes('/view')) {
           embedUrl = embedUrl.replace('/view', '/preview');
         } else if (embedUrl.includes('/file/d/')) {
-          // Jika link hanya sampai ID, ubah ke format preview
           const videoId = embedUrl.split('/file/d/')[1].split('/')[0];
           embedUrl = `https://drive.google.com/file/d/${videoId}/preview`;
         }
@@ -58,22 +56,29 @@ document.addEventListener("DOMContentLoaded", function () {
         const videoItem = document.createElement("div");
         videoItem.className = "video-item"; 
         
-        // Kembali menggunakan iframe tetapi dikunci dengan aspect-ratio vertikal (9/16)
+        // Trik baru: Menggunakan tinggi tetap (height) atau aspek rasio yang sedikit lebih panjang (9/18 atau 1:2)
+        // Ini memaksa Google Drive meletakkan kontrolnya di area bawah, bukan di tengah video
         videoItem.innerHTML = `
-          <iframe
-            src="${embedUrl}"
-            style="
-              width: 100%;
-              aspect-ratio: 9/16; 
-              border: none;
-              border-radius: 16px;
-              box-shadow: 0 10px 25px rgba(0,0,0,.15);
-              background-color: #000;
-              display: block;
-            "
-            allow="autoplay"
-            allowfullscreen>
-          </iframe>
+          <div style="
+            width: 100%; 
+            height: 520px; /* Memaksa tinggi agar bar kontrol punya ruang di bawah */
+            border-radius: 16px; 
+            overflow: hidden; 
+            box-shadow: 0 10px 25px rgba(0,0,0,.15);
+            background-color: #000;
+          ">
+            <iframe
+              src="${embedUrl}"
+              style="
+                width: 100%;
+                height: 100%;
+                border: none;
+                display: block;
+              "
+              allow="autoplay"
+              allowfullscreen>
+             iframe>
+          </div>
         `;
         videoSlider.appendChild(videoItem);
       }
