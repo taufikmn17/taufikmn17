@@ -34,78 +34,57 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Fungsi render menggunakan tag <video> asli HTML5 agar responsif di HP
   function renderVideos(videos) {
-    videoSlider.innerHTML = ""; 
-  
-    if (videoContainer) {
-      // Mengunci lebar maksimal kotak video agar tegak lurus proporsional di HP
-      videoContainer.style.maxWidth = "330px"; 
-      videoContainer.style.width = "100%";
-    }
-  
-    videos.forEach(item => {
-      if (item.video_url && item.video_url.trim() !== "") {
-        let embedUrl = item.video_url.trim();
-        let videoId = "";
-  
-        // Ekstrak ID unik dari link Google Drive di Google Sheets Anda
-        if (embedUrl.includes('/file/d/')) {
-          videoId = embedUrl.split('/file/d/')[1].split('/')[0];
-        } else if (embedUrl.includes('id=')) {
-          videoId = embedUrl.split('id=')[1].split('&')[0];
-        }
-  
-        // WAJIB MENGGUNAKAN /preview AGAR BEBAS DARI ERROR "MINTA AKSES"
-        if (videoId) {
-          embedUrl = `https://drive.google.com/file/d/${videoId}/preview`;
-        }
-  
-        const videoItem = document.createElement("div");
-        videoItem.className = "video-item"; 
-        
-        // Membungkus video ke dalam aspek rasio vertikal 9:16 (Ala Instagram Story/TikTok)
-        videoItem.innerHTML = `
-          <div style="
-            width: 100%; 
-            aspect-ratio: 9/16; 
-            border-radius: 24px; 
-            overflow: hidden; 
-            box-shadow: 0 12px 28px rgba(0,0,0,0.18);
-            background-color: #000;
-          ">
-            <iframe
-              src="${embedUrl}"
-              style="
-                width: 100%;
-                height: 100%;
-                border: none;
-                display: block;
-              "
-              allow="autoplay"
-              allowfullscreen>
-            </iframe>
-          </div>
-        `;
-        videoSlider.appendChild(videoItem);
-      }
-    });
-  
-    setTimeout(updateSlide, 300);
-  }
+
+  videoSlider.innerHTML = "";
+
+  videos.forEach(item => {
+
+    if (!item.video_url) return;
+
+    const videoItem = document.createElement("div");
+    videoItem.className = "video-item";
+
+    videoItem.innerHTML = `
+      <div class="video-frame">
+        <iframe
+          src="${item.video_url}"
+          allow="autoplay; fullscreen"
+          allowfullscreen>
+        </iframe>
+      </div>
+    `;
+
+    videoSlider.appendChild(videoItem);
+  });
+
+  currentIndex = 0;
+  updateSlide();
+}
   
   // Fungsi otomatis mematikan video saat slider digeser (opsional/pendukung)
   function stopAllVideos() {
-    const iframes = videoSlider.querySelectorAll("iframe");
-    iframes.forEach(iframe => {
-      const currentSrc = iframe.src;
-      iframe.src = ""; 
-      iframe.src = currentSrc; 
+
+    const iframes = document.querySelectorAll(
+      "#videoSlider iframe"
+    );
+  
+    iframes.forEach(frame => {
+  
+      const src = frame.src;
+  
+      frame.src = "";
+      frame.src = src;
+  
     });
+  
   }
 
   function updateSlide() {
-    if (videoSlider.children.length === 0) return;
+
     const width = videoContainer.offsetWidth;
-    videoSlider.style.transform = `translateX(-${currentIndex * width}px)`;
+  
+    videoSlider.style.transform =
+      `translateX(-${currentIndex * width}px)`;
   }
 
   // Tombol Next

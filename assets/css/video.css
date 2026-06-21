@@ -1,48 +1,74 @@
+.video-slider-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .video-boundary {
   width: 100%;
-  max-width: 330px;
-  margin: 0 auto;
+  max-width: 380px;
   overflow: hidden;
+  margin: auto;
 }
 
 #videoSlider {
   display: flex;
-  width: 100%;
-  transition: transform 0.5s ease;
+  transition: transform 0.4s ease;
 }
 
 .video-item {
-  flex: 0 0 100%;
-  padding: 0 6px;
+  min-width: 100%;
+  padding: 0 10px;
   box-sizing: border-box;
 }
 
-.video-wrapper {
+.video-frame {
   width: 100%;
-  aspect-ratio: 9 / 16;
-  border-radius: 24px;
+  aspect-ratio: 9/16;
   overflow: hidden;
+  border-radius: 28px;
   background: #000;
-  box-shadow: 0 12px 28px rgba(0,0,0,0.18);
+  box-shadow: 0 15px 35px rgba(0,0,0,.2);
 }
 
-.video-wrapper video {
+.video-frame iframe {
   width: 100%;
   height: 100%;
+  border: none;
   display: block;
-  object-fit: cover;
-  background: #000;
 }
 
-/* Tampilan HP */
+.video-controls-bottom {
+  display: flex;
+  gap: 18px;
+  margin-top: 20px;
+}
+
+.arrow-btn-bottom {
+  width: 50px;
+  height: 50px;
+  border-radius: 999px;
+  border: none;
+  background: #ff69b4;
+  color: white;
+  cursor: pointer;
+  transition: .3s;
+}
+
+.arrow-btn-bottom:hover {
+  transform: scale(1.08);
+}
+
 @media (max-width: 480px) {
+
   .video-boundary {
-    max-width: 100%;
+    max-width: 92vw;
   }
 
-  .video-wrapper {
-    border-radius: 18px;
+  .video-frame {
+    border-radius: 20px;
   }
+
 }
 
 
