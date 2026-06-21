@@ -1,75 +1,28 @@
-.video-slider-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
 .video-boundary {
-  width: 100%;
-  max-width: 380px;
   overflow: hidden;
-  margin: auto;
+  width: 100%;
+  max-width: 360px; /* Dikunci sama dengan JS agar sinkron */
+  margin: 0 auto;
+  box-sizing: border-box;
 }
 
 #videoSlider {
   display: flex;
-  transition: transform 0.4s ease;
+  width: 100%;
+  transition: transform 0.5s ease-in-out;
 }
 
 .video-item {
-  min-width: 100%;
-  padding: 0 10px;
+  flex: 0 0 100%;
+  width: 100%;
+  max-width: 100%;
+  padding: 0 8px; /* Memberi sedikit jarak manis di kiri-kanan video */
   box-sizing: border-box;
 }
 
-.video-frame {
-  width: 100%;
-  aspect-ratio: 9/16;
-  overflow: hidden;
-  border-radius: 28px;
-  background: #000;
-  box-shadow: 0 15px 35px rgba(0,0,0,.2);
-}
 
-.video-frame iframe {
-  width: 100%;
-  height: 100%;
-  border: none;
-  display: block;
-}
 
-.video-controls-bottom {
-  display: flex;
-  gap: 18px;
-  margin-top: 20px;
-}
 
-.arrow-btn-bottom {
-  width: 50px;
-  height: 50px;
-  border-radius: 999px;
-  border: none;
-  background: #ff69b4;
-  color: white;
-  cursor: pointer;
-  transition: .3s;
-}
-
-.arrow-btn-bottom:hover {
-  transform: scale(1.08);
-}
-
-@media (max-width: 480px) {
-
-  .video-boundary {
-    max-width: 92vw;
-  }
-
-  .video-frame {
-    border-radius: 20px;
-  }
-
-}
 
 
 

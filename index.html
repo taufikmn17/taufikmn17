@@ -47,11 +47,6 @@
         <i class="fas fa-arrow-left"></i>
       </a>
 
-      <div class="flex space-x-4 text-sm font-mediumr">
-        <span class="text-2xl text-white font-bold tracking-widest">
-            (˶˘ ³˘)ˆᵕ ˆ˶)
-        </span>
-    </div>
 
       <!-- <nav>
         <ul class="flex space-x-4 text-sm font-medium">
@@ -564,42 +559,32 @@
     <!-- Video -->
     <section id="vidioo" class="py-24 bg-white overflow-hidden text-center">
         <div class="container mx-auto px-6">
-      
+            
           <div class="max-w-2xl mx-auto mb-16 section-title-fade">
-            <span class="text-xs font-bold uppercase tracking-widest text-white px-4 py-1.5 rounded-full inline-block mb-3 shadow-sm border"
-              style="background-color: #ff69b4; border-color: #ff1493;">
-              Sweet Moments
-            </span>
-      
-            <h2 class="text-4xl font-extrabold text-pink-700">
-              Kumpulan Video
-              <br>
-              <span class="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-rose-600">
-                Dokumentasi Cerita Kita
-              </span>
+            <span class="text-xs font-bold uppercase tracking-widest text-white px-4 py-1.5 rounded-full inline-block mb-3 shadow-sm border" style="background-color: #ff69b4; border-color: #ff1493;">Sweet Moments</span>
+            <h2 class="text-4xl font-extrabold text-pink-700 font-sans tracking-tight">
+              Kumpulan Video <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-rose-600">Dokumentasi Cerita Kita</span>
             </h2>
-      
             <div class="w-16 h-1 bg-gradient-to-r from-pink-300 to-pink-500 mx-auto mt-4 rounded-full"></div>
           </div>
       
-          <div class="video-slider-wrapper">
+          <div class="video-slider-wrapper flex flex-col items-center justify-center gap-4 relative mx-auto w-fit">
       
             <div class="video-boundary">
-              <div id="videoSlider"></div>
+              <div id="videoSlider" class="flex transition-transform duration-500 ease-in-out">
+                </div>
             </div>
       
-            <div class="video-controls-bottom">
+            <div class="video-controls-bottom flex items-center justify-center gap-6 mt-4">
               <button id="prevBtn" class="arrow-btn-bottom">
                 <i class="fas fa-arrow-left"></i>
               </button>
-      
               <button id="nextBtn" class="arrow-btn-bottom">
                 <i class="fas fa-arrow-right"></i>
               </button>
             </div>
       
           </div>
-      
         </div>
       </section>
       

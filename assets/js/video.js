@@ -1,9 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // ==========================================
-  // URL WEB APP DEPLOYMENT APPS SCRIPT ANDA
-  // ==========================================
-  const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbz6HaF731DyONmINCJBBkbr8cVgznjkyai_NTU9v03-G5xgH3xJ6L04gkbjLBXhDBddDw/exec"; 
-  
+  // URL Web App Apps Script Anda
+  const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbz6HaF731DyONmINCJBBkbr8cVgznjkyai_NTU9v03-G5xgH3xJ6L04gkbjLBXhDBddDw/exec";
   const videoSlider = document.getElementById("videoSlider");
   const videoContainer = document.querySelector(".video-boundary");
   const nextBtn = document.getElementById("nextBtn");
@@ -12,10 +9,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function fetchVideoData() {
     videoSlider.innerHTML = `<p class="text-pink-500 font-medium p-6 mx-auto">Memuat dokumentasi video...</p>`;
-
+    
     fetch(`${WEB_APP_URL}?type=video`)
-      .then(response => response.json())
-      .then(data => {
+      .then((response) => response.json())
+      .then((data) => {
         if (data.error) {
           videoSlider.innerHTML = `<p class="text-red-500 p-4 mx-auto">${data.error}</p>`;
           return;
@@ -26,89 +23,84 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         renderVideos(data);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
         videoSlider.innerHTML = `<p class="text-red-500 p-4 mx-auto">Gagal memuat data video.</p>`;
       });
   }
 
-  // Fungsi render menggunakan tag <video> asli HTML5 agar responsif di HP
   function renderVideos(videos) {
+    videoSlider.innerHTML = "";
 
-  videoSlider.innerHTML = "";
+    if (videoContainer) {
+      videoContainer.style.maxWidth = "350px";
+      videoContainer.style.width = "100%";
+    }
 
-  videos.forEach(item => {
+    videos.forEach((item) => {
+      if (item.video_url && item.video_url.trim() !== "") {
+        const fileName = item.video_url.trim();
 
-    if (!item.video_url) return;
+        const videoItem = document.createElement("div");
+        videoItem.className = "video-item";
 
-    const videoItem = document.createElement("div");
-    videoItem.className = "video-item";
-
-    videoItem.innerHTML = `
-      <div class="video-frame">
-        <iframe
-          src="${item.video_url}"
-          allow="autoplay; fullscreen"
-          allowfullscreen>
-        </iframe>
-      </div>
-    `;
-
-    videoSlider.appendChild(videoItem);
-  });
-
-  currentIndex = 0;
-  updateSlide();
-}
-  
-  // Fungsi otomatis mematikan video saat slider digeser (opsional/pendukung)
-  function stopAllVideos() {
-
-    const iframes = document.querySelectorAll(
-      "#videoSlider iframe"
-    );
-  
-    iframes.forEach(frame => {
-  
-      const src = frame.src;
-  
-      frame.src = "";
-      frame.src = src;
-  
+        // MENGARAHKAN LANGSUNG KE FOLDER ASSETS/VIDEO LOKAL
+        videoItem.innerHTML = `
+          <div style="
+            width: 100%; 
+            aspect-ratio: 9/16; 
+            border-radius: 24px; 
+            overflow: hidden; 
+            background-color: #000;
+          ">
+            <video 
+              controls 
+              playsinline
+              preload="metadata"
+              style="width: 100%; height: 100%; object-fit: cover;">
+              <source src="assets/video/${fileName}" type="video/mp4">
+              Browser Anda tidak mendukung pemutar video ini.
+            </video>
+          </div>
+        `;
+        videoSlider.appendChild(videoItem);
+      }
     });
-  
+
+    setTimeout(updateSlide, 300);
+  }
+
+  function stopAllVideos() {
+    const nativeVideos = videoSlider.querySelectorAll("video");
+    nativeVideos.forEach((video) => {
+      video.pause();
+    });
   }
 
   function updateSlide() {
-
+    if (videoSlider.children.length === 0) return;
     const width = videoContainer.offsetWidth;
-  
-    videoSlider.style.transform =
-      `translateX(-${currentIndex * width}px)`;
+    videoSlider.style.transform = `translateX(-${currentIndex * width}px)`;
   }
 
-  // Tombol Next
   nextBtn.addEventListener("click", function () {
     const totalItems = videoSlider.children.length;
     if (currentIndex < totalItems - 1) {
       currentIndex++;
-      stopAllVideos(); 
+      stopAllVideos();
       updateSlide();
     }
   });
 
-  // Tombol Prev
   prevBtn.addEventListener("click", function () {
     if (currentIndex > 0) {
       currentIndex--;
-      stopAllVideos(); 
+      stopAllVideos();
       updateSlide();
     }
   });
 
   window.addEventListener("resize", updateSlide);
-
-  // Jalankan sistem pembaca data
   fetchVideoData();
 });
 
