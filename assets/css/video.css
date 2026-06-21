@@ -1,7 +1,7 @@
 .video-boundary {
   overflow: hidden;
   width: 100%;
-  max-width: 450px; /* Samakan dengan maxWidth di JavaScript */
+  max-width: 330px; /* Harus sama dengan maxWidth di JavaScript */
   margin: 0 auto;
   box-sizing: border-box;
 }
@@ -16,9 +16,12 @@
   flex: 0 0 100%;
   width: 100%;
   max-width: 100%;
-  padding: 0 10px; 
+  padding: 0 6px; /* Memberikan sedikit jarak manis di kanan-kiri slider */
   box-sizing: border-box;
 }
+
+
+
 
 /* Gaya desain tombol panah di bagian bawah */
 .arrow-btn-bottom {

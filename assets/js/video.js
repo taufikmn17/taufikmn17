@@ -37,8 +37,8 @@ document.addEventListener("DOMContentLoaded", function () {
     videoSlider.innerHTML = ""; 
   
     if (videoContainer) {
-      // Menyetel lebar kontainer slider agar pas dengan layout horizontal di HP
-      videoContainer.style.maxWidth = "450px"; 
+      // Mengunci lebar maksimal kotak video agar tegak lurus proporsional di HP
+      videoContainer.style.maxWidth = "330px"; 
       videoContainer.style.width = "100%";
     }
   
@@ -47,14 +47,14 @@ document.addEventListener("DOMContentLoaded", function () {
         let embedUrl = item.video_url.trim();
         let videoId = "";
   
-        // Ekstrak ID unik video Google Drive Anda
+        // Ekstrak ID unik dari link Google Drive di Google Sheets Anda
         if (embedUrl.includes('/file/d/')) {
           videoId = embedUrl.split('/file/d/')[1].split('/')[0];
         } else if (embedUrl.includes('id=')) {
           videoId = embedUrl.split('id=')[1].split('&')[0];
         }
   
-        // Menggunakan format /preview agar bisa diputar publik (tanpa login/minta akses)
+        // WAJIB MENGGUNAKAN /preview AGAR BEBAS DARI ERROR "MINTA AKSES"
         if (videoId) {
           embedUrl = `https://drive.google.com/file/d/${videoId}/preview`;
         }
@@ -62,14 +62,14 @@ document.addEventListener("DOMContentLoaded", function () {
         const videoItem = document.createElement("div");
         videoItem.className = "video-item"; 
         
-        // Mengunci aspek rasio ke 16:9 (Landscape) agar kontrol Drive otomatis turun ke bawah
+        // Membungkus video ke dalam aspek rasio vertikal 9:16 (Ala Instagram Story/TikTok)
         videoItem.innerHTML = `
           <div style="
             width: 100%; 
-            aspect-ratio: 16/9; 
-            border-radius: 16px; 
+            aspect-ratio: 9/16; 
+            border-radius: 24px; 
             overflow: hidden; 
-            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.18);
             background-color: #000;
           ">
             <iframe
@@ -92,6 +92,7 @@ document.addEventListener("DOMContentLoaded", function () {
     setTimeout(updateSlide, 300);
   }
   
+  // Fungsi otomatis mematikan video saat slider digeser (opsional/pendukung)
   function stopAllVideos() {
     const iframes = videoSlider.querySelectorAll("iframe");
     iframes.forEach(iframe => {
