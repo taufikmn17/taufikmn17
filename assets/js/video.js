@@ -44,7 +44,6 @@ document.addEventListener("DOMContentLoaded", function () {
         const videoItem = document.createElement("div");
         videoItem.className = "video-item";
 
-        // MENGARAHKAN LANGSUNG KE FOLDER ASSETS/VIDEO LOKAL
         videoItem.innerHTML = `
           <div style="
             width: 100%; 
@@ -67,8 +66,51 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
 
+    // ==========================================================================
+    // LOGIKA PINTAR AMANKAN TOMBOL BACK HP SAAT FULLSCREEN
+    // ==========================================================================
+    const allVideos = videoSlider.querySelectorAll("video");
+    
+    allVideos.forEach((video) => {
+      // 1. Deteksi saat user menekan tombol "Perbesar" (Masuk Fullscreen)
+      video.addEventListener("webkitbeginfullscreen", handleFullscreenIn); // Untuk Safari / iOS
+      video.addEventListener("fullscreenchange", () => {
+        if (document.fullscreenElement) {
+          handleFullscreenIn();
+        } else {
+          // Menangani jika user keluar fullscreen lewat tombol bawaan video
+          if(history.state === "fullscreen-active") {
+            history.back();
+          }
+        }
+      });
+    });
+
     setTimeout(updateSlide, 300);
   }
+
+  // Fungsi saat masuk fullscreen: Tambah riwayat buatan di browser
+  function handleFullscreenIn() {
+    if (history.state !== "fullscreen-active") {
+      history.pushState("fullscreen-active", null, null);
+    }
+  }
+
+  // Deteksi ketika tombol BACK fisik HP ditekan oleh user
+  window.addEventListener("popstate", function (event) {
+    // Jika posisi terakhir ada di riwayat fullscreen, paksa keluar dari fullscreen saja
+    const fullScreenVideo = document.fullscreenElement || 
+                            document.webkitFullscreenElement || 
+                            videoSlider.querySelector("video:-webkit-full-screen");
+
+    if (fullScreenVideo) {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen(); // Jalur iOS/Safari
+      }
+    }
+  });
 
   function stopAllVideos() {
     const nativeVideos = videoSlider.querySelectorAll("video");
