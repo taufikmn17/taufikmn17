@@ -67,51 +67,66 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // ==========================================================================
-    // LOGIKA PINTAR AMANKAN TOMBOL BACK HP SAAT FULLSCREEN
+    // LOGIKA PERBAIKAN TOTAL: TOMBOL BACK & GESTURE HP SAAT FULLSCREEN
     // ==========================================================================
     const allVideos = videoSlider.querySelectorAll("video");
     
     allVideos.forEach((video) => {
-      // 1. Deteksi saat user menekan tombol "Perbesar" (Masuk Fullscreen)
-      video.addEventListener("webkitbeginfullscreen", handleFullscreenIn); // Untuk Safari / iOS
-      video.addEventListener("fullscreenchange", () => {
-        if (document.fullscreenElement) {
-          handleFullscreenIn();
+      // Deteksi saat video beralih ke layar penuh (Fullscreen)
+      const onFullscreenChange = () => {
+        const isFullscreen = document.fullscreenElement || 
+                             document.webkitIsFullScreen || 
+                             document.mozFullScreen || 
+                             document.msFullscreenElement;
+
+        if (isFullscreen) {
+          // Begitu masuk layar penuh, suntikkan riwayat baru ke browser HP (PushState)
+          if (history.state !== "video-fullscreen") {
+            history.pushState("video-fullscreen", null, null);
+          }
         } else {
-          // Menangani jika user keluar fullscreen lewat tombol bawaan video
-          if(history.state === "fullscreen-active") {
-            history.back();
+          // Jika keluar dari layar penuh secara normal (klik tombol kecil di pojok video)
+          if (history.state === "video-fullscreen") {
+            history.back(); // Bersihkan riwayat buatan agar sinkron kembali
           }
         }
-      });
+      };
+
+      // Daftarkan ke semua jenis browser (Chrome, Safari/iOS, Firefox)
+      video.addEventListener("fullscreenchange", onFullscreenChange);
+      video.addEventListener("webkitfullscreenchange", onFullscreenChange);
+      video.addEventListener("mozfullscreenchange", onFullscreenChange);
+      video.addEventListener("msfullscreenchange", onFullscreenChange);
     });
 
     setTimeout(updateSlide, 300);
   }
 
-  // Fungsi saat masuk fullscreen: Tambah riwayat buatan di browser
-  function handleFullscreenIn() {
-    if (history.state !== "fullscreen-active") {
-      history.pushState("fullscreen-active", null, null);
-    }
-  }
-
-  // Deteksi ketika tombol BACK fisik HP ditekan oleh user
+  // MENANGKAP TOMBOL BACK FISIK / USAP (SWIPE GESTURE) HP
   window.addEventListener("popstate", function (event) {
-    // Jika posisi terakhir ada di riwayat fullscreen, paksa keluar dari fullscreen saja
-    const fullScreenVideo = document.fullscreenElement || 
-                            document.webkitFullscreenElement || 
-                            videoSlider.querySelector("video:-webkit-full-screen");
+    // Cek apakah ada elemen video yang sedang dalam mode layar penuh
+    const fullScreenElement = document.fullscreenElement || 
+                              document.webkitFullscreenElement || 
+                              document.webkitCurrentFullScreenElement ||
+                              document.mozFullScreenElement ||
+                              document.msFullScreenElement;
 
-    if (fullScreenVideo) {
+    // Jika user menekan back/usap saat video membesar, batalkan navigasi halaman
+    if (fullScreenElement) {
       if (document.exitFullscreen) {
         document.exitFullscreen();
       } else if (document.webkitExitFullscreen) {
-        document.webkitExitFullscreen(); // Jalur iOS/Safari
+        document.webkitExitFullscreen(); // Jalur khusus Safari / iOS
+      } else if (document.mozCancelFullScreen) {
+        document.mozCancelFullScreen();
+      } else if (document.msExitFullscreen) {
+        document.msExitFullscreen();
       }
     }
   });
 
+
+  
   function stopAllVideos() {
     const nativeVideos = videoSlider.querySelectorAll("video");
     nativeVideos.forEach((video) => {
