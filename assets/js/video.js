@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // URL Web App Apps Script Anda
   const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbz6HaF731DyONmINCJBBkbr8cVgznjkyai_NTU9v03-G5xgH3xJ6L04gkbjLBXhDBddDw/exec";
   const videoSlider = document.getElementById("videoSlider");
   const videoContainer = document.querySelector(".video-boundary");
@@ -51,12 +50,13 @@ document.addEventListener("DOMContentLoaded", function () {
             border-radius: 24px; 
             overflow: hidden; 
             background-color: #000;
+            position: relative;
           ">
             <video 
               controls 
               playsinline
               preload="metadata"
-              style="width: 100%; height: 100%; object-fit: cover;">
+              style="width: 100%; height: 100%; object-fit: cover; transition: all 0.3s ease;">
               <source src="assets/video/${fileName}" type="video/mp4">
               Browser Anda tidak mendukung pemutar video ini.
             </video>
@@ -67,70 +67,77 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // ==========================================================================
-    // LOGIKA PERBAIKAN TOTAL: TOMBOL BACK & GESTURE HP SAAT FULLSCREEN
+    // LOGIKA CUSTOM LAYAR PENUH: BYPASS BLOKIR NOTIFIKASI SYSTEM HP
     // ==========================================================================
     const allVideos = videoSlider.querySelectorAll("video");
     
     allVideos.forEach((video) => {
-      // Deteksi saat video beralih ke layar penuh (Fullscreen)
-      const onFullscreenChange = () => {
-        const isFullscreen = document.fullscreenElement || 
-                             document.webkitIsFullScreen || 
-                             document.mozFullScreen || 
-                             document.msFullscreenElement;
+      // Mencegah browser menjalankan Fullscreen bawaan Android/iOS yang kaku
+      video.addEventListener("webkitbeginfullscreen", function(e) {
+        e.preventDefault();
+        masukLayarPenuhCustom(video);
+      });
 
-        if (isFullscreen) {
-          // Begitu masuk layar penuh, suntikkan riwayat baru ke browser HP (PushState)
-          if (history.state !== "video-fullscreen") {
-            history.pushState("video-fullscreen", null, null);
-          }
-        } else {
-          // Jika keluar dari layar penuh secara normal (klik tombol kecil di pojok video)
-          if (history.state === "video-fullscreen") {
-            history.back(); // Bersihkan riwayat buatan agar sinkron kembali
-          }
-        }
-      };
-
-      // Daftarkan ke semua jenis browser (Chrome, Safari/iOS, Firefox)
-      video.addEventListener("fullscreenchange", onFullscreenChange);
-      video.addEventListener("webkitfullscreenchange", onFullscreenChange);
-      video.addEventListener("mozfullscreenchange", onFullscreenChange);
-      video.addEventListener("msfullscreenchange", onFullscreenChange);
+      // Menangkap jika user menekan tombol kotak/perbesar bawaan kontrol video HTML5
+      video.addEventListener("play", function() {
+        // Deteksi jika user mencoba klik tombol perbesar bawaan browser di beberapa HP
+        video.removeAttribute("webkit-playsinline");
+      });
     });
 
     setTimeout(updateSlide, 300);
   }
 
-  // MENANGKAP TOMBOL BACK FISIK / USAP (SWIPE GESTURE) HP
-  window.addEventListener("popstate", function (event) {
-    // Cek apakah ada elemen video yang sedang dalam mode layar penuh
-    const fullScreenElement = document.fullscreenElement || 
-                              document.webkitFullscreenElement || 
-                              document.webkitCurrentFullScreenElement ||
-                              document.mozFullScreenElement ||
-                              document.msFullScreenElement;
+  // Fungsi membuat video membesar secara mulus memenuhi layar browser (Overlay)
+  function masukLayarPenuhCustom(video) {
+    if (video.classList.contains("custom-fullscreen")) return;
 
-    // Jika user menekan back/usap saat video membesar, batalkan navigasi halaman
-    if (fullScreenElement) {
-      if (document.exitFullscreen) {
-        document.exitFullscreen();
-      } else if (document.webkitExitFullscreen) {
-        document.webkitExitFullscreen(); // Jalur khusus Safari / iOS
-      } else if (document.mozCancelFullScreen) {
-        document.mozCancelFullScreen();
-      } else if (document.msExitFullscreen) {
-        document.msExitFullscreen();
-      }
+    // Tambahkan riwayat palsu agar saat di-back/di-usap, ia memanggil fungsi keluar
+    history.pushState("video-expanded", null, null);
+
+    // Styling CSS dinamis agar video membesar penuh menutupi layar web secara rapi
+    video.style.position = "fixed";
+    video.style.top = "0";
+    video.style.left = "0";
+    video.style.width = "100vw";
+    video.style.height = "100vh";
+    video.style.zIndex = "99999";
+    video.style.borderRadius = "0";
+    video.style.objectFit = "contain"; // Menjaga aspek rasio video tetap sempurna saat full
+    video.classList.add("custom-fullscreen");
+  }
+
+  // Fungsi mengembalikan ukuran video ke dalam box slider semula
+  function keluarLayarPenuhCustom() {
+    const videoAktif = videoSlider.querySelector("video.custom-fullscreen");
+    if (videoAktif) {
+      videoAktif.style.position = "static";
+      videoAktif.style.width = "100%";
+      videoAktif.style.height = "100%";
+      videoAktif.style.zIndex = "auto";
+      videoAktif.style.borderRadius = "24px";
+      videoAktif.style.objectFit = "cover";
+      videoAktif.classList.remove("custom-fullscreen");
+    }
+  }
+
+  // MENDENGARKAN USAP GESTURE BACK / TOMBOL KEMBALI HP SECARA LANGSUNG
+  window.addEventListener("popstate", function (event) {
+    const videoAktif = videoSlider.querySelector("video.custom-fullscreen");
+    if (videoAktif) {
+      // Jika dalam keadaan membesar, gagalkan navigasi keluar web, cukup kecilkan videonya!
+      keluarLayarPenuhCustom();
     }
   });
 
-
-  
   function stopAllVideos() {
     const nativeVideos = videoSlider.querySelectorAll("video");
     nativeVideos.forEach((video) => {
       video.pause();
+      // Pastikan jika ganti slide, video yang membesar otomatis mengecil kembali
+      if (video.classList.contains("custom-fullscreen")) {
+        keluarLayarPenuhCustom();
+      }
     });
   }
 
