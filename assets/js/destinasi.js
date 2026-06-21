@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const gridContainer = document.getElementById("destinasiGridContainer");
     if (!gridContainer) return;
     
-    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzASJdqQDUBXMrHnW2To4ItaGUePT6Orp3_iSvudgGgtbxdRvcHoNyIBye54GHfZFLomQ/exec";
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz6HaF731DyONmINCJBBkbr8cVgznjkyai_NTU9v03-G5xgH3xJ6L04gkbjLBXhDBddDw/exec";
   
     // 1. Ambil data menggunakan FETCH modern, bukan menyuntikkan script tag
     fetch(`${APPS_SCRIPT_URL}?type=destinasi`)

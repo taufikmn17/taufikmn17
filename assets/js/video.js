@@ -1,44 +1,114 @@
-
 document.addEventListener("DOMContentLoaded", function () {
+  // ==========================================
+  // GANTI DENGAN URL WEB APP DEPLOYMENT APPS SCRIPT ANDA
+  // ==========================================
+  const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbz6HaF731DyONmINCJBBkbr8cVgznjkyai_NTU9v03-G5xgH3xJ6L04gkbjLBXhDBddDw/exec"; 
+  
   const videoSlider = document.getElementById("videoSlider");
   const videoContainer = document.querySelector(".video-boundary");
   const nextBtn = document.getElementById("nextBtn");
   const prevBtn = document.getElementById("prevBtn");
   let currentIndex = 0;
 
-  function pauseAllVideos() {
-    const videos = videoSlider.querySelectorAll("video");
-    videos.forEach(video => video.pause());
+  function fetchVideoData() {
+    videoSlider.innerHTML = `<p class="text-pink-500 font-medium p-6 mx-auto">Memuat dokumentasi video...</p>`;
+
+    fetch(`${WEB_APP_URL}?type=video`)
+      .then(response => response.json())
+      .then(data => {
+        if (data.error) {
+          videoSlider.innerHTML = `<p class="text-red-500 p-4 mx-auto">${data.error}</p>`;
+          return;
+        }
+        if (!data || data.length === 0) {
+          videoSlider.innerHTML = `<p class="text-gray-500 p-4 mx-auto">Belum ada video.</p>`;
+          return;
+        }
+        renderVideos(data);
+      })
+      .catch(error => {
+        console.error(error);
+        videoSlider.innerHTML = `<p class="text-red-500 p-4 mx-auto">Gagal memuat data video.</p>`;
+      });
+  }
+
+  // Fungsi render menggunakan Pilihan Rasio 4:3 Anda yang sudah rapi
+  function renderVideos(videos) {
+    videoSlider.innerHTML = ""; 
+
+    if (videoContainer) {
+      videoContainer.style.maxWidth = "400px"; 
+      videoContainer.style.width = "100%";
+    }
+
+    videos.forEach(item => {
+      if (item.video_url && item.video_url.trim() !== "") {
+        const videoItem = document.createElement("div");
+        videoItem.className = "video-item"; 
+        
+        videoItem.innerHTML = `
+          <iframe 
+            src="${item.video_url.trim()}" 
+            style="width: 100%; aspect-ratio: 4/3; border-radius: 12px; border: none; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);"
+            allow="autoplay" 
+            allowfullscreen>
+          </iframe>
+        `;
+        videoSlider.appendChild(videoItem);
+      }
+    });
+
+    setTimeout(updateSlide, 300);
+  }
+
+  // LOGIKA BARU: Menghentikan video pada Iframe secara paksa dengan cara mereset src-nya
+  function stopAllVideos() {
+    const iframes = videoSlider.querySelectorAll("iframe");
+    iframes.forEach(iframe => {
+      const currentSrc = iframe.src;
+      iframe.src = ""; // Kosongkan src sejenak agar video mati
+      iframe.src = currentSrc; // Kembalikan lagi agar siap diputar saat user kembali ke slide ini
+    });
   }
 
   function updateSlide() {
+    if (videoSlider.children.length === 0) return;
     const width = videoContainer.offsetWidth;
     videoSlider.style.transform = `translateX(-${currentIndex * width}px)`;
   }
 
+  // Tombol Next
   nextBtn.addEventListener("click", function () {
     const totalItems = videoSlider.children.length;
     if (currentIndex < totalItems - 1) {
       currentIndex++;
-      pauseAllVideos();
+      stopAllVideos(); // Memanggil logika penghenti iframe
       updateSlide();
     }
   });
 
+  // Tombol Prev
   prevBtn.addEventListener("click", function () {
     if (currentIndex > 0) {
       currentIndex--;
-      pauseAllVideos();
+      stopAllVideos(); // Memanggil logika penghenti iframe
       updateSlide();
     }
   });
 
   window.addEventListener("resize", updateSlide);
+
+  // Jalankan sistem pembaca data
+  fetchVideoData();
 });
 
 
+
+
+
+
 // ========================================================
-// REVISI LOGIKA: SURPRISE VIDEO OVERLAY (FIX SUARA HILANG)
+// LOGIKA SURPRISE VIDEO OVERLAY (FIX SUARA HILANG)
 // ========================================================
 document.addEventListener("DOMContentLoaded", function () {
   const overlay = document.getElementById("surpriseOverlay");
@@ -96,37 +166,3 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
-// ========================================================
-  // LOGIKA UTAMA: ANIMASI MUNCUL UNTUK KOMPONEN VIDEO
-  // ========================================================
-  const videoSectionTitle = document.querySelector("#vidioo h2");
-  const videoSliderWrapper = document.querySelector(".video-slider-wrapper");
-
-  // Pasang class animasi dasar terlebih dahulu
-  if (videoSectionTitle) videoSectionTitle.classList.add("scroll-reveal-element");
-  if (videoSliderWrapper) videoSliderWrapper.classList.add("scroll-reveal-element");
-
-  // Konfigurasi kapan animasi terpicu (15% elemen masuk layar)
-  const videoRevealOptions = {
-    root: null,
-    threshold: 0.15,
-    rootMargin: "0px 0px -20px 0px"
-  };
-
-  const videoObserver = new IntersectionObserver((entries, observer) => {
-    entries.forEach((entry, index) => {
-      if (entry.isIntersecting) {
-        // Efek delay bertingkat (judul muncul duluan baru slider-nya)
-        setTimeout(() => {
-          entry.target.classList.add("reveal-visible");
-        }, index * 200); 
-
-        // Berhenti mengawasi jika elemen sudah sukses tampil
-        observer.unobserve(entry.target);
-      }
-    });
-  }, videoRevealOptions);
-
-  // Daftarkan elemen video ke observer
-  if (videoSectionTitle) videoObserver.observe(videoSectionTitle);
-  if (videoSliderWrapper) videoObserver.observe(videoSliderWrapper);
