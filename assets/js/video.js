@@ -37,10 +37,9 @@ document.addEventListener("DOMContentLoaded", function () {
     videoSlider.innerHTML = ""; 
   
     if (videoContainer) {
-      // Container luar dibatasi 340px agar tetap pas dengan layar HP potret
-      videoContainer.style.maxWidth = "340px"; 
+      // Menyetel lebar kontainer slider agar pas dengan layout horizontal di HP
+      videoContainer.style.maxWidth = "450px"; 
       videoContainer.style.width = "100%";
-      videoContainer.style.height = "192px"; // Mengunci tinggi total container luar
     }
   
     videos.forEach(item => {
@@ -48,13 +47,14 @@ document.addEventListener("DOMContentLoaded", function () {
         let embedUrl = item.video_url.trim();
         let videoId = "";
   
+        // Ekstrak ID unik video Google Drive Anda
         if (embedUrl.includes('/file/d/')) {
           videoId = embedUrl.split('/file/d/')[1].split('/')[0];
         } else if (embedUrl.includes('id=')) {
           videoId = embedUrl.split('id=')[1].split('&')[0];
         }
   
-        // WAJIB /preview agar TIDAK meminta login atau hak akses lagi
+        // Menggunakan format /preview agar bisa diputar publik (tanpa login/minta akses)
         if (videoId) {
           embedUrl = `https://drive.google.com/file/d/${videoId}/preview`;
         }
@@ -62,31 +62,23 @@ document.addEventListener("DOMContentLoaded", function () {
         const videoItem = document.createElement("div");
         videoItem.className = "video-item"; 
         
-        // TRIK PAMUNGKAS:
-        // Kita buat iframe berukuran lebar asli desktop (640px x 360px) di latar belakang 
-        // agar Google Drive mendeteksi layar lebar dan merapikan kontrolnya ke bawah.
-        // Lalu kita perkecil ukurannya (scale) secara visual ke 0.53 agar muat di kotak HP 340px.
+        // Mengunci aspek rasio ke 16:9 (Landscape) agar kontrol Drive otomatis turun ke bawah
         videoItem.innerHTML = `
           <div style="
-            width: 340px; 
-            height: 192px; 
+            width: 100%; 
+            aspect-ratio: 16/9; 
             border-radius: 16px; 
             overflow: hidden; 
-            position: relative;
-            box-shadow: 0 10px 25px rgba(0,0,0,.15);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
             background-color: #000;
           ">
             <iframe
               src="${embedUrl}"
               style="
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 640px;
-                height: 360px;
+                width: 100%;
+                height: 100%;
                 border: none;
-                transform: scale(0.53125);
-                transform-origin: top left;
+                display: block;
               "
               allow="autoplay"
               allowfullscreen>
