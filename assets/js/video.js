@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
+  // URL Web App Apps Script Anda
   const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbz6HaF731DyONmINCJBBkbr8cVgznjkyai_NTU9v03-G5xgH3xJ6L04gkbjLBXhDBddDw/exec";
   const videoSlider = document.getElementById("videoSlider");
   const videoContainer = document.querySelector(".video-boundary");
@@ -43,6 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const videoItem = document.createElement("div");
         videoItem.className = "video-item";
 
+        // MENGARAHKAN LANGSUNG KE FOLDER ASSETS/VIDEO LOKAL
         videoItem.innerHTML = `
           <div style="
             width: 100%; 
@@ -50,13 +52,12 @@ document.addEventListener("DOMContentLoaded", function () {
             border-radius: 24px; 
             overflow: hidden; 
             background-color: #000;
-            position: relative;
           ">
             <video 
               controls 
               playsinline
               preload="metadata"
-              style="width: 100%; height: 100%; object-fit: cover; transition: all 0.3s ease;">
+              style="width: 100%; height: 100%; object-fit: cover;">
               <source src="assets/video/${fileName}" type="video/mp4">
               Browser Anda tidak mendukung pemutar video ini.
             </video>
@@ -66,78 +67,13 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
 
-    // ==========================================================================
-    // LOGIKA CUSTOM LAYAR PENUH: BYPASS BLOKIR NOTIFIKASI SYSTEM HP
-    // ==========================================================================
-    const allVideos = videoSlider.querySelectorAll("video");
-    
-    allVideos.forEach((video) => {
-      // Mencegah browser menjalankan Fullscreen bawaan Android/iOS yang kaku
-      video.addEventListener("webkitbeginfullscreen", function(e) {
-        e.preventDefault();
-        masukLayarPenuhCustom(video);
-      });
-
-      // Menangkap jika user menekan tombol kotak/perbesar bawaan kontrol video HTML5
-      video.addEventListener("play", function() {
-        // Deteksi jika user mencoba klik tombol perbesar bawaan browser di beberapa HP
-        video.removeAttribute("webkit-playsinline");
-      });
-    });
-
     setTimeout(updateSlide, 300);
   }
-
-  // Fungsi membuat video membesar secara mulus memenuhi layar browser (Overlay)
-  function masukLayarPenuhCustom(video) {
-    if (video.classList.contains("custom-fullscreen")) return;
-
-    // Tambahkan riwayat palsu agar saat di-back/di-usap, ia memanggil fungsi keluar
-    history.pushState("video-expanded", null, null);
-
-    // Styling CSS dinamis agar video membesar penuh menutupi layar web secara rapi
-    video.style.position = "fixed";
-    video.style.top = "0";
-    video.style.left = "0";
-    video.style.width = "100vw";
-    video.style.height = "100vh";
-    video.style.zIndex = "99999";
-    video.style.borderRadius = "0";
-    video.style.objectFit = "contain"; // Menjaga aspek rasio video tetap sempurna saat full
-    video.classList.add("custom-fullscreen");
-  }
-
-  // Fungsi mengembalikan ukuran video ke dalam box slider semula
-  function keluarLayarPenuhCustom() {
-    const videoAktif = videoSlider.querySelector("video.custom-fullscreen");
-    if (videoAktif) {
-      videoAktif.style.position = "static";
-      videoAktif.style.width = "100%";
-      videoAktif.style.height = "100%";
-      videoAktif.style.zIndex = "auto";
-      videoAktif.style.borderRadius = "24px";
-      videoAktif.style.objectFit = "cover";
-      videoAktif.classList.remove("custom-fullscreen");
-    }
-  }
-
-  // MENDENGARKAN USAP GESTURE BACK / TOMBOL KEMBALI HP SECARA LANGSUNG
-  window.addEventListener("popstate", function (event) {
-    const videoAktif = videoSlider.querySelector("video.custom-fullscreen");
-    if (videoAktif) {
-      // Jika dalam keadaan membesar, gagalkan navigasi keluar web, cukup kecilkan videonya!
-      keluarLayarPenuhCustom();
-    }
-  });
 
   function stopAllVideos() {
     const nativeVideos = videoSlider.querySelectorAll("video");
     nativeVideos.forEach((video) => {
       video.pause();
-      // Pastikan jika ganti slide, video yang membesar otomatis mengecil kembali
-      if (video.classList.contains("custom-fullscreen")) {
-        keluarLayarPenuhCustom();
-      }
     });
   }
 

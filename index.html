@@ -41,23 +41,42 @@
   </div>
 
   <!-- Header -->
-  <header class="bg-pink-primary shadow sticky top-0 z-50">
-    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-      <a href="#" onclick="window.history.back();" class="text-xl text-white hover:text-pink-500 p-2 rounded-full transition-colors duration-200">
+  <header class="fixed top-0 w-full z-50">
+    <div class="container mx-auto px-4 py-3 flex justify-between items-center backdrop-blur-md bg-white/10 border-b border-white/10 rounded-b-2xl shadow-sm">
+      
+      <a href="#" onclick="window.history.back();" class="text-white p-2 hover:bg-white/20 rounded-full transition-all duration-200">
         <i class="fas fa-arrow-left"></i>
       </a>
-
-
-      <!-- <nav>
-        <ul class="flex space-x-4 text-sm font-medium">
-          <li><a href="#home" class="hover:text-pink-600">Home</a></li>
-          <li><a href="#about" class="hover:text-pink-600">About</a></li>
-          <li><a href="#discover" class="hover:text-pink-600">Image</a></li>
-          <li><a href="#vidioo" class="hover:text-pink-600">Video</a></li>
-        </ul>
-      </nav> -->
+  
+      <div id="navLabel" class="text-white hover:text-pink-500 font-medium text-sm tracking-wide px-4 py-2 rounded-full cursor-pointer transition-all duration-200 hover:bg-white/20 active:bg-white/40 active:scale-95 transform flex items-center">
+        Menu <i class="fas fa-chevron-down ml-2 text-xs"></i>
+      </div>
+    </div>
+  
+    <div id="navDropdown" class="hidden absolute right-4 mt-2 bg-white/90 backdrop-blur-xl rounded-2xl shadow-xl p-2 w-32 border border-white/50">
+      <a href="#home" class="block px-4 py-2 text-pink-primary font-medium hover:bg-pink-100 rounded-xl transition-all">Beranda</a>
+      <a href="#destinasi" class="block px-4 py-2 text-pink-primary font-medium hover:bg-pink-100 rounded-xl transition-all">Foto</a>
+      <a href="#video" class="block px-4 py-2 text-pink-primary font-medium hover:bg-pink-100 rounded-xl transition-all">Video</a>
     </div>
   </header>
+  
+  <script>
+    // Logika interaksi dropdown
+    const navLabel = document.getElementById('navLabel');
+    const navDropdown = document.getElementById('navDropdown');
+  
+    navLabel.addEventListener('click', (e) => {
+      e.stopPropagation(); // Mencegah klik menutup dropdown secara instan
+      navDropdown.classList.toggle('hidden');
+    });
+  
+    // Klik di luar untuk menutup dropdown
+    document.addEventListener('click', () => {
+      navDropdown.classList.add('hidden');
+    });
+  </script>
+
+  
 
   <!-- Main Content -->
   <main>
@@ -535,7 +554,7 @@
     
 
     <!-- Destinasi Section -->
-    <section class="py-24 bg-gray-100 overflow-hidden relative">
+    <section id="destinasi" class="py-24 bg-gray-100 overflow-hidden relative">
     
         <div class="max-w-2xl mx-auto mb-10 text-center section-title-fade">
             <span class="text-xs font-bold uppercase tracking-widest text-white px-4 py-1.5 rounded-full inline-block mb-3 shadow-sm border" style="background-color: #ff69b4; border-color: #ff1493;">Our Adventure</span>
@@ -557,7 +576,7 @@
     
   
     <!-- Video -->
-    <section id="vidioo" class="py-24 bg-white overflow-hidden text-center">
+    <section id="video" class="py-24 bg-white overflow-hidden text-center">
         <div class="container mx-auto px-6">
             
           <div class="max-w-2xl mx-auto mb-16 section-title-fade">
