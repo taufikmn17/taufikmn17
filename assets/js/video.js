@@ -37,8 +37,9 @@ document.addEventListener("DOMContentLoaded", function () {
     videoSlider.innerHTML = ""; 
   
     if (videoContainer) {
-      // Membatasi lebar agar tetap proporsional sebagai video vertikal HP
-      videoContainer.style.maxWidth = "340px"; 
+      // KUNCI UTAMA: Lebar container dinaikkan menjadi 550px (Horizontal)
+      // agar Google Drive mendeteksi ruangan yang luas dan merapikan kontrolnya ke bawah.
+      videoContainer.style.maxWidth = "550px"; 
       videoContainer.style.width = "100%";
     }
   
@@ -56,12 +57,12 @@ document.addEventListener("DOMContentLoaded", function () {
         const videoItem = document.createElement("div");
         videoItem.className = "video-item"; 
         
-        // Trik baru: Menggunakan tinggi tetap (height) atau aspek rasio yang sedikit lebih panjang (9/18 atau 1:2)
-        // Ini memaksa Google Drive meletakkan kontrolnya di area bawah, bukan di tengah video
+        // Kita buat kontainernya horizontal dengan rasio widescreen (16/9)
+        // agar seluruh kontrol bawaan Drive dipaksa berbaris rapi di bagian bawah bawah.
         videoItem.innerHTML = `
           <div style="
             width: 100%; 
-            height: 520px; /* Memaksa tinggi agar bar kontrol punya ruang di bawah */
+            aspect-ratio: 16/9; 
             border-radius: 16px; 
             overflow: hidden; 
             box-shadow: 0 10px 25px rgba(0,0,0,.15);
@@ -77,7 +78,7 @@ document.addEventListener("DOMContentLoaded", function () {
               "
               allow="autoplay"
               allowfullscreen>
-             iframe>
+            </iframe>
           </div>
         `;
         videoSlider.appendChild(videoItem);
@@ -87,7 +88,6 @@ document.addEventListener("DOMContentLoaded", function () {
     setTimeout(updateSlide, 300);
   }
   
-  // Logika stop video dikembalikan untuk fungsi iframe
   function stopAllVideos() {
     const iframes = videoSlider.querySelectorAll("iframe");
     iframes.forEach(iframe => {
