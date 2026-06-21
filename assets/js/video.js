@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
   // ==========================================
-  // GANTI DENGAN URL WEB APP DEPLOYMENT APPS SCRIPT ANDA
+  // URL WEB APP DEPLOYMENT APPS SCRIPT ANDA
   // ==========================================
   const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbz6HaF731DyONmINCJBBkbr8cVgznjkyai_NTU9v03-G5xgH3xJ6L04gkbjLBXhDBddDw/exec"; 
   
@@ -32,30 +32,44 @@ document.addEventListener("DOMContentLoaded", function () {
       });
   }
 
-  // Fungsi render menggunakan Pilihan Rasio 4:3 Anda yang sudah rapi
+  // Fungsi render menggunakan tag <video> asli HTML5 agar responsif di HP
   function renderVideos(videos) {
     videoSlider.innerHTML = ""; 
-
+  
     if (videoContainer) {
-      videoContainer.style.maxWidth = "600px"; 
+      // Membatasi lebar maksimal video agar pas di layar HP
+      videoContainer.style.maxWidth = "360px"; 
       videoContainer.style.width = "100%";
     }
-
+  
     videos.forEach(item => {
       if (item.video_url && item.video_url.trim() !== "") {
+        let embedUrl = item.video_url.trim();
+        
+        // Memastikan tautan menggunakan format pemutar /preview bawaan Drive
+        if (embedUrl.includes('/view')) {
+          embedUrl = embedUrl.replace('/view', '/preview');
+        } else if (embedUrl.includes('/file/d/')) {
+          // Jika link hanya sampai ID, ubah ke format preview
+          const videoId = embedUrl.split('/file/d/')[1].split('/')[0];
+          embedUrl = `https://drive.google.com/file/d/${videoId}/preview`;
+        }
+  
         const videoItem = document.createElement("div");
         videoItem.className = "video-item"; 
         
+        // Kembali menggunakan iframe tetapi dikunci dengan aspect-ratio vertikal (9/16)
         videoItem.innerHTML = `
-        <iframe
-            src="${item.video_url.trim()}"
+          <iframe
+            src="${embedUrl}"
             style="
-              width:100%;
-              aspect-ratio:16/9; /* Diubah dari 4/3 menjadi 16/9 */
-              border:none;
-              border-radius:12px;
-              box-shadow:0 4px 15px rgba(0,0,0,.15);
-              display:block; /* Menghindari gap aneh di bawah iframe */
+              width: 100%;
+              aspect-ratio: 9/16; 
+              border: none;
+              border-radius: 16px;
+              box-shadow: 0 10px 25px rgba(0,0,0,.15);
+              background-color: #000;
+              display: block;
             "
             allow="autoplay"
             allowfullscreen>
@@ -64,17 +78,17 @@ document.addEventListener("DOMContentLoaded", function () {
         videoSlider.appendChild(videoItem);
       }
     });
-
+  
     setTimeout(updateSlide, 300);
   }
-
-  // LOGIKA BARU: Menghentikan video pada Iframe secara paksa dengan cara mereset src-nya
+  
+  // Logika stop video dikembalikan untuk fungsi iframe
   function stopAllVideos() {
     const iframes = videoSlider.querySelectorAll("iframe");
     iframes.forEach(iframe => {
       const currentSrc = iframe.src;
-      iframe.src = ""; // Kosongkan src sejenak agar video mati
-      iframe.src = currentSrc; // Kembalikan lagi agar siap diputar saat user kembali ke slide ini
+      iframe.src = ""; 
+      iframe.src = currentSrc; 
     });
   }
 
@@ -89,7 +103,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const totalItems = videoSlider.children.length;
     if (currentIndex < totalItems - 1) {
       currentIndex++;
-      stopAllVideos(); // Memanggil logika penghenti iframe
+      stopAllVideos(); 
       updateSlide();
     }
   });
@@ -98,7 +112,7 @@ document.addEventListener("DOMContentLoaded", function () {
   prevBtn.addEventListener("click", function () {
     if (currentIndex > 0) {
       currentIndex--;
-      stopAllVideos(); // Memanggil logika penghenti iframe
+      stopAllVideos(); 
       updateSlide();
     }
   });
