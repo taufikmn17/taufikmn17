@@ -3,6 +3,43 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!gridContainer) return;
     
     const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz6HaF731DyONmINCJBBkbr8cVgznjkyai_NTU9v03-G5xgH3xJ6L04gkbjLBXhDBddDw/exec";
+
+
+    // --- FITUR DRAG TO SCROLL DENGAN MOUSE ---
+    const slider = document.getElementById("destinasiGridContainer");
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+
+    slider.addEventListener("mousedown", (e) => {
+        isDown = true;
+        slider.classList.add("cursor-grabbing");
+        slider.classList.remove("cursor-grab");
+        startX = e.pageX - slider.offsetLeft;
+        scrollLeft = slider.scrollLeft;
+    });
+
+    slider.addEventListener("mouseleave", () => {
+        isDown = false;
+        slider.classList.remove("cursor-grabbing");
+        slider.classList.add("cursor-grab");
+    });
+
+    slider.addEventListener("mouseup", () => {
+        isDown = false;
+        slider.classList.remove("cursor-grabbing");
+        slider.classList.add("cursor-grab");
+    });
+
+    slider.addEventListener("mousemove", (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - slider.offsetLeft;
+        const walk = (x - startX) * 2; // Kecepatan geser
+        slider.scrollLeft = scrollLeft - walk;
+    });
+
+    
   
     // 1. Ambil data menggunakan FETCH modern, bukan menyuntikkan script tag
     fetch(`${APPS_SCRIPT_URL}?type=destinasi`)
@@ -59,3 +96,5 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
   });
+
+  
